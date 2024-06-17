@@ -1,0 +1,540 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+html{
+    height: 100vh;
+    width: 100%;
+}
+
+.selected-property{
+    background-color: rgb(239, 203, 74);
+}
+
+.product{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 1295px;
+    min-height: 321px;
+    height: fit-content;
+    align-items: center;
+    padding: 12px 0px;
+}
+
+.main-admin{
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.content{
+    position: relative;
+    display: flex;
+    height: calc(fit-content + 1000px);
+    width: 1350px;
+    padding: 100px 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image{
+    cursor: default;
+    user-select: none;
+    width: 251px;
+    height: 100%;
+    margin: 0px 10px 0px 0px;
+}
+
+.product-info{
+    position: relative;
+    width: 985px;
+    max-width: 985px;
+    min-width: 985px;
+    min-height: 100%;
+    height: fit-content;
+    padding: 15px 29px;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.product-name{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    margin:  0px;
+    margin-top: 0px;
+    
+    text-transform: uppercase;
+}
+
+.product-price{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    margin: 7px 0px;
+}
+
+.product-price-crossed{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin: 7px 0px;
+    text-decoration: line-through;
+}
+
+.product-discount-percent{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    margin: 7px 0px;
+    font-weight: 700;
+}
+
+.product-discount{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: black;
+    margin: 7px 0px;
+}
+
+.product-property{
+    display: flex;
+    cursor: default;
+    user-select: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    margin: 6px 0px;
+    text-transform: uppercase;
+}
+
+.product-info:not(.product-info:has(.block-product-price)) > .product-property{
+    margin: 24px 0px;
+}
+
+.property-block{
+    display: flex;
+    cursor: default;
+    user-select: none;
+    flex-wrap: nowrap;
+}
+
+.property{
+    display: flex;
+    cursor: default;
+    user-select: none;
+    max-width: 105px;
+    min-width: 55px;
+    height: 30px;
+    border-radius: 15px;
+    border: 2px solid black;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    background-color: white;
+    padding: 0px 10px;
+    margin: 0px 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.selected-property{
+    background-color: rgb(239, 203, 74);
+}
+
+.add-product{
+    user-select: none;
+    height: 55px;
+    width: 149px;
+    border-radius: 15px;
+    border: 2px solid black;
+    background-color: rgb(239, 203, 74);
+    transition: 0.3s;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.button-stock-0{
+    cursor: default;
+    background-color: rgb(199, 163, 34);
+}
+
+.button-stock-1:hover{
+    background-color: rgb(255, 243, 114);
+    transition: 0.3s;
+}
+
+.button-stock-1:active{
+    background-color: rgb(199, 163, 34);
+    transition: 0.1s;
+}
+
+.edit-button{
+    display: flex;
+    height: 30px;
+    width: 30px;
+    padding: 7.5px;
+    border-radius: 10px;
+    border: 3px solid black;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(209, 216, 219);
+    cursor: pointer;
+    margin: 0px 5px;
+    transition: 0.2s;
+    
+}
+
+.edit-button:hover{
+    background-color: rgb(239, 246, 249);
+    transition: 0.3s;
+}
+
+.edit-button:active{
+    background-color: rgb(159, 166, 169);
+    transition: 0.1s;
+}
+
+.edit-image{
+    height: 15px;
+    width: 15px;
+}
+
+.product-property{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0px;
+}
+
+.blur{
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-dialog{
+    display: none;
+    position: relative;
+    height: 350px;
+    width: 700px;
+    border-radius: 25px;
+    border: 3px solid black;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.send-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-header{
+    display: inline;
+    width: 450px;
+    font-family: "Inter", sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    user-select: none;
+    cursor: default;
+    text-align: left;
+}
+
+.modal-input::-webkit-file-upload-button{
+    display: none;
+}
+
+.modal-input{
+    display: flex;
+    width: 450px;
+    height: 74px;
+    border-radius: 15px;
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: black;
+    padding: 0px 10px;
+    transition: 0.2s;
+    appearance: none;
+}
+
+.modal-input:hover{
+    background-color: rgb(225,225,225);
+    transition: 0.3s;
+}
+
+.modal-input::-webkit-outer-spin-button,
+.modal-input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0px;
+}
+
+.modal-confirm{
+    display: flex;   
+    text-decoration: underline;
+    font-family: "Inter", sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    transition: 0.2s;
+    user-select: none;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    background-color: transparent;
+    border-width: 0px;
+}   
+
+.modal-confirm:hover{
+    transition: 0.3s;
+    color: rgb(70, 70, 70);
+}
+
+.modal-confirm:active{
+    color: rgb(0, 0, 0);
+    transition: 0.1s;
+}
+
+.modal-window-product{
+    display: none;
+    min-width: 650px;
+    max-width: 1150px;
+    min-height: 850px;
+    max-height: 850px;
+    padding: 0px 50px;
+    border-radius: 25px;
+    border: 3px solid black;
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.modal-header-product{
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.new-product-form{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    min-width: 450px;
+    max-width: 1150px;
+    min-height: 725px;
+    max-height: 725px;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    padding: 0px 3px;
+}
+
+.description-input-product{
+    display: inline;
+    font-family: "Inter", sans-serif;
+    text-align: left;
+    width: 100%;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.image-modal-input{
+    display: flex;
+    min-width: calc(100% - 20px);
+    min-height: 55px;
+    max-width: calc(100% - 20px);
+    max-height: 55px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: white;
+    flex-direction: row;
+}
+
+.modal-input-image{
+    display: none;
+}
+
+.select-image-input{
+    display: flex;
+    min-width: 241px;
+    min-height: 55px;
+    max-width: 241px;
+    max-height: 55px;
+    background-color: rgb(209, 216, 219);
+    border: 1px solid black;
+    border-radius: 10px;
+    font-family: "Inter", sans-serif;
+    font-size: 25px;
+    font-weight: 400;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    margin-right: 10px;
+    transition: 0.2s;
+}
+
+.select-image-input:hover{
+    background-color: rgb(239, 246, 249);
+    transition: 0.3s;   
+}
+
+.select-image-input:active{
+    background-color: rgb(159, 166, 169);
+    transition: 0.1s;
+}
+
+.selected-image-input{
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.text-input-product{
+    min-height: 74px;
+    min-width: 100%;
+    max-height: 74px;
+    max-width: 100%;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: white;
+    font-family: "Inter", sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.textarea-product{
+    display: flex;
+    min-width: 450px;
+    max-width: 1150px;
+    resize: horizontal;
+
+}
+
+.text-input-product::-webkit-inner-spin-button,
+.text-input-product::-webkit-outer-spin-button{
+    display: none;
+}
+
+.new-product{
+    position: absolute;
+    display: flex;
+    top: 31px;
+    right: 0px;
+    min-width: 254px;
+    min-height: 51px;
+    max-width: 214px;
+    max-height: 51px;
+    padding: 0px;
+    margin: 0px;
+    background-color: white;
+    border-width: 0px;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.new-product-image{
+    width: 45px;
+    height: 45px;
+    background-color: rgba(209, 216, 219, 1);
+    border: 3px solid black;
+    border-radius: 15px;
+    font-family:"Inter", sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    padding: 0px;
+    margin: 0px;
+}
+
+.new-product-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 203px;
+    height: 51px;
+    margin: 0px;
+    font-size: 18px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    text-overflow: hidden;
+    text-wrap: nowrap;
+    transition: 0.2s;
+}
+
+.new-product:hover > .new-product-text{
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.new-product:active > .new-product-text{
+    font-size: 16px;
+    transition: 0.1s;
+}
+
+.product-delete-image{
+    width: 31px;
+    height: 37px;
+}
+
+.product-delete-text{
+    display: flex;
+    min-width: 183px;
+    min-height: 37px;
+    max-width: 183px;
+    max-height: 37px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+    transition: 0.2s;
+}
+
+.product-delete{
+    display: flex;
+    position: absolute;
+    right: 61px;
+    bottom: 15px;
+    flex-direction: row;
+    width: 214px;
+    height: 37px;
+    overflow: hidden;
+    background-color: transparent;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.product-delete:hover > .product-delete-text{
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.product-delete:active > .product-delete-text{
+    font-size: 14px;
+    transition: 0.1s;
+}

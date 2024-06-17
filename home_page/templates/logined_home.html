@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% set page_title = "Home Page" %}
+
+{% block links %}
+    <link rel = "stylesheet" href = "{{ url_for('home.static', filename = '/css/logined_style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class = "content-space">
+        <h1 class = "main-header">HOME PAGE</h1>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% set page_title = "Shop page" %}
+
+{% block links %}
+    <link rel = "stylesheet" href = "{{ url_for('shop.static', filename = '/css/style.css' ) }}">
+    <script defer src = "{{ url_for('shop.static', filename = '/js/script.js') }}"> </script>
+{% endblock %}
+
+{% block content %}
+    {% for product in products %}
+        <div class = "product" id = "product-{{ product.id }}">
+            <img src="{{ url_for('shop.static', filename = '/images/' + product.name + '.png') }}" class = "product-image">
+            <div class = "product-info">
+                <h2 class = "product-name">{{ product.name }}</h2>
+                {% if product.discount == 0 %}
+                    <p class = "product-price">{{ product.price }} грн</p>
+                {% else %}
+                    <div class = 'block-product-price'>
+                        <p class = 'product-price-crossed'>{{ product.price }} грн</p>
+                        <p class = 'product-discount-percent'>Знижка {{ product.discount }}%</p>
+                        <p class = 'product-discount'>{{ (product.price * product.discount / 100) | int }} грн</p>
+                    </div>
+                {% endif %}
+                <button class = "add-product button-stock-{{ product.in_stock }}" id = '{{ product.id }}'>КУПИТИ</button>
+                {% for property in product.description.split(";") %}
+                    <!-- <p>{{ property }} --- {{ product.description }} --- {{ product.description.split(";") }}</p> -->
+                    <p class = "product-property">{{ property.split(":")[0] }}:</p>
+                    <div class = "property-block">
+                        {% set property_values_raw = property.split(":")[1] %}
+                        {% set property_values = property_values_raw.split("/") %}
+                        <p class = "property">{{ property_values[0] }}</p>
+                        <p class = "property selected-property">{{ property_values[1] }}</p>
+                        <p class = "property">{{ property_values[2] }}</p>
+                    </div>
+                {% endfor %}
+                <div class = "product-in-stock" id = "{{ product.in_stock }}">
+                    {% if product.in_stock == 1 %}
+                        <img class = "in-stock-image" id = "in-stock" src="{{ url_for('shop.static', filename = '/images/in_stock.png') }}" >
+                    {% else %}
+                        <img class = "in-stock-image" id = "not-in-stock" src="{{ url_for('shop.static', filename = '/images/not_in_stock.png') }}">
+                    {% endif %}
+                    <p class = "in-stock-text">ТОВАР В НАЯВНОСТІ</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

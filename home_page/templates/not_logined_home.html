@@ -1,0 +1,15 @@
+{% extends "acc_base.html" %}
+
+{% set page_title = "Home Page" %}
+
+{% block links %}
+    <link rel="stylesheet" href=" {{ url_for('home.static', filename = '/css/not_logined_style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <nav class = "right-top-nav">
+        <a href="/registration/" class = "nav-link"> REGISTRATION </a>
+        <a href="/authorization/" class = "nav-link"> AUTHORIZATION </a>
+    </nav>
+    <h1 class = "main-header"> HOME PAGE </h1>
+{% endblock %}

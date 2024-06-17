@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body{
+    align-items:flex-start;
+}
+
+.all-products{
+    display: flex;
+    padding: 20px;
+    width: 875px;
+    flex-wrap: wrap;
+}
+
+.product{
+    display: flex;
+    flex-wrap: nowrap;
+    border-right: 3px solid black;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.content{
+    display: flex;
+    height: calc(fit-content + 1000px);
+    width: 100%;
+    padding: 31px 15px;
+    flex-wrap: nowrap;
+    justify-content: left;
+}
+
+.product-image{
+    cursor: default;
+    user-select: none;
+    min-width: 150px;
+    max-width: 150px;
+    height: 90%;
+    margin: 0px 10px 0px 0px;
+}
+
+.product-name{
+    display: flex;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    margin: 7px 0px;
+    text-transform: uppercase;
+    min-width: 300px;
+    max-width: 300px;
+    height: 120px;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-count{
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 10px;
+    width: 230px;
+    min-width: 230px;
+    height: 170px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-product{
+    width: 40px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 28px;
+    font-family: "Inter", sans-serif;
+    margin: 0px 5px;
+    padding: 1px;
+    background-color: rgb(230, 192, 63);
+    border: 1px solid black;
+    transition: 0.2s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.button-product:hover{
+    transition: 0.3s;
+    background-color: rgb(255, 217, 88);    
+}
+
+.button-product:active{
+    transition: 0.1s;
+    background-color: rgb(205, 167, 38);
+}
+
+.text-product-count{
+    font-size: 28px;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+    padding: 5px;
+}
+
+.block-product-price{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.product-price{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin: 5px 0px;
+}
+
+.product-price-crossed{
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: line-through;
+    margin: 5px 0px;
+    color: #000;
+}
+
+.product-discount-percent{
+    display: flex;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin: 5px 0px;
+    color: #000;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 19px;
+    max-height: 19px;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-discount{
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: black;
+    margin: 5px 0px;
+}
+
+.main-basket{
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.trash-image{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    user-select: none;
+}
+
+/* 
+    Часть отвечающая за общую сумму
+    и кнопку подтверждения
+*/
+
+.purchase-confirmation{
+    display: flex; 
+    margin-left: 200px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 374px;
+    padding: 24px 23px;
+    min-height: 326px;
+    max-height: 326px;
+}
+
+form{
+    width: 95%;
+}
+
+.confirmation-button{
+    user-select: none;
+    cursor: default;
+    width: 100%;
+    height: 104px;
+    border-radius: 15px;
+    border: 1px solid black;
+    font-weight: 700;
+    font-size: 22px;
+    font-family: "Inter", sans-serif;
+    transition: 0.2s;
+    background-color: rgb(230, 192, 63);
+    padding: 0px;
+    cursor: pointer;
+}
+
+.confirmation-button:hover{
+    transition: 0.3s;
+    background-color: rgb(255, 217, 88); 
+}
+
+.confirmation-button:active{
+    transition: 0.1s;
+    background-color: rgb(205, 167, 38);
+}
+
+.block-price-products{
+    position: relative;
+    display: block;
+    max-width: 357px;
+    max-height: 33x;
+    min-width: 357px;
+    min-height: 33px;
+    padding: 10px;
+}
+
+.price-products{
+    margin: 0px 0px;
+    margin-top: -24px;
+    display: flex;
+    float: right;
+    font-family: "Inter", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.overall-price{
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.price-text{
+    /* display: inline; */
+    margin: 0px;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    height: 22px;
+}
+
+.overall-text{
+    font-size: 24px;
+    font-weight: 800;
+}

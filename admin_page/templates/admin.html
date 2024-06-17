@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% set page_title = "Admin page" %}
+
+{% block links %}
+    <link rel = "stylesheet" href = "{{ url_for('admin.static', filename = '/css/style.css' ) }}">
+    <script defer src = "{{ url_for('admin.static', filename = '/js/script.js') }}"> </script>
+{% endblock %}
+
+{% block content %}
+    <button class = "new-product">
+        <p class = "new-product-text">ДОДАТИ ПРОДУКТ</p>
+        <p class = "new-product-image">+</p>
+    </button>
+    {% for product in products %}
+        <div class = "product" id = "product-{{ product.id }}">
+            <img src="{{ url_for('shop.static', filename = '/images/' + product.name + '.png') }}" class = "product-image" id = "image-{{ product.id }}">
+            <button class = "edit-button edit-image-button" id = "edit-image-{{ product.id }}" >
+                <img src="{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt="edit" class = "edit-image">
+            </button>
+            
+            <div class = "product-info">
+                <div class = "product-property">
+                    <h2 class = "product-name" id = "name-{{ product.id }}">{{ product.name }}</h2>
+                    <button class = "edit-button edit-name-button" id = "edit-name-{{ product.id }}" >
+                        <img src = "{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt = "edit" class = "edit-image">
+                    </button>
+                </div>
+                <div class = 'block-product-price'>
+                    <div class = "product-property">
+                        <p class = 'product-price-crossed' id = "price-{{ product.id }}">{{ product.price }} грн</p>
+                        <button class = "edit-button edit-price-product" id = "edit-price-{{ product.id }}" >
+                            <img src = "{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt = "edit" class = "edit-image">
+                        </button>
+                    </div>
+                    <div class = "product-property">
+                        <p class = 'product-discount-percent' id = "discount-{{ product.id }}">Знижка {{ product.discount }}%</p>
+                        <button class = "edit-button edit-discount-button" id = "edit-discount-{{ product.id }}" >
+                            <img src = "{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt="edit" class = "edit-image">
+                        </button>
+                    </div>
+                    <p class = 'product-discount'>{{ (product.price * product.discount / 100) | int }} грн</p>
+                </div>
+                <button class = "add-product button-stock-{{ product.in_stock }}" id = '{{ product.id }}'>КУПИТИ</button>
+                {% for property in product.description.split(";") %}
+                    <!-- <p>{{ property }} --- {{ product.description }} --- {{ product.description.split(";") }}</p> -->
+                    {% set property_name = property.split(':')[0] %}
+                    <p class = "product-property">{{ property.split(":")[0] }}:</p>
+                    <div class = "property-block">
+                        {% set property_raw = property.split(":")[1] %}
+                        {% set property_values = property_raw.split("/") %}
+                        <p class = "property" id = "property0-{{ product.id }}-{{ property_name }}">{{ property_values[0] }}</p>
+                        <button class = "edit-button property-edit-product" id = "edit-property0-{{ product.id }}-{{ property_name }}"  >
+                            <img src = "{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt="edit" class = "edit-image">
+                        </button>
+                        <p class = "property selected-property" id = "property1-{{ product.id }}-{{ property_name }}">{{ property_values[1] }}</p>
+                        <button class = "edit-button property-edit-product" id = "edit-property1-{{ product.id }}-{{ property_name }}" >
+                            <img src = "{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt="edit" class = "edit-image">
+                        </button> 
+                        <p class = "property" id = "property2-{{ product.id }}-{{ property_name }}">{{ property_values[2] }}</p>
+                        <button class = "edit-button property-edit-product" id = "edit-property2-{{ product.id }}-{{ property_name }}" >
+                            <img src = "{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt="edit" class = "edit-image">
+                        </button>
+                    </div>
+                {% endfor %}
+                <form method="post">
+                    <button class = "product-delete" value = "{{ product.id }}" name = "delete_product">
+                        <img class = "product-delete-image" src = "{{ url_for('admin.static', filename = '/images/delete.png') }} ">
+                        <p class = "product-delete-text">ВИДАЛИТИ ТОВАР</p>
+                    </button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+    <div class = 'blur'>
+        <div class = 'modal-dialog'>
+            <h1 class = "modal-header">ЗАДАЙТЕ НОВЕ ЗНАЧЕННЯ ПАРАМЕТРУ</h1>
+            <form method = "post" class = "send-form" enctype="multipart/form-data">
+                <input type="text" name="new-value" class = "modal-input" style = "display: none;">
+                <div class = "image-modal-input" style = "display: none;">
+                    <input type="file" accept="images/*" class="modal-input-image" name="new-value">
+                    <button class="select-image-input" type = "button">SELECT A FILE</button>
+                    <span class="selected-image-input">NO FILE SELECTED</span>
+                </div>
+                <button class = "modal-confirm">SEND</button>
+            </form>
+        </div>
+        <div class="modal-window-product">
+            <h1 class="modal-header-product">NEW PRODUCT</h1>
+            <form method="post" enctype="multipart/form-data" class="new-product-form">
+                <p class = "description-input-product">IMAGE PRODUCT:</p>
+                <div class = "image-modal-input">
+                    <input type="file" id = "new-image-input" accept="images/*" class="modal-input-image" required name = 'product_image'>
+                    <button class="select-image-input" id = "new-image-button" type = "button">SELECT A FILE</button>
+                    <span class="selected-image-input" id = "new-image-name">NO FILE SELECTED</span>
+                </div>
+                <p class = "description-input-product">NAME PRODUCT:</p>
+                <input type="text" class="text-input-product" name = 'product_name'>
+                <p class="description-input-product">DESCRIPTION PRODUCT:</p>
+                <textarea class="text-input-product textarea-product" required name = 'product_description'></textarea>
+                <p class="description-input-product">PRICE PRODUCT:</p>
+                <input type="number" min="0" required class="text-input-product" name = 'product_price'>
+                <p class="description-input-product">DISCOUNT PRODUCT:</p>
+                <input type="number" min="0" max="100" required class="text-input-product" name = 'product_discount'>
+                <p class="description-input-product">COUNT PRODUCT:</p>
+                <input type="number" min="0" required class="text-input-product" name = 'product_count'>
+                <button class="modal-confirm" name = "new_product" value="true">SEND</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

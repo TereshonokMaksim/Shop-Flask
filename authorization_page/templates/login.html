@@ -1,0 +1,40 @@
+{% extends "acc_base.html" %}
+
+{% set page_title = "Authorization Page" %}
+
+{% block links %}
+    <link rel="stylesheet" href=" {{ url_for('authorization.static', filename = '/css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <p class = "main-header"> AUTHORIZATION </p>
+    <div class = "login-bg">
+        <form method="post">
+            <ul class = "login-list">
+                <li class = 'login-element'>
+                    <p class = "login-text">Login or Email</p>
+                    <input type = "text" class = "login-input" name = "name" required>
+                </li>
+                <li class = 'login-element'>
+                    <p class = "login-text">Password</p>
+                    <input type = "text" class = "login-input" name = "pasword">
+                </li>
+                <li class = 'login-element login-el-button'>
+                    <button type = "submit" class = "login-button">SEND</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    {% if not_registrated == True %}
+        <div class = "dimmer"></div>
+        <div class = "not-registrated-bg">
+            <h2 class = "not-registrated-header"> YOU ARE NOT REGISTERED </h2>
+            <a href="/registration/" class = "not-registrated-link"> 
+                <p class = "not-reg-arrow">--> </p>
+                <p class = "not-reg-text">REGISTRATION</p>
+            </a>
+        </div>
+    {% endif %}
+    
+{% endblock %}

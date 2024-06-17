@@ -1,0 +1,34 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ page_title }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'project/css/base_style.css')}}">
+        <script defer src = "{{ url_for('static', filename = 'project/js/script.js') }}" type = "module"></script>
+        {% block links %}
+        {% endblock %}
+    </head>
+    <header>
+        <div class = "main-info">
+            <a class = "main-text main-home" href = "/">HOME</a>
+            <a class = "main-text main-shop" href = "/shop/">SHOP</a>
+            <div class = "main-text main-basket">
+                <a class = "main-text main-basket" href = "/basket/">BASKET</a>
+                <p class = "basket-count" id = "basket-counter"></p>
+            </div>
+            <a class = "main-text main-contacts" href = "/contacts/">CONTACTS</a>
+            {% if admin %}
+                <a class="main-text main-admin" href="/admin/">ADMIN</a>
+            {% endif %}
+        </div>
+        <div class = "username-info">
+            <p class = "main-text username">{{ username|upper }}</p>
+        </div>
+    </header>
+    <body>
+        <div class = "content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

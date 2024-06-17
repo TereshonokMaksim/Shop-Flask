@@ -1,0 +1,48 @@
+{% extends "acc_base.html" %}
+
+{% set page_title = "Registration Page" %}
+
+{% block links %}
+    <link rel="stylesheet" href=" {{ url_for('registration.static', filename = '/css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <p class = "main-header"> REGISTRATION </p>
+    <div class = "registration-bg">
+        <form method = "post">
+            <ul class = 'registration-list'>
+                <li class = 'registration-el'>
+                    <p class = 'registration-text'> Login </p>
+                    <input type="text" class = 'registration-input' name = "name">
+                </li>
+                <li class = 'registration-el'>
+                    <p class = 'registration-text'> Email </p>
+                    <input type="text" class = 'registration-input' name = "email">
+                </li>
+                <li class = 'registration-el'>
+                    <p class = 'registration-text'> Password </p>
+                    <input type="text" class = 'registration-input' name = "password">
+                </li>
+                <li class = 'registration-el'>
+                    <p class = 'registration-text'> Password confirmation </p>
+                    <input type="text" class = 'registration-input' name = "password_confirm">
+                </li>
+                <li class = 'registration-el registration-el-button'>
+                    <button type = 'submit' class="registration-button">SEND</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+    {% if is_registrated %}
+        <div class = 'dimmer'>
+        </div>
+        <div class = 'registrated-bg'>
+            <h2 class = 'registrated-header'> CONFIRMED </h2>
+            <a href="/authorization/" class = "registrated-link"> 
+                <p class = "reg-arrow">--></p>
+                <p class = "reg-text">AUTHORIZATION</p>
+            </a>
+        </div>
+    {% endif %}
+    
+{% endblock %}

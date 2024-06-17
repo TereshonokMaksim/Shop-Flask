@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.main-header{
+    display: inline;
+    width: 831px;
+    height: 165px;
+    font-size: 100px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    margin: 0px;
+    cursor: default;
+    user-select: none;
+}
+
+.main-home{
+    font-weight: 700;
+    text-decoration: underline;
+}

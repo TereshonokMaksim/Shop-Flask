@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.content-space{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.main-info{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 80px;
+    padding: 17px 39px;
+    justify-content: left;
+    align-items: center;
+    left: 10px;
+    top: 10px;
+    overflow-x: hidden;
+}
+
+.main-text{
+    display: inline;
+    width: 177px;
+    height: 44px;   
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    margin: 0px;
+    cursor: default;
+    user-select: none;
+    color: black;
+    text-decoration: none;
+}
+
+.username-info{
+    position: absolute;
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 17px 39px;
+    justify-content: left;
+    align-items: center;
+    right: 10px;
+    top: 10px;
+    height: 80px;
+}
+
+.username{
+    width: 247px;
+    height: 44px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.basket-count{
+    position: absolute;
+    font-family: "Inter", sans-serif;
+    background-color: rgb(239, 203, 74);
+    border-radius: 200px;
+    width: 35px;
+    height: 33px;
+    font-weight: 700;
+    border: 1px solid black;
+    margin: -15px 0px 0px 130px;
+    padding-top: 2px;
+}
+
+.basket-count:empty{
+    width: 0px;
+    height: 0px;
+    border: 0px;
+    padding: 0px;
+}
+
+.content{
+    margin-top: 100px;
+}
