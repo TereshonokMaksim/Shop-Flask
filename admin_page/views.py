@@ -2,7 +2,7 @@ import flask
 from flask_login import current_user
 import os
 from project.settings import database
-from home_page.models import Product
+from home_page.models import Product, Cart
 
 def show_admin_page():
     # try:

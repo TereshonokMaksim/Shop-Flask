@@ -8,7 +8,7 @@ class User(database.Model, UserMixin):
     password = database.Column(database.String(50), nullable = False)
     admin = database.Column(database.Integer, nullable = True)
 
-    def __repr__(self) -> str: # finally peresvet FINALLYYYY
+    def __repr__(self) -> str:
         return f"Користувач {self.name} з id {self.id}, email {self.email}\n"
     
 class Product(database.Model):
@@ -22,3 +22,15 @@ class Product(database.Model):
     
     def __repr__(self) -> str: # :cool_emoji:
         return f"Продукт {self.name} з id {self.id}"
+
+class Cart(database.Model):
+    id = database.Column(database.Integer, primary_key = True)
+    user_id = database.Column(database.Integer, nullable = False)
+    products = database.Column(database.Text, nullable = True)
+    name = database.Column(database.String(80), nullable = True)
+    surname = database.Column(database.String(80), nullable = True)
+    phone_number = database.Column(database.String(80), nullable = True)
+    email = database.Column(database.String(100), nullable = True)
+    city = database.Column(database.String(40), nullable = True)
+    post_office = database.Column(database.String(60), nullable = True)
+    additional = database.Column(database.Text, nullable = True)

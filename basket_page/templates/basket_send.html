@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% set page_title = "Basket" %}
+
+{% block links %}
+    <link rel = "stylesheet" href = "{{ url_for('basket.static', filename = '/css/style_send.css' ) }}">
+{% endblock %}
+
+{% block content %}
+    <h1 class = "page-header">ВАШІ ДАНІ У ОБРОБЦІ<br>КОНСУЛЬТАНТ ЗВ'ЯЖЕТЬСЯ З ВАМИ ДЛЯ ПІДТВЕРДЖЕННЯ ЗАМОВЛЕННЯ</h1>
+    <div class = "all-products">
+        {% for product in products %}
+            <div class = "product" id = 'product-{{ product[0].id }}'>
+                <img class = "product-image" src = "{{ url_for('shop.static', filename = '/images/' + product[0].name + '.png') }}" alt = "{{ product[0].name }}">
+                <h1 class = "product-name">{{ product[0].name }}</h1>
+                <div class = "product-count">
+                    <button class = "button-increase button-product" id = 'increase-{{ product[0].id }}'>+</button>
+                    <p class = "text-product-count" id = 'count-{{ product[0].id }}'> {{ product[1] }}</p>
+                    <button class = "button-delete button-product" id = 'delete-{{product[0].id}}'>-</button>
+                </div>
+                <div class = 'block-product-price'>
+                    {% if product[0].discount == 0 %}
+                        <p class = "product-price" id = 'price-{{ product[0].id }}'>{{ product[0].price }} грн</p>
+                    {% else %}
+                        <p class = 'product-price' id = 'price-{{ product[0].id }}'>{{ (product[0].price * (100 - product[0].discount) / 100) | int }} грн</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class = "overall-price-block block-price-products">
+        <p class = "price-text">Загальна вартість замовлення: </p>
+        <p class = "overall-price">{{ ((all_price - all_discount) * 100)|round / 100 }} грн</p>
+    </div>
+    <form method = "post">
+        <button class = "cancel-button" name = "cancel_delivery">  ВІДМІНИТИ ЗАМОВЛЕННЯ  </button>
+    </form>
+{% endblock %}

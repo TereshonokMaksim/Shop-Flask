@@ -1,6 +1,7 @@
 import flask
 from flask_login import current_user, UserMixin
-from home_page.models import Product
+from home_page.models import Product, Cart
+from project.settings import database
 
 def show_shop_page():
     if isinstance(current_user, UserMixin):

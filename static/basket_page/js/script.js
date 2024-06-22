@@ -1,3 +1,4 @@
+
 function change_price (product_id, increase) {
     let product_price = +document.getElementById(`price-${product_id}`).innerHTML.split(" ")[0]
     let current_price_overall = +document.querySelector(".overall-price").innerHTML.split(" ")[0]
@@ -5,7 +6,7 @@ function change_price (product_id, increase) {
     let all_discount = +document.querySelector(".discount-price").innerHTML.split(' ')[0]
     let new_discount = 0
     try {
-        new_discount = Math.round((+document.getElementById(`price-${product_id}`).innerHTML.split(' ')[0] * +document.getElementById(`discount-${product_id}`).innerHTML.split(' ')[0]) / 100)
+        new_discount = Math.round((+document.getElementById(`price-${product_id}`).innerHTML.split(' ')[0] - +document.getElementById(`discount-${product_id}`).innerHTML.split(' ')[0]) * 100) / 100
         console.log(new_discount)
     }
     catch (err) {
@@ -118,6 +119,7 @@ function delete_all_product (product_id){
         break
         }
     } 
+    console.log(all_products_discount)
     document.querySelector(".all-products-text").innerHTML = `${document.querySelector(".all-products-text").innerHTML.split("-")[0] - product_count}-и товари на суму`
     document.querySelector('.all-products-price').innerHTML = `${Math.round((document.querySelector('.all-products-price').innerHTML.split(' ')[0] - all_products_price) * 100) / 100} грн`
     document.querySelector('.discount-price').innerHTML = `${Math.round((document.querySelector('.discount-price').innerHTML.split(' ')[0] - all_products_discount) * 100) / 100} грн`
@@ -170,3 +172,10 @@ for (let button_number = 0; button_number < reduce_buttons.length; button_number
         change_basket_count()
     })
 }
+
+const modalOpenButton = document.querySelector(".confirmation-button")
+modalOpenButton.addEventListener("click", () => {
+    if (document.getElementById("basket-counter").innerHTML != "") {
+        document.querySelector(".blur").style.display = "flex"
+    }
+})

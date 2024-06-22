@@ -25,7 +25,7 @@
                     {% if product[0].discount == 0 %}
                         <p class = "product-price" id = 'price-{{ product[0].id }}'>{{ product[0].price }} грн</p>
                     {% else %}
-                        <p class = 'product-discount' id = 'discount-{{ product[0].id }}'>{{ (product[0].price * product[0].discount / 100) | int }} грн</p>
+                        <p class = 'product-discount' id = 'discount-{{ product[0].id }}'>{{ (product[0].price * (100 - product[0].discount) / 100) | int }} грн</p>
                         <p class = 'product-discount-percent'>Знижка {{ product[0].discount }}%</p>
                         <p class = 'product-price-crossed' id = 'price-{{ product[0].id }}'>{{ product[0].price }} грн</p>
                     {% endif %}
@@ -34,9 +34,7 @@
         {% endfor %}
     </div>
     <div class = 'purchase-confirmation'>
-        <form method = 'post' class = "confirmation-button">
-            <button type = "submit" class = "confirmation-button"> ПЕРЕЙТИ ДО ОФОРМЛЕННЯ </button>
-        </form>
+        <button type = "button" class = "confirmation-button"> ПЕРЕЙТИ ДО ОФОРМЛЕННЯ </button>
         <div class = "price-all-products block-price-products">
             <p class = "price-text all-products-text">{{ number_of_products }}-и товари на суму</p>
             <p class = "price-products all-products-price">{{ ((all_price) * 100)|round / 100 }} грн</p>
@@ -48,6 +46,28 @@
         <div class = "overall-price-block block-price-products">
             <p class = "overall-text price-text">Загальна сума</p>
             <p class = "price-products overall-price">{{ ((all_price - all_discount) * 100)|round / 100 }} грн</p>
+        </div>
+    </div>
+    <div class="blur">
+        <div class="modal-window">
+            <h1 class="modal-header">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h1>
+            <form class = "input-form" method="post">
+                <p class="name-input">ІМ'Я:</p>
+                <input type="text" class="modal-input" name="name" required>
+                <p class = "name-input">ПРІЗВИЩЕ:</p>
+                <input type="text" class="modal-input" name="surname" required>
+                <p class="name-input">ТЕЛЕФОН ЗАМОВНИКА:</p>
+                <input type="text" class="modal-input" name="phone_number" required>
+                <p class="name-input">EMAIL ЗАМОВНИКА:</p>
+                <input type="text" class="modal-input" name="email" required>
+                <p class="name-input">МІСТО ОТРИМУВАЧА:</p>
+                <input type="text" class="modal-input" name="city" required>
+                <p class="name-input">ВІДДІЛЕННЯ НОВОЇ ПОШТИ:</p>
+                <input type="text" class="modal-input" name="post_office" required>
+                <p class="name-input">ДОДАТКОВІ ПОБАЖАННЯ:</p>
+                <textarea name="additional" class="modal-input modal-textarea"></textarea>
+                <button class="modal-button" type="submit" name = "submit_delivery">SEND</button>
+            </form>
         </div>
     </div>
 {% endblock %}

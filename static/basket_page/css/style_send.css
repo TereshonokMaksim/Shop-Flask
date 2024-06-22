@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body{
+    align-items:flex-start;
+}
+
+.all-products{
+    display: flex;
+    padding: 20px;
+    width: 875px;
+    flex-wrap: wrap;
+}
+
+.product{
+    display: flex;
+    flex-wrap: nowrap;
+    border-right: 3px solid black;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.content{
+    display: flex;
+    height: calc(fit-content + 1000px);
+    width: 100%;
+    padding: 31px 15px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+}
+
+.page-header{
+    display: inline;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.product-image{
+    cursor: default;
+    user-select: none;
+    min-width: 150px;
+    max-width: 150px;
+    height: 90%;
+    margin: 0px 10px 0px 0px;
+}
+
+.product-name{
+    display: flex;
+    font-weight: 700;
+    font-size: 32px;
+    margin: 7px 0px;
+    min-width: 300px;
+    max-width: 300px;
+    height: 120px;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-count{
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 10px;
+    width: 230px;
+    min-width: 230px;
+    height: 170px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-product{
+    width: 40px;
+    height: 40px;
+    font-weight: 700;
+    font-size: 28px;
+    margin: 0px 5px;
+    padding: 1px;
+    background-color: rgb(200, 162, 33);
+    border: 1px solid black;
+    transition: 0.2s;
+    user-select: none;
+}
+
+.text-product-count{
+    font-size: 28px;
+    font-weight: 700;
+    padding: 5px;
+}
+
+.block-product-price{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.product-price{
+    font-weight: 700;
+    font-size: 28px;
+    margin: 5px 0px;
+}
+
+.main-basket{
+    font-weight: 700;
+    text-decoration: underline;
+}
+/* 
+    Часть отвечающая за общую сумму
+    и кнопку подтверждения
+*/
+
+.cancel-button{
+    user-select: none;
+    cursor: default;
+    width: 364px;
+    height: 71px;
+    border-radius: 15px;
+    border: 1px solid black;
+    font-weight: 700;
+    font-size: 22px;
+    transition: 0.2s;
+    background-color: rgb(230, 192, 63);
+    padding: 0px;
+    cursor: pointer;
+}
+
+.cancel-button:hover{
+    transition: 0.3s;
+    background-color: rgb(255, 217, 88); 
+}
+
+.cancel-button:active{
+    transition: 0.1s;
+    background-color: rgb(205, 167, 38);
+}
+
+.block-price-products{
+    position: relative;
+    display: flex;
+    max-width: 786px;
+    max-height: 33px;
+    min-width: 756px;
+    min-height: 33px;
+    padding: 10px;
+    flex-direction: row;
+}
+
+.price-products{
+    margin: 0px 0px;
+    margin-top: -24px;
+    display: flex;
+    float: right;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.overall-price{
+    font-size: 24px;
+    font-weight: 800;
+    margin: -5px 0px 0px 50px;
+}
+
+.price-text{
+    /* display: inline; */
+    margin: 0px 0px 0px 200px;
+    font-weight: 700;
+    font-size: 18px;
+    height: 22px;
+}

@@ -1,9 +1,13 @@
 import telebot
 import sqlite3
 import os
+from home_page.models import Cart
+from project.mail_config import send_basket, complete_basket, reject_basket
+from project import project
 
 def change_database(command:str):
-    with sqlite3.connect(os.path.abspath(__file__+"/../../project/data.db")) as database:
+    print(command)
+    with sqlite3.connect(os.path.abspath(__file__ + "/../../project/data.db")) as database:
         cursor = database.cursor()
         cursor.execute(command)
         data = cursor.fetchall()
@@ -11,18 +15,27 @@ def change_database(command:str):
     return data    
 
 # DELETE THIS TOKEN BEFORE COMMITING!
-token = "blank, i guess"
+token = "7163581638:AAEyrGNBP82Xtf7sHZhu1g0Fc9pZa_UtfuY"
 bot = telebot.TeleBot(token = token)
 states = {}
-''' Keyboard Part '''
+carts = {}
+group_chat_id = None
+USER_THREAD_ID = 3
+PRODUCT_THREAD_ID = 6
+CART_THREAD_ID = 8
+ADD_PRODUCT_THREAD_ID = 640
+
+''' Keyboard Part Start '''
 # Start keyboads
 keyboard_start_products = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "GET PRODUCTS", callback_data = "get_products")]])
 keyboard_start_users = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "GET USERS", callback_data = "get_user")]])
-keyboard_start_basket = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "SHOW BASKET", callback_data = "show_basket")]])
+add_product_start_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "ADD PRODUCT", callback_data = "add_product")]])
 # User topic keyboards
 button_remove_user = telebot.types.InlineKeyboardButton(text = "DELETE USER", callback_data = "delete_user")
 user_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[button_remove_user, telebot.types.InlineKeyboardButton(text = "ADD ADMIN", callback_data = "add_admin")]])
 admin_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[button_remove_user, telebot.types.InlineKeyboardButton(text = "REMOVE ADMIN", callback_data = "remove_admin")]])
+confirmation_delete_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = 'CONFIRM USER DELETION', callback_data = 'confirm_delete_user')], 
+                                                                              [telebot.types.InlineKeyboardButton(text = 'CANCEL USER DELETION', callback_data = 'cancel_delete_user')]])
 # Product topic keyboards
 product_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "EDIT PRODUCT", callback_data = "edit_product")],
                                                                   [telebot.types.InlineKeyboardButton(text = "DELETE PRODUCT", callback_data = "delete_product")]])
@@ -31,21 +44,39 @@ edit_product_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.
                                                                        [telebot.types.InlineKeyboardButton(text = "EDIT DISCOUNT", callback_data = "edit_discount"), telebot.types.InlineKeyboardButton(text = "EDIT COUNT", callback_data = "edit_count")],
                                                                        [telebot.types.InlineKeyboardButton(text = "CLOSE EDIT", callback_data = "close_edit")]]) # емае
 # Basket topic keyboard
+edit_status_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "COMPLETE ORDER", callback_data = "complete_order")],
+                                                                      [telebot.types.InlineKeyboardButton(text = "REJECT ORDER", callback_data = "reject_order")]])
 
 ''' Keyboard Part End '''
 
+class New_Product:
+    def __init__(self):
+        self.name = None
+        self.has_image = False
+        self.count = None
+        self.price = None
+        self.discount = None
+        self.description = None
+        self.id_messages = []  
+        self.started = False
+
 @bot.message_handler(commands = ['start'])
 def start_command(message: telebot.types.Message):
+    global group_chat_id
     print(message.message_thread_id)
-    states[message.from_user.id] = {"users": "", "products": "", "basket": ""}
+    group_chat_id = message.chat.id
+    if states.get(message.from_user.id) == None:
+        states[message.from_user.id] = {"users": "", "products": "", "basket": "", "add_product": New_Product()}
     if message.message_thread_id == None:
-        bot.send_message(chat_id = message.chat.id, text = "Привіт, користувач.\nЩоб почати щоось робити увійдіть у потрібну вам гілку.")
-    elif message.message_thread_id == 3:
-        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = keyboard_start_users, message_thread_id = 3)
-    elif message.message_thread_id == 6:
-        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = keyboard_start_products, message_thread_id = 6)
-    elif message.message_thread_id == 8:
-        bot.send_message(chat_id = message.chat.id, text = "Привіт, користувач", reply_markup = keyboard_start_basket, message_thread_id = 8)
+        bot.send_message(chat_id = message.chat.id, text = "Привіт, користувач.\nЩоб почати щось робити увійдіть у потрібну вам гілку.")
+    elif message.message_thread_id == USER_THREAD_ID:
+        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = keyboard_start_users, message_thread_id = USER_THREAD_ID)
+    elif message.message_thread_id == PRODUCT_THREAD_ID:
+        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = keyboard_start_products, message_thread_id = PRODUCT_THREAD_ID)
+    elif message.message_thread_id == CART_THREAD_ID:
+        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін.\nТут будуть з'являтися замовлення користувачів коли вони будуть їх оформлювати.", message_thread_id = CART_THREAD_ID)
+    elif message.message_thread_id == ADD_PRODUCT_THREAD_ID:
+        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = add_product_start_keyboard, message_thread_id = ADD_PRODUCT_THREAD_ID)
         
 @bot.callback_query_handler(func = lambda call: True)
 def callback_handler(callback: telebot.types.CallbackQuery):
@@ -58,9 +89,19 @@ def callback_handler(callback: telebot.types.CallbackQuery):
                 bot.send_message(chat_id = callback.message.chat.id, text = f'ID: {info_user[0]} \n Name: {info_user[1]} \n Password: {info_user[3]} \n ➡️Is_admin: 0', reply_markup = user_keyboard, message_thread_id = callback.message.message_thread_id) 
     
     elif callback.data == "delete_user":
+        bot.edit_message_reply_markup(chat_id = callback.message.chat.id, message_id = callback.message.id, reply_markup = confirmation_delete_keyboard)
+
+    elif callback.data == 'confirm_delete_user':
         user_id = callback.message.text.split(" ")[1]
         change_database(command = f"DELETE FROM user WHERE id = '{user_id}'")
         bot.delete_message(chat_id = callback.message.chat.id, message_id = callback.message.id)
+
+    elif callback.data == 'cancel_delete_user':
+        if callback.message.text.split(' ')[-1] == '1':
+            new_keyboard = admin_keyboard
+        else:
+            new_keyboard = user_keyboard
+        bot.edit_message_reply_markup(chat_id = callback.message.chat.id, message_id = callback.message.id, reply_markup = new_keyboard)
         
     elif callback.data == "add_admin":
         user_id = callback.message.text.split(" ")[1]
@@ -85,7 +126,7 @@ def callback_handler(callback: telebot.types.CallbackQuery):
         product_id = callback.message.caption.split(" ")[1]
         change_database(command = f"DELETE FROM product WHERE id = '{product_id}'")
         bot.delete_message(chat_id = callback.message.chat.id, message_id = callback.message.id)
-    
+        
     elif callback.data == "edit_product":
         # print(callback.message, callback.message.text)
         product_id = callback.message.caption.split(" ")[1]
@@ -113,7 +154,7 @@ def callback_handler(callback: telebot.types.CallbackQuery):
 
         elif "discount" in callback.data:
             message = bot.send_message(chat_id = chat_id, text = f"Уведіть нову скидку (повинна бути числом та більше або дорівнювати 0) товару {base_text}: ", message_thread_id = thread_id)  
-
+        
         elif "count" in callback.data:
             message = bot.send_message(chat_id = chat_id, text = f"Уведіть нову кількість товару (вона повинна бути числом і більше або дорівнювати 0) {base_text}: ",  message_thread_id = thread_id)
 
@@ -123,10 +164,30 @@ def callback_handler(callback: telebot.types.CallbackQuery):
             
         states[callback.from_user.id]["products"] = f"{callback.data}-{message.id}-{callback.message.id}-{product_id}"
 
+    elif callback.data == 'add_product':
+        if not states[callback.from_user.id]['add_product'].started:
+            states[callback.from_user.id]['add_product'].started = True
+            new_message = bot.send_message(chat_id = callback.message.chat.id, text = 'Вкажіть ім`я нового продукту:', message_thread_id = callback.message.message_thread_id) 
+            states[callback.from_user.id]['add_product'].id_messages.append(new_message.id)
+
+    elif callback.data == "complete_order":
+        text = callback.message.text.split("Status: ")
+        bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = "Status: ".join([text[0], "completed ✅"]))
+        user_data = callback.message.text.split("\n")
+        with project.app_context():
+            complete_basket(mail_user = user_data[4].split(": ")[1], username = user_data[2].split(": ")[1])
+
+    elif callback.data == "reject_order":
+        text = callback.message.text.split("Status: ")
+        bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = "Status: ".join([text[0], "rejected ❌"]))
+        user_data = callback.message.text.split("\n")
+        with project.app_context():
+            reject_basket(mail_user = user_data[4].split(": ")[1], username = user_data[2].split(": ")[1])
 
 @bot.message_handler(content_types = ["text", "photo"])
 def message_manager(message: telebot.types.Message):
-    print(states[message.from_user.id])
+    print(states.get(message.from_user.id), message.from_user.id, message.from_user.full_name, message.text, states)
+    # NNOOOOOOOOO
     if "edit" in states[message.from_user.id]["products"]:
         state = states[message.from_user.id]["products"].split("-")
         product = change_database(command = f"SELECT * FROM product WHERE id = '{state[-1]}'")[0]
@@ -209,3 +270,94 @@ def message_manager(message: telebot.types.Message):
                             message_id = state[2])
         except Exception as error:
             print(error)
+    if states[message.from_user.id]['add_product'].started and message.message_thread_id == ADD_PRODUCT_THREAD_ID:
+        if states[message.from_user.id]['add_product'].name == None:
+            if message.text != None:
+                states[message.from_user.id]['add_product'].name = message.text
+                new_message = bot.send_message(chat_id = message.chat.id, text = 'Задайте зображення нового продукту:', message_thread_id = message.message_thread_id)
+                states[message.from_user.id]['add_product'].id_messages.extend([message.id, new_message.id])
+        elif not states[message.from_user.id]['add_product'].has_image:
+            if message.photo != None:
+                id_photo = message.photo[-1].file_id
+                path_to_photo = bot.get_file(id_photo)
+                photo = bot.download_file(path_to_photo.file_path)
+
+                with open(file = os.path.abspath(__file__ + f"/../../static/shop_page/images/{states[message.from_user.id]['add_product'].name}.png"), mode = 'wb') as file:
+                    file.write(photo)
+                states[message.from_user.id]['add_product'].has_image = True
+                new_message = bot.send_message(chat_id = message.chat.id, text = 'Задайте кількість нового продукту:', message_thread_id = message.message_thread_id)
+                states[message.from_user.id]['add_product'].id_messages.extend([message.id, new_message.id])
+        elif states[message.from_user.id]['add_product'].count == None:
+            try:
+                value = int(message.text)
+                if value >= 0:
+                    states[message.from_user.id]['add_product'].count = value
+                    new_message = bot.send_message(chat_id = message.chat.id, text = 'Задайте ціну нового продукту:', message_thread_id = message.message_thread_id)
+                    states[message.from_user.id]['add_product'].id_messages.extend([message.id, new_message.id])
+                else:
+                    bot.delete_message(chat_id = message.chat.id, message_id = message.id)
+            except Exception as error:
+                print(error)
+                bot.delete_message(chat_id = message.chat.id, message_id = message.id)
+        elif states[message.from_user.id]['add_product'].price == None:
+            try:
+                value = int(message.text)
+                if value >= 0:
+                    states[message.from_user.id]['add_product'].price = value
+                    new_message = bot.send_message(chat_id = message.chat.id, text = 'Задайте знижку нового продукту:', message_thread_id = message.message_thread_id)
+                    states[message.from_user.id]['add_product'].id_messages.extend([message.id, new_message.id])
+                else:
+                    bot.delete_message(chat_id = message.chat.id, message_id = message.id)
+            except Exception as error:
+                print(error)
+                bot.delete_message(chat_id = message.chat.id, message_id = message.id)
+        elif states[message.from_user.id]['add_product'].discount == None:
+            try:
+                value = int(message.text)
+                if value >= 0 and value <= 100:
+                    states[message.from_user.id]['add_product'].discount = value
+                    new_message = bot.send_message(chat_id = message.chat.id, text = 'Задайте опис нового продукту:', message_thread_id = message.message_thread_id)
+                    states[message.from_user.id]['add_product'].id_messages.extend([message.id, new_message.id])
+                else:
+                    bot.delete_message(chat_id = message.chat.id, message_id = message.id)
+            except Exception as error:
+                print(error)
+                bot.delete_message(chat_id = message.chat.id, message_id = message.id)
+        elif states[message.from_user.id]['add_product'].description == None:
+            if message.text != None:
+                product = states[message.from_user.id]['add_product']
+                change_database(command = f"INSERT INTO product (name, price, description, in_stock, discount, count) VALUES ('{product.name}', {product.price}, '{message.text}', {int(product.count > 0)}, {product.discount}, {product.count})")
+                for id_message in product.id_messages:
+                    bot.delete_message(chat_id = message.chat.id, message_id = id_message)
+                bot.delete_message(chat_id = message.chat.id, message_id = message.id)
+                bot.send_message(chat_id = message.chat.id, text = f"Продукт {product.name} був успішно доданий!", message_thread_id = message.message_thread_id)
+                states[message.from_user.id]['add_product'] = New_Product()
+
+def send_cart(cart: Cart):
+    print("at least, im here")
+    global carts
+    if  group_chat_id != None:
+        print("IT WORKS!!!")
+        products = [change_database(command = f"SELECT name FROM product WHERE id = {product_id}")[0][0] for product_id in cart.products.split(" ")]
+        unique_products = {}
+        for product in products:
+            if product in unique_products:
+                unique_products[product] += 1
+            else:
+                unique_products[product] = 1
+        print("sent 0")
+        send_basket(mail_user = cart.email, username = f"{cart.surname} {cart.name}", basket_text = "\n".join([f"{product_name}: {product_count} шт." for product_name, product_count in unique_products.items()] ))
+        products_text = "\n".join([f"    {product_name}: {product_count} pcs." for product_name, product_count in unique_products.items()])
+        cart_message = bot.send_message(chat_id =  group_chat_id, 
+                                        text = f"Cart number: {cart.id}\nUser id: {cart.user_id}\nUser surname, name: {cart.surname} {cart.name}\nUser phone number: {cart.phone_number}\nUser EMail: {cart.email}\nUser city: {cart.city}\nUser post office: {cart.post_office}\nUser wishes: {cart.additional}\nCart products: \n{products_text}\n\nStatus: under consideration ❓",
+                                        message_thread_id = CART_THREAD_ID,
+                                        reply_markup = edit_status_keyboard)
+        carts[cart.id] = cart_message.id
+        
+def delete_cart(cart_id: int):
+    global carts
+    print(carts)
+    if  group_chat_id != None:
+        bot.delete_message(chat_id =  group_chat_id, message_id = carts[cart_id])
+    
+# bot.infinity_polling()

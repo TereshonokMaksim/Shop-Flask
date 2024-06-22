@@ -19,7 +19,7 @@
                     <div class = 'block-product-price'>
                         <p class = 'product-price-crossed'>{{ product.price }} грн</p>
                         <p class = 'product-discount-percent'>Знижка {{ product.discount }}%</p>
-                        <p class = 'product-discount'>{{ (product.price * product.discount / 100) | int }} грн</p>
+                        <p class = 'product-discount'>{{ (product.price * (100 - product.discount) / 100) | int }} грн</p>
                     </div>
                 {% endif %}
                 <button class = "add-product button-stock-{{ product.in_stock }}" id = '{{ product.id }}'>КУПИТИ</button>

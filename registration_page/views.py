@@ -1,6 +1,7 @@
 import flask
 from flask_login import current_user
-from home_page.models import User, database
+from home_page.models import User, database, Cart
+
 
 def show_registration_page():
     print(current_user.is_authenticated)

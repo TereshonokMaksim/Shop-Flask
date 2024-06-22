@@ -39,7 +39,7 @@
                             <img src = "{{ url_for('admin.static', filename = '/images/pencil.png') }}" alt="edit" class = "edit-image">
                         </button>
                     </div>
-                    <p class = 'product-discount'>{{ (product.price * product.discount / 100) | int }} грн</p>
+                    <p class = 'product-discount'>{{ (product.price * (100 - product.discount) / 100) | int }} грн</p>
                 </div>
                 <button class = "add-product button-stock-{{ product.in_stock }}" id = '{{ product.id }}'>КУПИТИ</button>
                 {% for property in product.description.split(";") %}
