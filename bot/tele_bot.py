@@ -15,7 +15,7 @@ def change_database(command:str):
     return data    
 
 # DELETE THIS TOKEN BEFORE COMMITING!
-token = "7163581638:AAEyrGNBP82Xtf7sHZhu1g0Fc9pZa_UtfuY"
+token = "hello"
 bot = telebot.TeleBot(token = token)
 states = {}
 carts = {}
