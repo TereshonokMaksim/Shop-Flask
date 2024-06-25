@@ -32,4 +32,4 @@ _нижче приведені фреймворки які були викори
 ## Структура нашої програми
 #### Нижче приведена структура нашого проекту 
 
-![alt_text](static/readme/BOT.png "Bot image")
+![alt_text](static/readme/structure.png "Structure image")
