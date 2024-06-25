@@ -1,13 +1,13 @@
-{% extends "base.html" %}
+{% extends "base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
 
-{% set page_title = "Home Page" %}
+{% set page_title = "Home Page" %}  <!-- Встановлення заголовку сторінки / Setting the page title -->
 
-{% block links %}
-    <link rel = "stylesheet" href = "{{ url_for('home.static', filename = '/css/logined_style.css') }}">
+{% block links %}  <!-- Блок для підключення стилів / Block for adding styles -->
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='/css/logined_style.css') }}">  <!-- Підключення CSS файлу для стилів / Linking CSS file for styles -->
 {% endblock %}
 
-{% block content %}
-    <div class = "content-space">
-        <h1 class = "main-header">HOME PAGE</h1>
+{% block content %}  <!-- Блок для основного контенту сторінки / Block for the main content of the page -->
+    <div class="content-space">  <!-- Контейнер для контенту / Container for content -->
+        <h1 class="main-header">HOME PAGE</h1>  <!-- Заголовок головної сторінки / Main page header -->
     </div>
 {% endblock %}

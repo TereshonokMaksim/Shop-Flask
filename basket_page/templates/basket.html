@@ -1,77 +1,73 @@
-{% extends "base.html" %}
+{% extends "base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
 
-{% set page_title = "Basket" %}
+{% set page_title = "Basket" %}  <!-- Встановлення заголовку сторінки / Setting the page title -->
 
-{% block links %}
-    <link rel = "stylesheet" href = "{{ url_for('basket.static', filename = '/css/style.css' ) }}">
-    <script defer src = "{{ url_for('basket.static', filename = '/js/script.js') }}"> </script>
+{% block links %}  <!-- Блок для підключення стилів та скриптів / Block for adding styles and scripts -->
+    <link rel="stylesheet" href="{{ url_for('basket.static', filename='/css/style.css') }}">  <!-- Підключення CSS файлу для стилів / Linking CSS file for styles -->
+    <script defer src="{{ url_for('basket.static', filename='/js/script.js') }}"></script>  <!-- Підключення скрипту для сторінки / Linking script for the page -->
 {% endblock %}
 
-{% block content %}
-    <div class = "all-products">
+{% block content %}  <!-- Блок для основного контенту сторінки / Block for the main content of the page -->
+    <div class="all-products">  <!-- Контейнер для всіх товарів / Container for all products -->
         {% for product in products %}
-            <div class = "product" id = 'product-{{ product[0].id }}'>
-                <img class = "product-image" src = "{{ url_for('shop.static', filename = '/images/' + product[0].name + '.png') }}" alt = "{{ product[0].name }}">
-                <h1 class = "product-name">{{ product[0].name }}</h1>
-                <div class = "product-count">
-                    <button class = "button-reduce button-product" id = 'reduce-{{ product[0].id }}'>-</button>
-                    <p class = "text-product-count" id = 'count-{{ product[0].id }}'> {{ product[1] }}</p>
-                    <button class = "button-increase button-product" id = 'increase-{{ product[0].id }}'>+</button>
-                    <button class = "button-delete button-product" id = 'delete-{{product[0].id}}'>
-                        <img src="{{ url_for('basket.static', filename = 'images/trash_icon.png') }}" class="trash-image" alt="X">
+            <div class="product" id='product-{{ product[0].id }}'>  <!-- Блок для кожного товару / Block for each product -->
+                <img class="product-image" src="{{ url_for('shop.static', filename='/images/' + product[0].name + '.png') }}" alt="{{ product[0].name }}">  <!-- Зображення товару / Product image -->
+                <h1 class="product-name">{{ product[0].name }}</h1>  <!-- Назва товару / Product name -->
+                <div class="product-count">  <!-- Кількість товару / Product count -->
+                    <button class="button-reduce button-product" id='reduce-{{ product[0].id }}'>-</button>  <!-- Кнопка зменшення кількості товару / Decrease button -->
+                    <p class="text-product-count" id='count-{{ product[0].id }}'> {{ product[1] }}</p>  <!-- Кількість одиниць товару / Product quantity -->
+                    <button class="button-increase button-product" id='increase-{{ product[0].id }}'>+</button>  <!-- Кнопка збільшення кількості товару / Increase button -->
+                    <button class="button-delete button-product" id='delete-{{ product[0].id }}'>  <!-- Кнопка видалення товару з іконкою кошика / Delete button with trash icon -->
+                        <img src="{{ url_for('basket.static', filename='images/trash_icon.png') }}" class="trash-image" alt="X">
                     </button>
                 </div>
-                <div class = 'block-product-price'>
+                <div class='block-product-price'>  <!-- Блок ціни товару / Product price block -->
                     {% if product[0].discount == 0 %}
-                        <p class = "product-price" id = 'price-{{ product[0].id }}'>{{ product[0].price }} грн</p>
+                        <p class="product-price" id='price-{{ product[0].id }}'>{{ product[0].price }} грн</p>  <!-- Ціна без знижки / Price without discount -->
                     {% else %}
-                        <p class = 'product-discount' id = 'discount-{{ product[0].id }}'>{{ (product[0].price * (100 - product[0].discount) / 100) | int }} грн</p>
-                        <p class = 'product-discount-percent'>Знижка {{ product[0].discount }}%</p>
-                        <p class = 'product-price-crossed' id = 'price-{{ product[0].id }}'>{{ product[0].price }} грн</p>
+                        <p class='product-discount' id='discount-{{ product[0].id }}'>{{ (product[0].price * (100 - product[0].discount) / 100) | int }} грн</p>  <!-- Ціна зі знижкою / Price with discount -->
+                        <p class='product-discount-percent'>Знижка {{ product[0].discount }}%</p>  <!-- Відсоток знижки / Discount percentage -->
+                        <p class='product-price-crossed' id='price-{{ product[0].id }}'>{{ product[0].price }} грн</p>  <!-- Ціна без знижки перекреслена / Crossed-out price -->
                     {% endif %}
                 </div>
             </div>
         {% endfor %}
     </div>
-    <div class = 'purchase-confirmation'>
-        <button type = "button" class = "confirmation-button"> ПЕРЕЙТИ ДО ОФОРМЛЕННЯ </button>
-        <div class = "price-all-products block-price-products">
-            <p class = "price-text all-products-text">{{ number_of_products }}-и товари на суму</p>
-            <p class = "price-products all-products-price">{{ ((all_price) * 100)|round / 100 }} грн</p>
+    <div class='purchase-confirmation'>  <!-- Блок підтвердження покупки / Purchase confirmation block -->
+        <button type="button" class="confirmation-button"> ПЕРЕЙТИ ДО ОФОРМЛЕННЯ </button>  <!-- Кнопка для переходу до оформлення замовлення / Button to proceed to checkout -->
+        <div class="price-all-products block-price-products">  <!-- Блок для загальної вартості всіх товарів / Block for total price of all products -->
+            <p class="price-text all-products-text">{{ number_of_products }}-и товари на суму</p>  <!-- Текст про кількість товарів і загальну суму / Text about number of products and total amount -->
+            <p class="price-products all-products-price">{{ ((all_price) * 100)|round / 100 }} грн</p>  <!-- Загальна вартість всіх товарів / Total price of all products -->
         </div>
-        <div class = "price-sale block-price-products"> 
-            <p class = "price-text">Знижка</p>
-            <p class = "price-products discount-price">{{ ((all_discount) * 100)|round / 100 }} грн</p>
+        <div class="price-sale block-price-products">  <!-- Блок для суми знижки / Block for discount amount -->
+            <p class="price-text">Знижка</p>  <!-- Текст про знижку / Text about discount -->
+            <p class="price-products discount-price">{{ ((all_discount) * 100)|round / 100 }} грн</p>  <!-- Сума знижки / Discount amount -->
         </div>
-        <div class = "overall-price-block block-price-products">
-            <p class = "overall-text price-text">Загальна сума</p>
-            <p class = "price-products overall-price">{{ ((all_price - all_discount) * 100)|round / 100 }} грн</p>
+        <div class="overall-price-block block-price-products">  <!-- Блок для загальної суми замовлення / Block for total order amount -->
+            <p class="overall-text price-text">Загальна сума</p>  <!-- Текст про загальну суму / Text about total amount -->
+            <p class="price-products overall-price">{{ ((all_price - all_discount) * 100)|round / 100 }} грн</p>  <!-- Загальна сума з урахуванням знижки / Total order amount with discount -->
         </div>
     </div>
-    <div class="blur">
-        <div class="modal-window">
-            <h1 class="modal-header">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h1>
-            <form class = "input-form" method="post">
-                <p class="name-input">ІМ'Я:</p>
+    <div class="blur">  <!-- Ефект розмиття / Blur effect -->
+        <div class="modal-window">  <!-- Модальне вікно для оформлення замовлення / Modal window for order processing -->
+            <h1 class="modal-header">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h1>  <!-- Заголовок модального вікна / Modal window header -->
+            <form class="input-form" method="post">  <!-- Форма для введення даних / Form for entering data -->
+                <p class="name-input">ІМ'Я:</p>  <!-- Поле для введення імені / Name input field -->
                 <input type="text" class="modal-input" name="name" required>
-                <p class = "name-input">ПРІЗВИЩЕ:</p>
+                <p class="name-input">ПРІЗВИЩЕ:</p>  <!-- Поле для введення прізвища / Surname input field -->
                 <input type="text" class="modal-input" name="surname" required>
-                <p class="name-input">ТЕЛЕФОН ЗАМОВНИКА:</p>
+                <p class="name-input">ТЕЛЕФОН ЗАМОВНИКА:</p>  <!-- Поле для введення телефону / Phone number input field -->
                 <input type="text" class="modal-input" name="phone_number" required>
-                <p class="name-input">EMAIL ЗАМОВНИКА:</p>
+                <p class="name-input">EMAIL ЗАМОВНИКА:</p>  <!-- Поле для введення email / Email input field -->
                 <input type="text" class="modal-input" name="email" required>
-                <p class="name-input">МІСТО ОТРИМУВАЧА:</p>
+                <p class="name-input">МІСТО ОТРИМУВАЧА:</p>  <!-- Поле для введення міста / City input field -->
                 <input type="text" class="modal-input" name="city" required>
-                <p class="name-input">ВІДДІЛЕННЯ НОВОЇ ПОШТИ:</p>
+                <p class="name-input">ВІДДІЛЕННЯ НОВОЇ ПОШТИ:</p>  <!-- Поле для введення відділення Нової пошти / Nova Poshta branch input field -->
                 <input type="text" class="modal-input" name="post_office" required>
-                <p class="name-input">ДОДАТКОВІ ПОБАЖАННЯ:</p>
+                <p class="name-input">ДОДАТКОВІ ПОБАЖАННЯ:</p>  <!-- Поле для додаткових побажань / Additional requests input field -->
                 <textarea name="additional" class="modal-input modal-textarea"></textarea>
-                <button class="modal-button" type="submit" name = "submit_delivery">SEND</button>
+                <button class="modal-button" type="submit" name="submit_delivery">SEND</button>  <!-- Кнопка для відправки даних форми / Button for sending form data -->
             </form>
         </div>
     </div>
 {% endblock %}
-<!-- !!!!!!!!!!!!! -->
-<!-- Подсказка к product -->
-<!-- product = [тут продукт, а тут его количество] -->
-<!-- !!!!!!!!!!!!! -->

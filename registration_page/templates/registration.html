@@ -1,46 +1,46 @@
-{% extends "acc_base.html" %}
+{% extends "acc_base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
 
-{% set page_title = "Registration Page" %}
+{% set page_title = "Registration Page" %}  <!-- Встановлення заголовку сторінки / Setting the page title -->
 
-{% block links %}
-    <link rel="stylesheet" href=" {{ url_for('registration.static', filename = '/css/style.css') }}">
+{% block links %}  <!-- Блок для підключення стилів / Block for adding styles -->
+    <link rel="stylesheet" href="{{ url_for('registration.static', filename='/css/style.css') }}">  <!-- Підключення CSS файлу для стилів / Linking CSS file for styles -->
 {% endblock %}
 
-{% block content %}
-    <p class = "main-header"> REGISTRATION </p>
-    <div class = "registration-bg">
-        <form method = "post">
-            <ul class = 'registration-list'>
-                <li class = 'registration-el'>
-                    <p class = 'registration-text'> Login </p>
-                    <input type="text" class = 'registration-input' name = "name">
+{% block content %}  <!-- Блок для основного контенту сторінки / Block for the main content of the page -->
+    <p class="main-header"> REGISTRATION </p>  <!-- Заголовок сторінки реєстрації / Registration page header -->
+    <div class="registration-bg">  <!-- Фоновий блок для реєстрації / Background block for registration -->
+        <form method="post">  <!-- Форма для відправки даних / Form for data submission -->
+            <ul class='registration-list'>  <!-- Список елементів реєстрації / List of registration elements -->
+                <li class='registration-el'>
+                    <p class='registration-text'> Login </p>  <!-- Текстове поле для введення логіна / Text field for entering login -->
+                    <input type="text" class='registration-input' name="name">
                 </li>
-                <li class = 'registration-el'>
-                    <p class = 'registration-text'> Email </p>
-                    <input type="text" class = 'registration-input' name = "email">
+                <li class='registration-el'>
+                    <p class='registration-text'> Email </p>  <!-- Текстове поле для введення email / Text field for entering email -->
+                    <input type="text" class='registration-input' name="email">
                 </li>
-                <li class = 'registration-el'>
-                    <p class = 'registration-text'> Password </p>
-                    <input type="text" class = 'registration-input' name = "password">
+                <li class='registration-el'>
+                    <p class='registration-text'> Password </p>  <!-- Текстове поле для введення пароля / Text field for entering password -->
+                    <input type="text" class='registration-input' name="password">
                 </li>
-                <li class = 'registration-el'>
-                    <p class = 'registration-text'> Password confirmation </p>
-                    <input type="text" class = 'registration-input' name = "password_confirm">
+                <li class='registration-el'>
+                    <p class='registration-text'> Password confirmation </p>  <!-- Текстове поле для підтвердження пароля / Text field for confirming password -->
+                    <input type="text" class='registration-input' name="password_confirm">
                 </li>
-                <li class = 'registration-el registration-el-button'>
-                    <button type = 'submit' class="registration-button">SEND</button>
+                <li class='registration-el registration-el-button'>
+                    <button type='submit' class="registration-button">SEND</button>  <!-- Кнопка для відправки форми / Button to submit the form -->
                 </li>
             </ul>
         </form>
     </div>
-    {% if is_registrated %}
-        <div class = 'dimmer'>
+    {% if is_registrated %}  <!-- Перевірка, чи користувач зареєстрований / Checking if the user is registered -->
+        <div class='dimmer'>
         </div>
-        <div class = 'registrated-bg'>
-            <h2 class = 'registrated-header'> CONFIRMED </h2>
-            <a href="/authorization/" class = "registrated-link"> 
-                <p class = "reg-arrow">--></p>
-                <p class = "reg-text">AUTHORIZATION</p>
+        <div class='registrated-bg'>
+            <h2 class='registrated-header'> CONFIRMED </h2>  <!-- Підтвердження успішної реєстрації / Confirmation of successful registration -->
+            <a href="/authorization/" class="registrated-link"> 
+                <p class="reg-arrow">--></p>  <!-- Стрілка вправо для навігації / Right arrow for navigation -->
+                <p class="reg-text">AUTHORIZATION</p>  <!-- Текст для переходу до авторизації / Text to navigate to authorization -->
             </a>
         </div>
     {% endif %}

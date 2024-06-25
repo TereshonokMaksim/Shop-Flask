@@ -1,38 +1,38 @@
-{% extends "acc_base.html" %}
+{% extends "acc_base.html" %}  <!-- Розширення базового шаблону для сторінки авторизації / Extending the base template for the authorization page -->
 
-{% set page_title = "Authorization Page" %}
+{% set page_title = "Authorization Page" %}  <!-- Встановлення заголовку сторінки авторизації / Setting the page title for the authorization page -->
 
-{% block links %}
-    <link rel="stylesheet" href=" {{ url_for('authorization.static', filename = '/css/style.css') }}">
+{% block links %}  <!-- Блок для підключення додаткових стилів / Block for adding additional styles -->
+    <link rel="stylesheet" href="{{ url_for('authorization.static', filename='/css/style.css') }}">  <!-- Підключення CSS файлу для сторінки авторизації / Linking CSS file for the authorization page -->
 {% endblock %}
 
-{% block content %}
-    <p class = "main-header"> AUTHORIZATION </p>
-    <div class = "login-bg">
-        <form method="post">
-            <ul class = "login-list">
-                <li class = 'login-element'>
-                    <p class = "login-text">Login or Email</p>
-                    <input type = "text" class = "login-input" name = "name" required>
+{% block content %}  <!-- Блок для основного контенту сторінки / Block for the main content of the page -->
+    <p class="main-header"> AUTHORIZATION </p>  <!-- Заголовок сторінки авторизації / Header for the authorization page -->
+    <div class="login-bg">  <!-- Фон для форми логіну / Background for the login form -->
+        <form method="post">  <!-- Форма для відправки даних авторизації / Form for submitting authorization data -->
+            <ul class="login-list">  <!-- Список полів для логіну / List of login fields -->
+                <li class='login-element'>  <!-- Елемент списку для логіну або email / List element for login or email -->
+                    <p class="login-text">Login or Email</p>  <!-- Текст для поля логіну або email / Text for the login or email field -->
+                    <input type="text" class="login-input" name="name" required>  <!-- Поле для введення логіну або email / Input field for login or email -->
                 </li>
-                <li class = 'login-element'>
-                    <p class = "login-text">Password</p>
-                    <input type = "text" class = "login-input" name = "pasword">
+                <li class='login-element'>  <!-- Елемент списку для пароля / List element for password -->
+                    <p class="login-text">Password</p>  <!-- Текст для поля пароля / Text for the password field -->
+                    <input type="text" class="login-input" name="pasword">  <!-- Поле для введення пароля / Input field for password -->
                 </li>
-                <li class = 'login-element login-el-button'>
-                    <button type = "submit" class = "login-button">SEND</button>
+                <li class='login-element login-el-button'>  <!-- Елемент списку для кнопки відправки / List element for submit button -->
+                    <button type="submit" class="login-button">SEND</button>  <!-- Кнопка відправки форми / Submit button for the form -->
                 </li>
             </ul>
         </form>
     </div>
 
-    {% if not_registrated == True %}
-        <div class = "dimmer"></div>
-        <div class = "not-registrated-bg">
-            <h2 class = "not-registrated-header"> YOU ARE NOT REGISTERED </h2>
-            <a href="/registration/" class = "not-registrated-link"> 
-                <p class = "not-reg-arrow">--> </p>
-                <p class = "not-reg-text">REGISTRATION</p>
+    {% if not_registrated == True %}  <!-- Перевірка, якщо користувач не зареєстрований / Check if the user is not registered -->
+        <div class="dimmer"></div>  <!-- Фон затемнення для модального вікна / Dimmer background for the modal window -->
+        <div class="not-registrated-bg">  <!-- Фон для повідомлення про незареєстрованого користувача / Background for the unregistered user message -->
+            <h2 class="not-registrated-header"> YOU ARE NOT REGISTERED </h2>  <!-- Повідомлення про незареєстрованого користувача / Message about unregistered user -->
+            <a href="/registration/" class="not-registrated-link">  <!-- Посилання на сторінку реєстрації / Link to the registration page -->
+                <p class="not-reg-arrow">--> </p>  <!-- Стрілка, що вказує на посилання реєстрації / Arrow pointing to the registration link -->
+                <p class="not-reg-text">REGISTRATION</p>  <!-- Текст посилання на реєстрацію / Registration link text -->
             </a>
         </div>
     {% endif %}

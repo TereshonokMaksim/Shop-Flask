@@ -1,46 +1,46 @@
-{% extends "base.html" %}
+{% extends "base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
 
-{% set page_title = "Shop page" %}
+{% set page_title = "Shop page" %}  <!-- Встановлення заголовку сторінки / Setting the page title -->
 
-{% block links %}
-    <link rel = "stylesheet" href = "{{ url_for('shop.static', filename = '/css/style.css' ) }}">
-    <script defer src = "{{ url_for('shop.static', filename = '/js/script.js') }}"> </script>
+{% block links %}  <!-- Блок для підключення стилів і скриптів / Block for adding styles and scripts -->
+    <link rel="stylesheet" href="{{ url_for('shop.static', filename='/css/style.css') }}">  <!-- Підключення CSS файлу для стилів / Linking CSS file for styles -->
+    <script defer src="{{ url_for('shop.static', filename='/js/script.js') }}"></script>  <!-- Підключення JS файлу для скриптів / Linking JS file for scripts -->
 {% endblock %}
 
-{% block content %}
-    {% for product in products %}
-        <div class = "product" id = "product-{{ product.id }}">
-            <img src="{{ url_for('shop.static', filename = '/images/' + product.name + '.png') }}" class = "product-image">
-            <div class = "product-info">
-                <h2 class = "product-name">{{ product.name }}</h2>
+{% block content %}  <!-- Блок для основного контенту сторінки / Block for the main content of the page -->
+    {% for product in products %}  <!-- Цикл для відображення кожного продукту / Loop to display each product -->
+        <div class="product" id="product-{{ product.id }}">  <!-- Контейнер для продукту з унікальним id / Container for each product with unique id -->
+            <img src="{{ url_for('shop.static', filename='/images/' + product.name + '.png') }}" class="product-image">  <!-- Зображення продукту / Product image -->
+            <div class="product-info">  <!-- Інформація про продукт / Product information -->
+                <h2 class="product-name">{{ product.name }}</h2>  <!-- Назва продукту / Product name -->
                 {% if product.discount == 0 %}
-                    <p class = "product-price">{{ product.price }} грн</p>
+                    <p class="product-price">{{ product.price }} грн</p>  <!-- Ціна продукту без знижки / Product price without discount -->
                 {% else %}
-                    <div class = 'block-product-price'>
-                        <p class = 'product-price-crossed'>{{ product.price }} грн</p>
-                        <p class = 'product-discount-percent'>Знижка {{ product.discount }}%</p>
-                        <p class = 'product-discount'>{{ (product.price * (100 - product.discount) / 100) | int }} грн</p>
+                    <div class='block-product-price'>
+                        <p class='product-price-crossed'>{{ product.price }} грн</p>  <!-- Ціна до знижки / Price before discount -->
+                        <p class='product-discount-percent'>Знижка {{ product.discount }}%</p>  <!-- Відсоток знижки / Discount percentage -->
+                        <p class='product-discount'>{{ (product.price * (100 - product.discount) / 100) | int }} грн</p>  <!-- Ціна після знижки / Price after discount -->
                     </div>
                 {% endif %}
-                <button class = "add-product button-stock-{{ product.in_stock }}" id = '{{ product.id }}'>КУПИТИ</button>
+                <button class="add-product button-stock-{{ product.in_stock }}" id='{{ product.id }}'>КУПИТИ</button>  <!-- Кнопка для додавання продукту до кошика / Button to add product to cart -->
                 {% for property in product.description.split(";") %}
                     <!-- <p>{{ property }} --- {{ product.description }} --- {{ product.description.split(";") }}</p> -->
-                    <p class = "product-property">{{ property.split(":")[0] }}:</p>
-                    <div class = "property-block">
+                    <p class="product-property">{{ property.split(":")[0] }}:</p>  <!-- Властивості продукту / Product properties -->
+                    <div class="property-block">
                         {% set property_values_raw = property.split(":")[1] %}
                         {% set property_values = property_values_raw.split("/") %}
-                        <p class = "property">{{ property_values[0] }}</p>
-                        <p class = "property selected-property">{{ property_values[1] }}</p>
-                        <p class = "property">{{ property_values[2] }}</p>
+                        <p class="property">{{ property_values[0] }}</p>  <!-- Перша властивість / First property -->
+                        <p class="property selected-property">{{ property_values[1] }}</p>  <!-- Вибрана властивість / Selected property -->
+                        <p class="property">{{ property_values[2] }}</p>  <!-- Третя властивість / Third property -->
                     </div>
                 {% endfor %}
-                <div class = "product-in-stock" id = "{{ product.in_stock }}">
+                <div class="product-in-stock" id="{{ product.in_stock }}">  <!-- Відображення наявності товару / Displaying product availability -->
                     {% if product.in_stock == 1 %}
-                        <img class = "in-stock-image" id = "in-stock" src="{{ url_for('shop.static', filename = '/images/in_stock.png') }}" >
+                        <img class="in-stock-image" id="in-stock" src="{{ url_for('shop.static', filename='/images/in_stock.png') }}" >
                     {% else %}
-                        <img class = "in-stock-image" id = "not-in-stock" src="{{ url_for('shop.static', filename = '/images/not_in_stock.png') }}">
+                        <img class="in-stock-image" id="not-in-stock" src="{{ url_for('shop.static', filename='/images/not_in_stock.png') }}">
                     {% endif %}
-                    <p class = "in-stock-text">ТОВАР В НАЯВНОСТІ</p>
+                    <p class="in-stock-text">ТОВАР В НАЯВНОСТІ</p>  <!-- Текст про наявність товару / Text indicating product availability -->
                 </div>
             </div>
         </div>

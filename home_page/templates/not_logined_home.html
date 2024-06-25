@@ -1,15 +1,15 @@
-{% extends "acc_base.html" %}
+{% extends "acc_base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
 
-{% set page_title = "Home Page" %}
+{% set page_title = "Home Page" %}  <!-- Встановлення заголовку сторінки / Setting the page title -->
 
-{% block links %}
-    <link rel="stylesheet" href=" {{ url_for('home.static', filename = '/css/not_logined_style.css') }}">
+{% block links %}  <!-- Блок для підключення стилів / Block for adding styles -->
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='/css/not_logined_style.css') }}">  <!-- Підключення CSS файлу для стилів / Linking CSS file for styles -->
 {% endblock %}
 
-{% block content %}
-    <nav class = "right-top-nav">
-        <a href="/registration/" class = "nav-link"> REGISTRATION </a>
-        <a href="/authorization/" class = "nav-link"> AUTHORIZATION </a>
+{% block content %}  <!-- Блок для основного контенту сторінки / Block for the main content of the page -->
+    <nav class="right-top-nav">  <!-- Навігаційне меню зверху справа / Navigation menu on the top right -->
+        <a href="/registration/" class="nav-link"> REGISTRATION </a>  <!-- Посилання на сторінку реєстрації / Link to registration page -->
+        <a href="/authorization/" class="nav-link"> AUTHORIZATION </a>  <!-- Посилання на сторінку авторизації / Link to authorization page -->
     </nav>
-    <h1 class = "main-header"> HOME PAGE </h1>
+    <h1 class="main-header"> HOME PAGE </h1>  <!-- Заголовок головної сторінки / Main page header -->
 {% endblock %}

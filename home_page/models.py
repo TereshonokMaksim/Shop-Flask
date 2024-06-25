@@ -1,4 +1,4 @@
-from project.settings import database
+from project.settings import database 
 from flask_login import UserMixin
 
 class User(database.Model, UserMixin):
