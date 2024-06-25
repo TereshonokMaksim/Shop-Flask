@@ -15,7 +15,7 @@ def change_database(command:str):
     return data    
 
 # DELETE THIS TOKEN BEFORE COMMITING!
-token = "hello"
+token = "7163581638:AAEyrGNBP82Xtf7sHZhu1g0Fc9pZa_UtfuY"
 bot = telebot.TeleBot(token = token)
 states = {}
 carts = {}
@@ -59,6 +59,11 @@ class New_Product:
         self.description = None
         self.id_messages = []  
         self.started = False
+    
+class Cart_Message:
+    def __init__(self, message_id: int):
+        self.id = message_id
+        self.status = None
 
 @bot.message_handler(commands = ['start'])
 def start_command(message: telebot.types.Message):
@@ -174,6 +179,7 @@ def callback_handler(callback: telebot.types.CallbackQuery):
         text = callback.message.text.split("Status: ")
         bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = "Status: ".join([text[0], "completed ✅"]))
         user_data = callback.message.text.split("\n")
+        carts[callback.message.text.split(" ")[2]].status = "completed"
         with project.app_context():
             complete_basket(mail_user = user_data[4].split(": ")[1], username = user_data[2].split(": ")[1])
 
@@ -181,6 +187,7 @@ def callback_handler(callback: telebot.types.CallbackQuery):
         text = callback.message.text.split("Status: ")
         bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = "Status: ".join([text[0], "rejected ❌"]))
         user_data = callback.message.text.split("\n")
+        carts[callback.message.text.split(" ")[2]].status = "rejected"
         with project.app_context():
             reject_basket(mail_user = user_data[4].split(": ")[1], username = user_data[2].split(": ")[1])
 
@@ -349,15 +356,15 @@ def send_cart(cart: Cart):
         send_basket(mail_user = cart.email, username = f"{cart.surname} {cart.name}", basket_text = "\n".join([f"{product_name}: {product_count} шт." for product_name, product_count in unique_products.items()] ))
         products_text = "\n".join([f"    {product_name}: {product_count} pcs." for product_name, product_count in unique_products.items()])
         cart_message = bot.send_message(chat_id =  group_chat_id, 
-                                        text = f"Cart number: {cart.id}\nUser id: {cart.user_id}\nUser surname, name: {cart.surname} {cart.name}\nUser phone number: {cart.phone_number}\nUser EMail: {cart.email}\nUser city: {cart.city}\nUser post office: {cart.post_office}\nUser wishes: {cart.additional}\nCart products: \n{products_text}\n\nStatus: under consideration ❓",
+                                        text = f"Cart number: {cart.id} \nUser id: {cart.user_id}\nUser surname, name: {cart.surname} {cart.name}\nUser phone number: {cart.phone_number}\nUser EMail: {cart.email}\nUser city: {cart.city}\nUser post office: {cart.post_office}\nUser wishes: {cart.additional}\nCart products: \n{products_text}\n\nStatus: under consideration ❓",
                                         message_thread_id = CART_THREAD_ID,
                                         reply_markup = edit_status_keyboard)
-        carts[cart.id] = cart_message.id
+        carts[str(cart.id)] = Cart_Message(message_id = cart_message.id)
         
 def delete_cart(cart_id: int):
     global carts
     print(carts)
     if  group_chat_id != None:
-        bot.delete_message(chat_id =  group_chat_id, message_id = carts[cart_id])
+        bot.delete_message(chat_id = group_chat_id, message_id = carts[str(cart_id)].id)
     
 # bot.infinity_polling()

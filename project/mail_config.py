@@ -1,8 +1,8 @@
 from .settings import project
 import flask_mail
 
-ADMINISTRATION_ADRESS = "your email"
-ADMINISTRATION_PASSWORD = "your password"
+ADMINISTRATION_ADRESS = "m.tereshonok2020@gmail.com"
+ADMINISTRATION_PASSWORD = "gkoi ufje okhw wscv"
 
 project.config["MAIL_SERVER"] = "smtp.gmail.com"
 project.config["MAIL_PORT"] = 587
