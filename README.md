@@ -141,33 +141,58 @@ flask --app settings db upgrade
 ![alt_text](static/readme/structure.png "Structure image")
 
 *_page - Папка у якій створен веб додаток і його базові складові (інші є у папці static) / The folder in which the web application and its basic components are created (others are in the static folder)
+
     app.py - Відповідає за створення і налаштування веб додатків / Responsible for creating and configuring web applications
+
     views.py - Відповідає за функцію відображення сторінки / Responsible for the page display function
+
     models.py - Відповідає за моделі (таблиці) у датабазі
+
     templates - Папка у якій зберігаються усі веб сторінки даного додатку / Folder in which all web pages of this application are stored
+
         *.html - Відповідає за конструкцію веб сторінки / Responsible for the design of the web page
 
 
+
 project - Папка, у якій створено всі складові фундаменту проекту / Folder in which all components of the foundation of the project are created
+
     login_manager.py - Відповідає за налаштування роботи з акаунтами користувачів / Responsible for setting up work with user accounts
+
     main_config.py - Відповідає за створення, налаштування електронної пошти для розсилання повідомлень і самі повідомлення / Responsible for creating, configuring e-mail for sending messages and the messages themselves
+
     settings.py - Відповідає за налаштування головного додатку проекту / Responsible for configuring the project's main application
+
     urls.py - Відповідає за підключення усіх додатків за відповідними посиланнями і підключення стороніх додатків до головного / Responsible for connecting all applications
+
     templates - Папка, у якій зберігаються базові шаблони для веб сторінок / A folder that stores basic templates for web pages
+
         acc_base.html - Відповідає за базову конструкцію сторінок для користувача який вже ввійшов у систему / Responsible for the basic design of pages for a user who has already logged into the system
+
         base.html - Відповідає за базову конструкцію сторінок на яких користувач ще не ввійшов у систему / Responsible for the basic design of pages on which the user has not yet logged in
+
 
 
 static - Папка у якій зберігаються усі статичні файли (js/css/картинки) / Folder in which all static files (js/css/images) are stored
 
+
     *_page - Папка яка відповідає за статичні файли вказаного додатка / The folder responsible for the static files of the specified application
+
         js - Папка, у якій зберігаються усі js скрипти / The folder where all js scripts are stored
+
             script.js - Файл з скриптом додатку / Application script file
+
         css - Папка, у якій зберігаються усі css стилі / The folder where all css styles are stored
+
             styles.css - Файл з стилями додатку / Application styles file
+
         images - Папка, у якій зберігаються усі зображення / The folder where all images are stored
-    project - Папка, яка містить все теж саме що й *_page, але його контенти застосуються до всіх додатків / The folder that contains everything is the same as *_page, but its contents will be applied to all applications
+        
+    project - Папка, яка містить все теж саме що й *_page, але його контенти застосуються до всіх додатків / The folder that contains everything is the same as *_page, but its contents
+
+    will be applied to all applications
+
     readme - Папка, яка містить зображення для цього README.md файлу / The folder that contains the images for this README.md file
+
 
 manage.py - Файл, який запускає веб додаток і телеграм бота / The file that runs the web application and the Telegram bot
 
@@ -670,6 +695,7 @@ _тут немає форм для опису_ / _there are no forms to describe
 
 ### Конструкція шаблону acc_base.html / Construction of the acc_base.html template
 Тут створена базовий шаблон, тобто те, с чого точно складається кожна сторінка. / A basic template is created here, that is, what exactly each page consists of.
+
 Цей шаблон використовується у шаблонах які працюють з користувачем який ще не ввійшов. / This template is used in templates that work with a user who has not yet logged in.
 ```html
 <html lang="en">
@@ -689,6 +715,7 @@ _тут немає форм для опису_ / _there are no forms to describe
 
 ### Конструкція шаблону base.html / 
 Тут створена базовий шаблон, тобто те, с чого точно складається кожна сторінка. / A basic template is created here, that is, what exactly each page consists of.
+
 Цей шаблон використовується у шаблонах які працюють з користувачем який вже ввійшов. / This template is used in templates that work with a user who has logged in.
 ```html
 <html lang="en">
