@@ -9,7 +9,7 @@
 ### Для більш наглядного і зручного ознайомлення пропонуємо переглянути демо версію проекту  / or a more visual and convenient introduction, we suggest viewing the demo version of the project
 
 <!-- ![alt_text](static/readme/structure.png "Structure image") -->
-https://github.com/TereshonokMaksim/Shop-Flask/assets/121506340/b1c6a289-0483-491b-bb88-1414d6b57a63
+![something](https://github.com/TereshonokMaksim/Shop-Flask/assets/121506340/b1c6a289-0483-491b-bb88-1414d6b57a63)
 _оскільки це демо версія, то доступ до багатьох функцій буде неможливий. для отримання доступу до всіх функцій пропонуємо вам викласти на хост цей самий проект, як це зробити буде сказано нижче_ / _since this is a demo version, access to many functions will not be possible. in order to gain access to all functions, we suggest that you upload this same project to the host, how to do it will be explained below_
 
 ---
