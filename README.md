@@ -7,7 +7,7 @@
 ---
 
 ### Для більш наглядного і зручного ознайомлення пропонуємо переглянути демо версію проекту  / or a more visual and convenient introduction, we suggest viewing the demo version of the project
-![демо версію проекта](static\readme\demo_video.mp4 "Демо")
+![демо версію проекта](/static/readme/demo_video.mp4 "Демо")
 _оскільки це демо версія, то доступ до багатьох функцій буде неможливий. для отримання доступу до всіх функцій пропонуємо вам викласти на хост цей самий проект, як це зробити буде сказано нижче_ / _since this is a demo version, access to many functions will not be possible. in order to gain access to all functions, we suggest that you upload this same project to the host, how to do it will be explained below_
 
 ---
