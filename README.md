@@ -1,8 +1,8 @@
 # Flask Shop проект / Flask Shop project
-### Проєкт, який створенний для продажу різноманітного товару з великою зручністю! / A project that was created to sell a variety of goods with great convenience!
-### Для ваших покупців буде доступний зручний інтерфейс для покупки будь якого товару які будуть додані вами / A convenient interface will be available for your customers to purchase any product added by you
+#### Проєкт, який створенний для продажу різноманітного товару з великою зручністю! / A project that was created to sell a variety of goods with great convenience!
+#### Для ваших покупців буде доступний зручний інтерфейс для покупки будь якого товару які будуть додані вами / A convenient interface will be available for your customers to purchase any product added by you
 
-### Для вас же буде доступний широкий вибір інструментів для модерування сайту навіть з телефону за допомогою телеграму! / A wide selection of site moderation tools will be available to you even from your phone using Telegram!
+#### Для вас же буде доступний широкий вибір інструментів для модерування сайту навіть з телефону за допомогою телеграму! / A wide selection of site moderation tools will be available to you even from your phone using Telegram!
 
 ---
 
