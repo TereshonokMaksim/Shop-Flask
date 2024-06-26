@@ -82,6 +82,9 @@ telebot==0.0.5
 
 ---
 
+<details>
+<summary>Натисність щоб побачити інструкцію по запуску додатка / Click to see instructions for launching the application </summary>
+
 ## Як можна почати користуватись цим веб додатком? / How can I start using this web application?
 ### Інструкція для локального серверу: / Instructions for the local server:
 1. >Завантажте цей файл у необхідну вам папку (зробити це можна за допомогою завантажування ZIP папки після натиснення на зелену кнопку "Code" зверху) / Download this file to the folder you need (you can do this by downloading a ZIP folder after clicking on the green "Code" button above)
@@ -132,13 +135,7 @@ flask --app settings db upgrade
 7. >Натисніть на кнопку "Перезавантажити {ваш логін}.pythonanywhere.com / Click on the button "Reset {your login}.pythonanywhere.com
 
 8. >Готово! Ви завантажили свій проект на pythonanywhere! / Done! You have uploaded your project to pythonanywhere!
-
----
-
-# Опис файлів додатку / Description of application files
-## Далі ви побачите опис усіх важливих частин цього веб-додатку / Below you will see a description of all the important parts of this web application
-
----
+</details>
 
 <details>
 <summary>Натисність щоб побачити пояснення нашого вибору в SQLite3 / Click to see an explanation of our choices in SQLite3</summary>
@@ -162,6 +159,13 @@ flask --app settings db upgrade
 #### Бази даних є фундаментальним елементом сучасних додатків для організації та зберігання даних. SQLite3 забезпечує простоту використання та легкість інтеграції, роблячи її відмінним вибором для невеликих проектів. ID, як унікальний ідентифікатор, грає ключову роль у забезпеченні цілісності та ефективності роботи бази даних. / Databases are a fundamental element of modern applications for organizing and storing data. SQLite3 provides ease of use and ease of integration, making it an excellent choice for small projects. ID, as a unique identifier, plays a key role in ensuring the integrity and efficiency of the database.
 
 </details>
+
+---
+
+# Опис файлів додатку / Description of application files
+## Далі ви побачите опис усіх важливих частин цього веб-додатку / Below you will see a description of all the important parts of this web application
+
+---
 
 <details>
 <summary>Натисність щоб побачити структуру проекту / Click to see the project structure </summary>
@@ -251,7 +255,7 @@ project = flask.Flask(
     static_folder = "static"  # Папка зі статичними файлами / Static files folder
 )
 ```
-
+#### Цей файл відповідає за налаштування роботи усього проекту, але не бази даних (окрім instance_path) / This file is responsible for configuring the operation of the entire project, but not the database (except for instance_path)
 _тут показано тільки створення додатку, не налаштування його_ / _only the creation of the application is shown here, not its configuration_
 
 ---
@@ -268,8 +272,8 @@ login_app = flask.Blueprint(
     static_folder = "static/authorization_page",
     static_url_path = "/authorization/"
 )
-
 ```
+#### Цей файл відповідає за створення стороннього додатку і налаштування його шляхів
 
 _Це є тільки прикладом основаним на authorization-page. Інші файли мають різні імена_ / _This is just an example based on the authorization-page. Other files have different names_
 
@@ -293,6 +297,7 @@ home_page.home_app.add_url_rule(
 
 project.register_blueprint(blueprint = home_page.home_app)  # Реєструємо blueprint для домашньої сторінки / Register the blueprint for the home page
 ```
+#### Цей файл відповідає за підключення стороннього додатку до головного / This file is responsible for connecting a third-party application to the main one
 
 _Це є тільки прикладом основаним на home-page. Інші файли мають різні імена_ / _This is just an example based on the home-page. Other files have different names_
 
@@ -319,6 +324,7 @@ database = flask_sqlalchemy.SQLAlchemy(app = project)
 # Ініціалізація Flask-Migrate з додатком та базою даних / Initializing Flask-Migrate with the application and database
 migrate = flask_migrate.Migrate(app = project, db = database)
 ```
+#### Це повна версія файлу settings з повним налаштуванням основних частин проекту (шляхів) і база даних / This is the full version of the settings file with full configuration of the main parts of the project (paths) and the database
 
 ### Налаштування електронної пошти: / E-mail settings:
 
@@ -377,6 +383,7 @@ def complete_basket(mail_user: str, username: str):
     )
     mail.send(message = message) # Відправляємо повідомлення / Sending message
 ```
+#### Цей файл відповідає за повне налаштування роботи електроної пошти проекту та за створення функцій для надсилання самих повідомлень / This file is responsible for fully configuring the project's e-mail functionality and for creating functions for sending the messages themselves
 
 ### Налаштування робити з акаунтами користувачів: / Settings to be made with user accounts:
 
@@ -397,6 +404,7 @@ def load_user(id):
     # Повертає користувача за його ID / Returns a user by their ID
     return User.query.get(id)
 ```
+#### Цей файл відповідає за налаштування роботи з акаунтами користувачів і за їх захист (да, таємний ключ саме такий) / This file is responsible for setting up work with user accounts and protecting them (yes, the secret key is exactly that)
 
 ### Створення моделей у датабазі:
 
@@ -467,7 +475,7 @@ class Cart(database.Model):
     # Створюємо колонку додаткових побажань замовника кошика / We create a column of additional wishes of the customer of the basket
     additional = database.Column(database.Text, nullable = True)
 ```
-_тут представлена кожна модель яка створена у додатку_
+#### Цей файл відповідає за створення усіх моделей бази даних у додатку / This file is responsible for creating all the database models in the application
 
 ---
 
@@ -686,6 +694,7 @@ _тут представлена кожна модель яка створена
 {% endblock %}
 ```
 #### Єдина форма у цьому шаблоні відповідає за скасування замовлення при натисканні на відповідну кнопку / The only form in this template is responsible for canceling the order when you click on the corresponding button
+#### Цей шаблон з'являється якщо користувач вже оформив замовлення / This template appears if the user has already placed an order
 
 ### Конструкція шаблону basket.html: / The design of the basket.html template:
 ```html
@@ -764,9 +773,9 @@ _тут представлена кожна модель яка створена
 {% endblock %}
 ```
 #### Форма "input-form" відповідає за надсилання даних замовника / The "input-form" form is responsible for sending customer data 
+#### Цей шаблон з'являється якщо користувач ще не оформив своє замовлення / This template appears if the user has not placed an order yet
 
 ### Конструкція шаблону not_logined_home.html / Design of the not_logined_home.html template
-Він відрізняється від logined_home.html тим, що показується тільки тоди, коли користувач ще не ввійшов у акаунт і має відповідні посилання на авторизацію і регистрацію
 
 ```html
 {% extends "base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
@@ -783,7 +792,9 @@ _тут представлена кожна модель яка створена
     </div>
 {% endblock %}
 ```
-_тут немає форм для опису_
+#### Цей шаблон показується якщо користувач вже ввійшов в акаунт / This template is displayed if the user is already logged into the account
+
+_тут немає форм для опису_ / _there are no forms to describe_
 
 ### Конструкція шаблону not_logined_home.html / Design of the not_logined_home.html template
 
@@ -804,12 +815,12 @@ _тут немає форм для опису_
     <h1 class="main-header"> HOME PAGE </h1>  <!-- Заголовок головної сторінки / Main page header -->
 {% endblock %}
 ```
+#### Цей шаблон показується якщо користувач ще не ввійшов в акаунт / This template is displayed if the user is not yet logged into the account
+
 _тут немає форм для опису_ / _there are no forms to describe_
 
 ### Конструкція шаблону acc_base.html / Construction of the acc_base.html template
-Тут створена базовий шаблон, тобто те, с чого точно складається кожна сторінка. / A basic template is created here, that is, what exactly each page consists of.
 
-Цей шаблон використовується у шаблонах які працюють з користувачем який ще не ввійшов. / This template is used in templates that work with a user who has not yet logged in.
 ```html
 <html lang="en"> <!-- Визначення мови сторінки як англійська / Define the language of the page as English -->
     <head> <!-- Відкриття тега head, який містить метадані документа / Opening head tag, which contains the document's metadata -->
@@ -825,11 +836,10 @@ _тут немає форм для опису_ / _there are no forms to describe
     </body> <!-- Закриття тега body / Closing body tag -->
 </html> <!-- Закриття тега html / Closing html tag -->
 ```
+#### Тут створена базовий шаблон, тобто те, с чого точно складається кожна сторінка. / A basic template is created here, that is, what exactly each page consists of.
+#### Цей шаблон використовується у шаблонах які працюють з користувачем який ще не ввійшов. / This template is used in templates that work with a user who has not yet logged in.
 
 ### Конструкція шаблону base.html / Construction of the base.html template
-Тут створена базовий шаблон, тобто те, с чого точно складається кожна сторінка. / A basic template is created here, that is, what exactly each page consists of.
-
-Цей шаблон використовується у шаблонах які працюють з користувачем який вже ввійшов. / This template is used in templates that work with a user who has logged in.
 ```html
 <html lang="en"> <!-- Визначення мови сторінки як англійська / Define the language of the page as English -->
     <head> <!-- Відкриття тега head, який містить метадані документа / Opening head tag, which contains the document's metadata -->
@@ -866,6 +876,8 @@ _тут немає форм для опису_ / _there are no forms to describe
     </body> <!-- Закриття тега body / Closing body tag -->
 </html> <!-- Закриття тега html / Closing html tag -->
 ```
+#### Тут створена базовий шаблон, тобто те, с чого точно складається кожна сторінка. / A basic template is created here, that is, what exactly each page consists of.
+#### Цей шаблон використовується у шаблонах які працюють з користувачем який вже ввійшов. / This template is used in templates that work with a user who has logged in.
 
 ### Конструкція шаблону registration.html: / Construction of the registration.html template:
 
