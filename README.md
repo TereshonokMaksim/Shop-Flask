@@ -139,240 +139,244 @@ flask --app settings db upgrade
 ## Далі ви побачите опис усіх важливих частин цього веб-додатку / Below you will see a description of all the important parts of this web application
 
 ---
-
-### Структура проекту / Project structure
-#### Нижче приведена структура нашого проекту / Below is the structure of our project
-
-![alt_text](static/readme/structure.png "Structure image")
-
-*_page - Папка у якій створен веб додаток і його базові складові (інші є у папці static) / The folder in which the web application and its basic components are created (others are in the static folder)
-
-    app.py - Відповідає за створення і налаштування веб додатків / Responsible for creating and configuring web applications
-
-    views.py - Відповідає за функцію відображення сторінки / Responsible for the page display function
-
-    models.py - Відповідає за моделі (таблиці) у датабазі
-
-    templates - Папка у якій зберігаються усі веб сторінки даного додатку / Folder in which all web pages of this application are stored
-
-        *.html - Відповідає за конструкцію веб сторінки / Responsible for the design of the web page
-
-
-
-project - Папка, у якій створено всі складові фундаменту проекту / Folder in which all components of the foundation of the project are created
-
-    login_manager.py - Відповідає за налаштування роботи з акаунтами користувачів / Responsible for setting up work with user accounts
-
-    main_config.py - Відповідає за створення, налаштування електронної пошти для розсилання повідомлень і самі повідомлення / Responsible for creating, configuring e-mail for sending messages and the messages themselves
-
-    settings.py - Відповідає за налаштування головного додатку проекту / Responsible for configuring the project's main application
-
-    urls.py - Відповідає за підключення усіх додатків за відповідними посиланнями і підключення стороніх додатків до головного / Responsible for connecting all applications
-
-    templates - Папка, у якій зберігаються базові шаблони для веб сторінок / A folder that stores basic templates for web pages
-
-        acc_base.html - Відповідає за базову конструкцію сторінок для користувача який вже ввійшов у систему / Responsible for the basic design of pages for a user who has already logged into the system
-
-        base.html - Відповідає за базову конструкцію сторінок на яких користувач ще не ввійшов у систему / Responsible for the basic design of pages on which the user has not yet logged in
-
-
-
-static - Папка у якій зберігаються усі статичні файли (js/css/картинки) / Folder in which all static files (js/css/images) are stored
-
-
-    *_page - Папка яка відповідає за статичні файли вказаного додатка / The folder responsible for the static files of the specified application
-
-        js - Папка, у якій зберігаються усі js скрипти / The folder where all js scripts are stored
-
-            script.js - Файл з скриптом додатку / Application script file
-
-        css - Папка, у якій зберігаються усі css стилі / The folder where all css styles are stored
-
-            styles.css - Файл з стилями додатку / Application styles file
-
-        images - Папка, у якій зберігаються усі зображення / The folder where all images are stored
-        
-    project - Папка, яка містить все теж саме що й *_page, але його контенти застосуються до всіх додатків / The folder that contains everything is the same as *_page, but its contents
-
-    will be applied to all applications
-
-    readme - Папка, яка містить зображення для цього README.md файлу / The folder that contains the images for this README.md file
-
-
-manage.py - Файл, який запускає веб додаток і телеграм бота / The file that runs the web application and the Telegram bot
-
-README.md - Файл, котрий ви зараз читаєте. Створенний для пояснювання проекту для оточуючих. / The file you are currently reading. Created to explain the project to others. 
-
--* - Любий текст, використовується якщо багато папок мають однаковий контекст щоб узагальнити їх / Any text, used if many folders have the same context to summarize them
-
----
-
 <details>
-    <summary>Побачити конструкцію та код основних частин додатку</summary>
+    <summary>Натисність щоб побачити структуру проекту</summary>
+    ### Структура проекту / Project structure
+    #### Нижче приведена структура нашого проекту / Below is the structure of our project
 
-### Створення головного додатку: / Creating the main application:
+    ![alt_text](static/readme/structure.png "Structure image")
 
-```python
-import flask, os
+    *_page - Папка у якій створен веб додаток і його базові складові (інші є у папці static) / The folder in which the web application and its basic components are created (others are in the static folder)
 
-# Створення Flask додатку з налаштуваннями / Creating a Flask application with settings
-project = flask.Flask(
-    import_name = "settings",  # Ім'я імпорту для додатку / Import name for the application
-    template_folder = "project/templates",  # Папка з шаблонами / Template folder
-    instance_path = os.path.abspath(__file__ + "/.."),  # Абсолютний шлях до папки з екземплярами / Absolute path to the instance folder
-    static_folder = "static"  # Папка зі статичними файлами / Static files folder
-)
-```
+        app.py - Відповідає за створення і налаштування веб додатків / Responsible for creating and configuring web applications
 
-_тут показано тільки створення додатку, не налаштування його_ / _only the creation of the application is shown here, not its configuration_
+        views.py - Відповідає за функцію відображення сторінки / Responsible for the page display function
 
----
+        models.py - Відповідає за моделі (таблиці) у датабазі
 
-### Створення стороннього додатку (додатку сторінки): / Creating a third-party application (page application):
+        templates - Папка у якій зберігаються усі веб сторінки даного додатку / Folder in which all web pages of this application are stored
 
-```python
-import flask 
+            *.html - Відповідає за конструкцію веб сторінки / Responsible for the design of the web page
 
-login_app = flask.Blueprint(
-    name = "authorization",
-    import_name = "app",
-    template_folder = "authorization_page/templates",
-    static_folder = "static/authorization_page",
-    static_url_path = "/authorization/"
-)
 
-```
 
-_Це є тільки прикладом основаним на authorization-page. Інші файли мають різні імена_ / _This is just an example based on the authorization-page. Other files have different names_
+    project - Папка, у якій створено всі складові фундаменту проекту / Folder in which all components of the foundation of the project are created
 
----
+        login_manager.py - Відповідає за налаштування роботи з акаунтами користувачів / Responsible for setting up work with user accounts
 
-### Налаштування стороннього додатку у urls.py / Setting up a third-party application in urls.py
+        main_config.py - Відповідає за створення, налаштування електронної пошти для розсилання повідомлень і самі повідомлення / Responsible for creating, configuring e-mail for sending messages and the messages themselves
 
-```python
-# Імпортуємо сторінку програми / Import modules page of the application
-import home_page, authorization_page, registration_page, shop_page, basket_page, admin_page
-# Імпортуємо додаток з модуля реєстрації / Import the app from the registration module
-import registration_page.app
-# Імпортуємо об'єкт проекту з налаштувань / Import the project object from settings
-from .settings import project
+        settings.py - Відповідає за налаштування головного додатку проекту / Responsible for configuring the project's main application
 
-# Додаємо URL-правило для домашньої сторінки / Add URL rule for the home page
-home_page.home_app.add_url_rule(
-    rule = "/",  # Шлях для домашньої сторінки / Path for the home page
-    view_func = home_page.show_home_page  # Функція відображення домашньої сторінки / Function to display the home page
-)
+        urls.py - Відповідає за підключення усіх додатків за відповідними посиланнями і підключення стороніх додатків до головного / Responsible for connecting all applications
 
-project.register_blueprint(blueprint = home_page.home_app)  # Реєструємо blueprint для домашньої сторінки / Register the blueprint for the home page
-```
+        templates - Папка, у якій зберігаються базові шаблони для веб сторінок / A folder that stores basic templates for web pages
 
-_Це є тільки прикладом основаним на home-page. Інші файли мають різні імена_ / _This is just an example based on the home-page. Other files have different names_
+            acc_base.html - Відповідає за базову конструкцію сторінок для користувача який вже ввійшов у систему / Responsible for the basic design of pages for a user who has already logged into the system
 
----
+            base.html - Відповідає за базову конструкцію сторінок на яких користувач ще не ввійшов у систему / Responsible for the basic design of pages on which the user has not yet logged in
 
-### Налаштування головного додатку: / Settings of the main application:
 
-```python
-import flask, os, flask_migrate, flask_sqlalchemy
 
-# Створення Flask додатку з налаштуваннями / Creating a Flask application with settings
-project = flask.Flask(
-    import_name = "settings",  # Ім'я імпорту для додатку / Import name for the application
-    template_folder = "project/templates",  # Папка з шаблонами / Template folder
-    instance_path = os.path.abspath(__file__ + "/.."),  # Абсолютний шлях до папки з екземплярами / Absolute path to the instance folder
-    static_folder = "static"  # Папка зі статичними файлами / Static files folder
-)
+    static - Папка у якій зберігаються усі статичні файли (js/css/картинки) / Folder in which all static files (js/css/images) are stored
 
-# Налаштування URI для бази даних / Setting the database URI
-project.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 
-# Ініціалізація SQLAlchemy з додатком / Initializing SQLAlchemy with the application
-database = flask_sqlalchemy.SQLAlchemy(app = project)
-# Ініціалізація Flask-Migrate з додатком та базою даних / Initializing Flask-Migrate with the application and database
-migrate = flask_migrate.Migrate(app = project, db = database)
-```
+        *_page - Папка яка відповідає за статичні файли вказаного додатка / The folder responsible for the static files of the specified application
 
-### Налаштування електронної пошти: / E-mail settings:
+            js - Папка, у якій зберігаються усі js скрипти / The folder where all js scripts are stored
 
-```python
-from .settings import project # Імпортуємо веб додаток з головного файлу
-import flask_mail # Імпортуємо 
+                script.js - Файл з скриптом додатку / Application script file
 
-# Адреса адміністрації / Administration address
-ADMINISTRATION_ADRESS = "m.tereshonok2020@gmail.com"
-# Пароль адміністрації / Administration password
-ADMINISTRATION_PASSWORD = "gkoi ufje okhw wscv"
+            css - Папка, у якій зберігаються усі css стилі / The folder where all css styles are stored
 
-# Налаштування сервера для надсилання пошти / Configuring the mail server
-project.config["MAIL_SERVER"] = "smtp.gmail.com"
-project.config["MAIL_PORT"] = 587  # Порт для сервера / Server port
-project.config["MAIL_USE_TLS"] = True  # Дозволяємо використання TLS / Allowing use of TLS
-project.config["MAIL_USERNAME"] = ADMINISTRATION_ADRESS  # Задаємо пошту / Setting mail
-project.config["MAIL_PASSWORD"] = ADMINISTRATION_PASSWORD  # Пароль / Password
+                styles.css - Файл з стилями додатку / Application styles file
 
-# Ініціалізація Flask-Mail з додатком / Initializing Flask-Mail with the application
-mail = flask_mail.Mail(app = project)
+            images - Папка, у якій зберігаються усі зображення / The folder where all images are stored
+            
+        project - Папка, яка містить все теж саме що й *_page, але його контенти застосуються до всіх додатків / The folder that contains everything is the same as *_page, but its contents
 
-# Функція для відправки кошика користувачеві / Function to send the basket to the user
-def send_basket(mail_user: str, username: str, basket_text: str):
-    # Створюємо повідомлення / Creating message
-    print("sent 1")
-    message = flask_mail.Message(
-        subject = "Ваш кошик",  # Тема листа / Email subject
-        recipients = [mail_user],  # Одержувачі / Recipients
-        body = f"Привіт, {username}!\n\n Ваше замовлення: \n\n{basket_text}\n\nДякуємо за замовлення, гарного дня!",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    print("sent 2")
-    mail.send(message = message) # Відправляємо повідомлення / Sending message
-    print("sent orig")
+        will be applied to all applications
 
-# Функція для відхилення кошика користувача / Function to reject the user's basket
-def reject_basket(mail_user: str, username: str):
-    # Створюємо повідомлення / Creating message
-    message = flask_mail.Message(
-        subject = "Статус вашого замовлення",  # Тема листа / Email subject
-        recipients = [mail_user],  # Одержувачі / Recipients
-        body = f"Привіт, {username}!\n\n Ваше замовлення було відхилено продавцем магазину.\n\nВибачаемося за незручності, гарного дня!",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = message) # Відправляємо повідомлення / Sending message
+        readme - Папка, яка містить зображення для цього README.md файлу / The folder that contains the images for this README.md file
 
-# Функція для підтвердження виконання замовлення / Function to confirm order completion
-def complete_basket(mail_user: str, username: str):
-    # Створюємо повідомлення / Creating message
-    message = flask_mail.Message(
-        subject = "Статус вашого замовлення",  # Тема листа / Email subject
-        recipients = [mail_user],  # Одержувачі / Recipients
-        body = f"Привіт, {username}!\n\n Ваше замовлення вже зібрано та відправлено у дорогу!\n\nДякуємо за ваше замовлення, гарного дня!",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = message) # Відправляємо повідомлення / Sending message
-```
 
-### Налаштування робити з акаунтами користувачів: / Settings to be made with user accounts:
+    manage.py - Файл, який запускає веб додаток і телеграм бота / The file that runs the web application and the Telegram bot
 
-```python
-from flask_login import LoginManager # Імпортуємо клас мененджера логіну для 
-from .settings import project
-from home_page.models import User
+    README.md - Файл, котрий ви зараз читаєте. Створенний для пояснювання проекту для оточуючих. / The file you are currently reading. Created to explain the project to others. 
 
-# Секретний ключ для додатку / Secret key for the application
-project.secret_key = "😎😎😎"
+    -* - Любий текст, використовується якщо багато папок мають однаковий контекст щоб узагальнити їх / Any text, used if many folders have the same context to summarize them
 
-# Ініціалізація LoginManager з додатком / Initializing LoginManager with the application
-login_manager = LoginManager(app = project)
-
-# Функція завантаження користувача / User loader function
-@login_manager.user_loader
-def load_user(id):
-    # Повертає користувача за його ID / Returns a user by their ID
-    return User.query.get(id)
-```
+    ---
 
 </details>
 
----
+<details>
+    <summary>Натисність щоб побачити конструкцію та код основних частин додатку</summary>
+
+    ### Створення головного додатку: / Creating the main application:
+
+    ```python
+    import flask, os
+
+    # Створення Flask додатку з налаштуваннями / Creating a Flask application with settings
+    project = flask.Flask(
+        import_name = "settings",  # Ім'я імпорту для додатку / Import name for the application
+        template_folder = "project/templates",  # Папка з шаблонами / Template folder
+        instance_path = os.path.abspath(__file__ + "/.."),  # Абсолютний шлях до папки з екземплярами / Absolute path to the instance folder
+        static_folder = "static"  # Папка зі статичними файлами / Static files folder
+    )
+    ```
+
+    _тут показано тільки створення додатку, не налаштування його_ / _only the creation of the application is shown here, not its configuration_
+
+    ---
+
+    ### Створення стороннього додатку (додатку сторінки): / Creating a third-party application (page application):
+
+    ```python
+    import flask 
+
+    login_app = flask.Blueprint(
+        name = "authorization",
+        import_name = "app",
+        template_folder = "authorization_page/templates",
+        static_folder = "static/authorization_page",
+        static_url_path = "/authorization/"
+    )
+
+    ```
+
+    _Це є тільки прикладом основаним на authorization-page. Інші файли мають різні імена_ / _This is just an example based on the authorization-page. Other files have different names_
+
+    ---
+
+    ### Налаштування стороннього додатку у urls.py / Setting up a third-party application in urls.py
+
+    ```python
+    # Імпортуємо сторінку програми / Import modules page of the application
+    import home_page, authorization_page, registration_page, shop_page, basket_page, admin_page
+    # Імпортуємо додаток з модуля реєстрації / Import the app from the registration module
+    import registration_page.app
+    # Імпортуємо об'єкт проекту з налаштувань / Import the project object from settings
+    from .settings import project
+
+    # Додаємо URL-правило для домашньої сторінки / Add URL rule for the home page
+    home_page.home_app.add_url_rule(
+        rule = "/",  # Шлях для домашньої сторінки / Path for the home page
+        view_func = home_page.show_home_page  # Функція відображення домашньої сторінки / Function to display the home page
+    )
+
+    project.register_blueprint(blueprint = home_page.home_app)  # Реєструємо blueprint для домашньої сторінки / Register the blueprint for the home page
+    ```
+
+    _Це є тільки прикладом основаним на home-page. Інші файли мають різні імена_ / _This is just an example based on the home-page. Other files have different names_
+
+    ---
+
+    ### Налаштування головного додатку: / Settings of the main application:
+
+    ```python
+    import flask, os, flask_migrate, flask_sqlalchemy
+
+    # Створення Flask додатку з налаштуваннями / Creating a Flask application with settings
+    project = flask.Flask(
+        import_name = "settings",  # Ім'я імпорту для додатку / Import name for the application
+        template_folder = "project/templates",  # Папка з шаблонами / Template folder
+        instance_path = os.path.abspath(__file__ + "/.."),  # Абсолютний шлях до папки з екземплярами / Absolute path to the instance folder
+        static_folder = "static"  # Папка зі статичними файлами / Static files folder
+    )
+
+    # Налаштування URI для бази даних / Setting the database URI
+    project.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
+
+    # Ініціалізація SQLAlchemy з додатком / Initializing SQLAlchemy with the application
+    database = flask_sqlalchemy.SQLAlchemy(app = project)
+    # Ініціалізація Flask-Migrate з додатком та базою даних / Initializing Flask-Migrate with the application and database
+    migrate = flask_migrate.Migrate(app = project, db = database)
+    ```
+
+    ### Налаштування електронної пошти: / E-mail settings:
+
+    ```python
+    from .settings import project # Імпортуємо веб додаток з головного файлу
+    import flask_mail # Імпортуємо 
+
+    # Адреса адміністрації / Administration address
+    ADMINISTRATION_ADRESS = "m.tereshonok2020@gmail.com"
+    # Пароль адміністрації / Administration password
+    ADMINISTRATION_PASSWORD = "gkoi ufje okhw wscv"
+
+    # Налаштування сервера для надсилання пошти / Configuring the mail server
+    project.config["MAIL_SERVER"] = "smtp.gmail.com"
+    project.config["MAIL_PORT"] = 587  # Порт для сервера / Server port
+    project.config["MAIL_USE_TLS"] = True  # Дозволяємо використання TLS / Allowing use of TLS
+    project.config["MAIL_USERNAME"] = ADMINISTRATION_ADRESS  # Задаємо пошту / Setting mail
+    project.config["MAIL_PASSWORD"] = ADMINISTRATION_PASSWORD  # Пароль / Password
+
+    # Ініціалізація Flask-Mail з додатком / Initializing Flask-Mail with the application
+    mail = flask_mail.Mail(app = project)
+
+    # Функція для відправки кошика користувачеві / Function to send the basket to the user
+    def send_basket(mail_user: str, username: str, basket_text: str):
+        # Створюємо повідомлення / Creating message
+        print("sent 1")
+        message = flask_mail.Message(
+            subject = "Ваш кошик",  # Тема листа / Email subject
+            recipients = [mail_user],  # Одержувачі / Recipients
+            body = f"Привіт, {username}!\n\n Ваше замовлення: \n\n{basket_text}\n\nДякуємо за замовлення, гарного дня!",  # Тіло листа / Email body
+            sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+        )
+        print("sent 2")
+        mail.send(message = message) # Відправляємо повідомлення / Sending message
+        print("sent orig")
+
+    # Функція для відхилення кошика користувача / Function to reject the user's basket
+    def reject_basket(mail_user: str, username: str):
+        # Створюємо повідомлення / Creating message
+        message = flask_mail.Message(
+            subject = "Статус вашого замовлення",  # Тема листа / Email subject
+            recipients = [mail_user],  # Одержувачі / Recipients
+            body = f"Привіт, {username}!\n\n Ваше замовлення було відхилено продавцем магазину.\n\nВибачаемося за незручності, гарного дня!",  # Тіло листа / Email body
+            sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+        )
+        mail.send(message = message) # Відправляємо повідомлення / Sending message
+
+    # Функція для підтвердження виконання замовлення / Function to confirm order completion
+    def complete_basket(mail_user: str, username: str):
+        # Створюємо повідомлення / Creating message
+        message = flask_mail.Message(
+            subject = "Статус вашого замовлення",  # Тема листа / Email subject
+            recipients = [mail_user],  # Одержувачі / Recipients
+            body = f"Привіт, {username}!\n\n Ваше замовлення вже зібрано та відправлено у дорогу!\n\nДякуємо за ваше замовлення, гарного дня!",  # Тіло листа / Email body
+            sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+        )
+        mail.send(message = message) # Відправляємо повідомлення / Sending message
+    ```
+
+    ### Налаштування робити з акаунтами користувачів: / Settings to be made with user accounts:
+
+    ```python
+    from flask_login import LoginManager # Імпортуємо клас мененджера логіну для 
+    from .settings import project
+    from home_page.models import User
+
+    # Секретний ключ для додатку / Secret key for the application
+    project.secret_key = "😎😎😎"
+
+    # Ініціалізація LoginManager з додатком / Initializing LoginManager with the application
+    login_manager = LoginManager(app = project)
+
+    # Функція завантаження користувача / User loader function
+    @login_manager.user_loader
+    def load_user(id):
+        # Повертає користувача за його ID / Returns a user by their ID
+        return User.query.get(id)
+    ```
+
+    ---
+
+</details>
+
 
 <details>
     <summary>Натисність щоб побачити всі шаблони .html з поясненнями до них</summary>
@@ -879,7 +883,265 @@ def load_user(id):
 
 </details>
 
-## Далі будуть приведени
+<details>
+    <summary>Натисність щоб побачити конструкцію та код файлів views з відповідними поясненнями</summary>
+    ## Далі будуть приведені код файлів views з відповідними поясненнями
+
+    ### Код views.py сторінки адміністрації
+
+    ```python
+    import flask  # Імпорт бібліотеки Flask / Import the Flask library
+    from flask_login import current_user  # Імпорт змінної для отримання поточного користувача / Import a variable to get the current user
+    import os  # Імпорт бібліотеки для роботи з операційною системою / Import the library for operating system tasks
+    from project.settings import database  # Імпорт налаштувань бази даних з проекту / Import the database settings from the project
+    from home_page.models import Product, Cart  # Імпорт моделей Product і Cart з модуля home_page / Import the Product and Cart models from the home_page module
+
+    def show_admin_page():  # Визначення функції для показу адміністративної сторінки / Define a function to show the admin page
+        try:  # Початок блоку обробки виключень / Start of the exception handling block
+            if current_user.admin != 0:  # Перевірка, чи користувач є адміністратором / Check if the user is an admin
+                if flask.request.method == "POST":  # Перевірка методу запиту / Check the request method
+                    form_data = dict(flask.request.form)  # Отримання даних форми з запиту / Get form data from the request
+                    if 'new_product' in form_data.keys():  # Перевірка наявності ключа 'new_product' у формі / Check if 'new_product' key is in the form
+                        new_product = Product(  # Створення нового продукту / Create a new product
+                            name = form_data['product_name'],  # Встановлення імені продукту / Set the product name
+                            description = form_data['product_description'],  # Встановлення опису продукту / Set the product description
+                            price = int(form_data['product_price']),  # Встановлення ціни продукту / Set the product price
+                            discount = int(form_data['product_discount']),  # Встановлення знижки на продукт / Set the product discount
+                            in_stock = 1  # Встановлення наявності продукту в наявності / Set the product as in stock
+                            )
+                        # Збереження зображення продукту / Save the product image
+                        flask.request.files['product_image'].save(dst = os.path.abspath(__file__ + f'/../../static/shop_page/images/{new_product.name}.png'))
+                        database.session.add(new_product)  # Додавання нового продукту до сесії бази даних / Add the new product to the database session
+                        database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
+
+                    elif 'delete_product' in form_data.keys():  # Перевірка наявності ключа 'delete_product' у формі / Check if 'delete_product' key is in the form
+                        delete_product = Product.query.get(form_data['delete_product'])  # Отримання продукту для видалення з бази даних / Get the product to delete from the database
+                        if delete_product != None:  # Перевірка, чи існує продукт / Check if the product exists
+                            image_path = os.path.abspath(__file__ + f'/../../static/shop_page/images/{delete_product.name}.png')  # Отримання шляху до зображення продукту / Get the product image path
+                            
+                            if os.path.exists(image_path):  # Перевірка, чи існує зображення / Check if the image exists
+                                os.remove(image_path)  # Видалення зображення продукту / Remove the product image
+                            database.session.delete(delete_product)  # Видалення продукту з бази даних / Delete the product from the database
+                            database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
+                    else:  # Інші дії з продуктами / Other actions with products
+                        if list(flask.request.files.values())[0] != None:  # Перевірка наявності файлів у запиті / Check if files are present in the request
+                            input_key = list(form_data.keys())[0]  # Отримання ключа з форми / Get the key from the form
+                            value = form_data[input_key]  # Отримання значення з форми / Get the value from the form
+                        else:
+                            input_key = list(flask.request.files.keys())[0]  # Отримання ключа файлу з запиту / Get the file key from the request
+                        print(input_key, input_key)  # Виведення ключа для дебагу / Print the key for debugging
+                        product = Product.query.get(input_key.split("-")[2])  # Отримання продукту за ключем / Get the product by key
+                        print(form_data, product, input_key.split("-")[2])  # Виведення даних для дебагу / Print the data for debugging
+                        if "name" in input_key:  # Перевірка, чи ключ містить 'name' / Check if the key contains 'name'
+                            # Перейменування зображення продукту / Rename the product image
+                            os.rename(os.path.abspath(__file__ + f"/../../static/shop_page/images/{product.name}.png"), 
+                                    os.path.abspath(__file__ + f"/../../static/shop_page/images/{value}.png"))
+                            product.name = value  # Оновлення імені продукту / Update the product name
+
+                        elif "discount" in input_key:  # Перевірка, чи ключ містить 'discount' / Check if the key contains 'discount'
+                            product.discount = int(value)  # Оновлення знижки продукту / Update the product discount
+                        elif "price" in input_key:  # Перевірка, чи ключ містить 'price' / Check if the key contains 'price'
+                            product.price = round(int(value), 2)  # Оновлення ціни продукту / Update the product price
+                        elif "property" in input_key:  # Перевірка, чи ключ містить 'property' / Check if the key contains 'property'
+                            product = Product.query.get(input_key.split("-")[-2])  # Отримання продукту за ключем / Get the product by key
+                            base_properties = product.description.split(";")  # Розбиття опису продукту на властивості / Split the product description into properties
+                            input_data = input_key.split("-")[1:]  # Отримання даних з ключа / Get the data from the key
+                            for base_property in base_properties:  # Прохід по базових властивостях / Loop through base properties
+                                print(base_property, input_data)  # Виведення властивостей для дебагу / Print properties for debugging
+                                if input_data[-1] in base_property:  # Перевірка, чи містить властивість потрібні дані / Check if the property contains the required data
+                                    print("im in")  # Виведення повідомлення для дебагу / Print a message for debugging
+                                    new_property = base_property.split(": ")[-1].split("/")  # Розбиття властивості на частини / Split the property into parts
+                                    new_property[int(input_data[0].replace("property", ""))] = value  # Оновлення властивості новим значенням / Update the property with the new value
+                                    new_property = "/".join(new_property)  # Об'єднання частин властивості / Join the property parts
+                                    base_properties[base_properties.index(base_property)] = ": ".join([base_property.split(": ")[0], new_property])  # Оновлення властивості в базі / Update the property in the base
+                            print(base_properties)  # Виведення оновлених властивостей для дебагу / Print the updated properties for debugging
+                            product.description = "; ".join(base_properties)  # Оновлення опису продукту / Update the product description
+
+                        elif "image" in input_key:  # Перевірка, чи ключ містить 'image' / Check if the key contains 'image'
+                            image = flask.request.files["new-value"]  # Отримання нового зображення з запиту / Get the new image from the request
+                            path = os.path.abspath(__file__ + f"/../../static/shop_page/images/{product.name}.png")  # Отримання шляху до зображення продукту / Get the product image path
+                            if os.path.exists(path):  # Перевірка, чи існує зображення / Check if the image exists
+                                os.remove(path)  # Видалення старого зображення / Remove the old image
+                            image.save(path)  # Збереження нового зображення / Save the new image
+                        print(product)  # Виведення продукту для дебагу / Print the product for debugging
+
+                        database.session.add(product)  # Додавання продукту до сесії бази даних / Add the product to the database session
+                        database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
+
+                # Повернення шаблону адміністративної сторінки з продуктами / Return the admin page template with products
+                return flask.render_template(template_name_or_list = "admin.html", products = Product.query.all(), admin = current_user.admin, username = current_user.name)
+            else:  # Якщо користувач не адміністратор, перенаправити на головну сторінку / If the user is not an admin, redirect to the main page
+                return flask.redirect(location = "/")
+        except Exception as error:  # Обробка винятків / Handle exceptions
+            print(f"An error has occured while there was an attempt to load the page.\nError log: {error}")  # Виведення повідомлення про помилку / Print the error message
+            return flask.redirect(location = "/")  # Перенаправлення на головну сторінку / Redirect to the main page
+    ```
+    #### Тут, код реагує на редагування властивостей товару, видалення товару і створення нового
+
+    ### Код views.py сторінки авторизації
+
+    ```python
+    import flask  # Імпорт бібліотеки Flask / Import the Flask library
+    from home_page.models import User  # Імпорт моделі User з модуля home_page / Import the User model from the home_page module
+    from flask_login import login_user, current_user  # Імпорт функції для входу користувача та змінної поточного користувача / Import the function to log in a user and the current user variable
+
+    def show_login_page():  # Визначення функції для показу сторінки входу / Define a function to show the login page
+        print(current_user.is_authenticated)  # Виведення статусу автентифікації поточного користувача / Print the authentication status of the current user
+        if flask.request.method == "POST":  # Перевірка методу запиту / Check the request method
+            form_data = dict(flask.request.form)  # Отримання даних форми з запиту / Get form data from the request
+            print(form_data)  # Виведення даних форми для дебагу / Print the form data for debugging
+            for user in [*User.query.filter_by(name = form_data['name']), *User.query.filter_by(email = form_data["name"])]:  # Прохід по користувачах, знайдених за ім'ям або email / Loop through users found by name or email
+            login_user(user)  # Вхід користувача / Log in the user
+            return flask.redirect("/")  # Перенаправлення на головну сторінку після входу / Redirect to the main page after login
+            return flask.render_template(template_name_or_list = "login.html", not_registrated = True)  # Повернення шаблону сторінки входу з помилкою / Return the login page template with an error
+        return flask.render_template(template_name_or_list = "login.html")  # Повернення шаблону сторінки входу / Return the login page template
+    ```
+    #### Тут, код автенфікує користувача в сиситему під акаунтом який ввів користувач
+
+    ### Код views.py сторінки кошику
+
+    ```python
+    import flask  # Імпорт бібліотеки Flask / Import the Flask library
+    from home_page.models import Product, Cart  # Імпорт моделей Product та Cart з модуля home_page / Import the Product and Cart models from the home_page module
+    from flask_login import current_user, UserMixin  # Імпорт поточного користувача та UserMixin з flask_login / Import current user and UserMixin from flask_login
+    from project.settings import database  # Імпорт налаштувань бази даних з проекту / Import the database settings from the project
+    from bot import send_cart, delete_cart  # Імпорт функцій send_cart та delete_cart з модуля bot / Import send_cart and delete_cart functions from the bot module
+
+    def show_basket_page():  # Визначення функції для показу сторінки кошика / Define a function to show the basket page
+        if isinstance(current_user, UserMixin):  # Перевірка, чи поточний користувач є екземпляром UserMixin / Check if the current user is an instance of UserMixin
+            unique_product = {}  # Ініціалізація словника для унікальних продуктів / Initialize a dictionary for unique products
+            all_price = 0  # Ініціалізація загальної ціни / Initialize total price
+            num_products = 0  # Ініціалізація кількості продуктів / Initialize number of products
+            all_discount = 0  # Ініціалізація загальної знижки / Initialize total discount
+            cookies_products = flask.request.cookies.get("product")  # Отримання продуктів з cookies / Get products from cookies
+            print(flask.request.method, "METHOD")  # Виведення методу запиту / Print the request method
+            if flask.request.method == "POST":  # Перевірка методу запиту / Check the request method
+                form = flask.request.form  # Отримання даних форми з запиту / Get form data from the request
+                print(form, "WHERE")  # Виведення даних форми для дебагу / Print the form data for debugging
+                if "submit_delivery" in form.keys():  # Перевірка, чи натиснута кнопка "submit_delivery" / Check if the "submit_delivery" button is pressed
+                    user_cart = Cart(user_id = current_user.id,  # Створення нового об'єкта Cart / Create a new Cart object
+                                    products = cookies_products,  # Збереження продуктів з cookies / Save products from cookies
+                                    name = form["name"],  # Збереження імені з форми / Save name from the form
+                                    surname = form["surname"],  # Збереження прізвища з форми / Save surname from the form
+                                    phone_number = form["phone_number"],  # Збереження номера телефону з форми / Save phone number from the form
+                                    email = form["email"],  # Збереження email з форми / Save email from the form
+                                    city = form["city"],  # Збереження міста з форми / Save city from the form
+                                    post_office = form["post_office"],  # Збереження поштового відділення з форми / Save post office from the form
+                                    additional = form["additional"])  # Збереження додаткової інформації з форми / Save additional information from the form
+                    database.session.add(user_cart)  # Додавання нового об'єкта Cart до сесії бази даних / Add the new Cart object to the database session
+                    database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
+                    send_cart(cart = user_cart)  # Виклик функції send_cart з новим об'єктом Cart / Call the send_cart function with the new Cart object
+                elif "cancel_delivery" in form.keys():  # Перевірка, чи натиснута кнопка "cancel_delivery" / Check if the "cancel_delivery" button is pressed
+                    for cart in Cart.query.filter_by(user_id = current_user.id): cart_to_delete = cart  # Отримання корзини для видалення / Get the cart to delete
+                    delete_cart(cart_id = cart_to_delete.id)  # Виклик функції delete_cart з id корзини / Call the delete_cart function with the cart id
+                    database.session.delete(cart_to_delete)  # Видалення корзини з бази даних / Delete the cart from the database
+                    database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
+
+            if cookies_products != None:  # Перевірка, чи продукти в cookies не є пустими / Check if products in cookies are not empty
+                for id_product in cookies_products.split(" "):  # Прохід по кожному продукту в cookies / Loop through each product in cookies
+                    try:
+                        print(id_product)  # Виведення id продукту для дебагу / Print the product id for debugging
+                        current_product = Product.query.get(id_product)  # Отримання поточного продукту з бази даних за id / Get the current product from the database by id
+                        all_price += current_product.price  # Додавання ціни продукту до загальної ціни / Add the product price to the total price
+                        all_discount += int(current_product.price * current_product.discount / 100)  # Додавання знижки продукту до загальної знижки / Add the product discount to the total discount
+                        num_products += 1  # Збільшення кількості продуктів на 1 / Increment the number of products by 1
+                        if id_product in list(unique_product.keys()):  # Перевірка, чи продукт вже є в унікальних продуктах / Check if the product is already in unique products
+                            unique_product[id_product][1] += 1  # Збільшення кількості даного продукту на 1 / Increment the quantity of this product by 1
+                        else:
+                            unique_product[id_product] = [current_product, 1]  # Додавання нового продукту до унікальних продуктів / Add a new product to unique products
+                    except:  # Обробка виключень / Handle exceptions
+                        print(f"Cookie {id_product} is wrong!")  # Виведення повідомлення про помилковий cookie / Print a message about the wrong cookie
+            cart_num = 0  # Ініціалізація кількості корзин / Initialize the number of carts
+            for cart in Cart.query.filter_by(user_id = current_user.id):  # Прохід по всіх корзинах користувача / Loop through all user's carts
+                cart_num += 1  # Збільшення кількості корзин на 1 / Increment the number of carts by 1
+            print(cart_num)  # Виведення кількості корзин для дебагу / Print the number of carts for debugging
+            if cart_num == 0:  # Перевірка, чи немає корзин / Check if there are no carts
+                template_name = "basket.html"  # Встановлення шаблону "basket.html" / Set the template to "basket.html"
+            else:
+                template_name = "basket_send.html"  # Встановлення шаблону "basket_send.html" / Set the template to "basket_send.html"
+
+            # Повернення шаблону сторінки з переданими параметрами / Return the template with the passed parameters
+            return flask.render_template(template_name_or_list = template_name, 
+                                        products = list(unique_product.values()),  # Передача унікальних продуктів / Pass unique products
+                                        all_price = all_price,  # Передача загальної ціни / Pass total price
+                                        number_of_products = num_products,  # Передача кількості продуктів / Pass number of products
+                                        username = current_user.name.upper(),  # Передача імені користувача у верхньому регістрі / Pass the username in uppercase
+                                        all_discount = round(all_discount, 2),  # Передача загальної знижки / Pass total discount
+                                        admin = current_user.admin)  # Передача статусу адміністратора / Pass admin status
+        else:  # Якщо користувач не автентифікований / If the user is not authenticated
+            return flask.redirect(location = "/")  # Перенаправлення на головну сторінку / Redirect to the main page
+    ```
+    #### Тут код реагує на оформлення заказу і відправляє дані телеграм боту щоб той надіслав відповідне повідомлення адміністраторам
+
+    ### Код views.py домашньої сторінки 
+
+    ```python
+    import flask  # Імпорт бібліотеки Flask / Import the Flask library
+    from flask_login import current_user  # Імпорт змінної поточного користувача з flask_login / Import the current user variable from flask_login
+
+    def show_home_page():  # Визначення функції для показу домашньої сторінки / Define a function to show the home page
+        if current_user.is_authenticated:  # Перевірка, чи користувач автентифікований / Check if the user is authenticated
+            return flask.render_template(  # Повернення шаблону з параметрами / Return the template with parameters
+                template_name_or_list="logined_home.html",  # Назва шаблону для автентифікованих користувачів / Template name for authenticated users
+                username=current_user.name.upper(),  # Ім'я користувача у верхньому регістрі / User's name in uppercase
+                admin=current_user.admin  # Статус адміністратора користувача / User's admin status
+            )
+        else:  # Якщо користувач не автентифікований / If the user is not authenticated
+            return flask.render_template(template_name_or_list="not_logined_home.html")  # Повернення шаблону для неавтентифікованих користувачів / Return the template for non-authenticated users
+    ```
+    #### Тут код перевіряє чи ввійшов користувач у систему і надсилає відповідний шаблон сторінки 
+
+    ### Код views.py сторінки регістрації
+
+    ```python
+    import flask  # Імпорт бібліотеки Flask / Import the Flask library
+    from flask_login import current_user  # Імпорт змінної поточного користувача з flask_login / Import the current user variable from flask_login
+    from home_page.models import User, database, Cart  # Імпорт моделей User, database та Cart з модуля home_page / Import the User, database, and Cart models from the home_page module
+
+    def show_registration_page():  # Визначення функції для показу сторінки реєстрації / Define a function to show the registration page
+        print(current_user.is_authenticated)  # Виведення статусу автентифікації поточного користувача / Print the authentication status of the current user
+        if flask.request.method == "POST":  # Перевірка методу запиту / Check the request method
+            form_data = dict(flask.request.form)  # Отримання даних форми з запиту / Get form data from the request
+            print(form_data)  # Виведення даних форми для дебагу / Print the form data for debugging
+            # Створення нового користувача з даними з форми / Create a new user with data from the form
+            user = User(name=form_data["name"], email=form_data["email"], password=form_data["password"], admin=0)
+            is_registered = True  # Позначення, що користувач зареєстрований / Indicate that the user is registered
+            database.session.add(user)  # Додавання нового користувача до сесії бази даних / Add the new user to the database session
+            database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
+        else:  # Якщо метод запиту не POST / If the request method is not POST
+            is_registered = False  # Позначення, що користувач не зареєстрований / Indicate that the user is not registered
+
+        print(is_registered)  # Виведення статусу реєстрації для дебагу / Print the registration status for debugging
+        # Повернення шаблону сторінки реєстрації з параметром is_registered / Return the registration page template with the is_registered parameter
+        return flask.render_template(template_name_or_list="registration.html", is_registrated=is_registered)
+    ```
+    #### Тут код реєструє користувача і каже йому що реєстрація успішна за допомогою передавання параметрів у шаблон
+
+    ### Код views.py сторінки магазину
+
+    ```python
+    import flask  # Імпорт бібліотеки Flask / Import the Flask library
+    from flask_login import current_user, UserMixin  # Імпорт поточного користувача та UserMixin з flask_login / Import current user and UserMixin from flask_login
+    from home_page.models import Product, Cart  # Імпорт моделей Product та Cart з модуля home_page / Import the Product and Cart models from the home_page module
+    from project.settings import database  # Імпорт налаштувань бази даних з проекту / Import the database settings from the project
+
+    def show_shop_page():  # Визначення функції для показу сторінки магазину / Define a function to show the shop page
+        if isinstance(current_user, UserMixin):  # Перевірка, чи поточний користувач є екземпляром UserMixin / Check if the current user is an instance of UserMixin
+            products = Product.query.all()  # Отримання всіх продуктів з бази даних / Get all products from the database
+            # Повернення шаблону сторінки магазину з переданими параметрами / Return the shop page template with passed parameters
+            return flask.render_template(
+                template_name_or_list='shop.html',  # Назва шаблону для сторінки магазину / Template name for the shop page
+                products=products,  # Передача всіх продуктів / Pass all products
+                username=current_user.name.upper(),  # Ім'я користувача у верхньому регістрі / User's name in uppercase
+                admin=current_user.admin  # Статус адміністратора користувача / User's admin status
+            )
+        else:  # Якщо користувач не автентифікований / If the user is not authenticated
+            return flask.redirect("/")  # Перенаправлення на головну сторінку / Redirect to the main page
+    ```
+    #### Тут код тільки виводе шаблон з потрібними параметрами (продуктами, іменем користувача, тощо) і якщо користувач не ввійшов в систему перенаправляє на домашню сторінку
+
+
+</details>
 
 ---
 
