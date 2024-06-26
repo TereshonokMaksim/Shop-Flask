@@ -6,7 +6,8 @@
 
 ---
 
-### Для більш наглядного і зручного ознайомлення пропонуємо перейти на нашу [демо версію проекта](https://makster.pythonanywhere.com/) / ### For a more visual and convenient introduction, we suggest you go to our [demo version of the project](https://makster.pythonanywhere.com/)
+### Для більш наглядного і зручного ознайомлення пропонуємо переглянути демо версію проекту  / or a more visual and convenient introduction, we suggest viewing the demo version of the project
+![демо версію проекта](static\readme\demo_video.mp4 "Демо")
 _оскільки це демо версія, то доступ до багатьох функцій буде неможливий. для отримання доступу до всіх функцій пропонуємо вам викласти на хост цей самий проект, як це зробити буде сказано нижче_ / _since this is a demo version, access to many functions will not be possible. in order to gain access to all functions, we suggest that you upload this same project to the host, how to do it will be explained below_
 
 ---
@@ -196,7 +197,7 @@ static - Папка у якій зберігаються усі статичні
 
 manage.py - Файл, який запускає веб додаток і телеграм бота / The file that runs the web application and the Telegram bot
 
-README.md - Файл, котрий ви зараз читаєте. Створенний для пояснювання проекту для оточуючих. / README.md - The file you are currently reading. Created to explain the project to others. 
+README.md - Файл, котрий ви зараз читаєте. Створенний для пояснювання проекту для оточуючих. / The file you are currently reading. Created to explain the project to others. 
 
 -* - Любий текст, використовується якщо багато папок мають однаковий контекст щоб узагальнити їх / Any text, used if many folders have the same context to summarize them
 
@@ -863,6 +864,8 @@ _тут немає форм для опису_ / _there are no forms to describe
 _незважаючи на своє призначення, цей шаблон працює без форм завдяки JS!_
 
 ---
+
+## Далі будуть приведени
 
 ---
 
