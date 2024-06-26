@@ -1,13 +1,13 @@
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ page_title }}</title>
-        {% block links %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block content %}
-        {% endblock %}
-    </body>
-</html>
+<html lang="en"> <!-- Визначення мови сторінки як англійська / Define the language of the page as English -->
+    <head> <!-- Відкриття тега head, який містить метадані документа / Opening head tag, which contains the document's metadata -->
+        <meta charset="UTF-8"> <!-- Встановлення кодування символів документа як UTF-8 / Setting the character encoding of the document to UTF-8 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Встановлення параметрів viewport для коректного відображення на різних пристроях / Setting the viewport parameters for proper display on various devices -->
+        <title>{{ page_title }}</title> <!-- Встановлення заголовку сторінки, який буде відображено у вкладці браузера / Setting the page title, which will be displayed in the browser tab -->
+        {% block links %} <!-- Початок блоку для додавання додаткових посилань / Start of a block to add additional links -->
+        {% endblock %} <!-- Кінець блоку для додавання додаткових посилань / End of a block to add additional links -->
+    </head> <!-- Закриття тега head / Closing head tag -->
+    <body> <!-- Відкриття тега body, який містить основний вміст документа / Opening body tag, which contains the main content of the document -->
+        {% block content %} <!-- Початок блоку для додавання основного вмісту / Start of a block to add main content -->
+        {% endblock %} <!-- Кінець блоку для додавання основного вмісту / End of a block to add main content -->
+    </body> <!-- Закриття тега body / Closing body tag -->
+</html> <!-- Закриття тега html / Closing html tag -->

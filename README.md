@@ -6,7 +6,7 @@
 
 ---
 
-### Для більш наглядного і зручного ознайомлення пропонуємо переглянути демо версію проекту  / or a more visual and convenient introduction, we suggest viewing the demo version of the project
+### Для більш наглядного і зручного ознайомлення пропонуємо переглянути демо версію проекту  / For a more visual and convenient introduction, we suggest viewing the demo version of the project
 
 <!-- ![alt_text](static/readme/structure.png "Structure image") -->
 
@@ -90,7 +90,7 @@ telebot==0.0.5
 
 3. >Завантажте усі модулі які перечисленні вище (у командному рядку (cmd у пошук на комп'ютері) використайте команду pip install {сюди назву модуля}) / Download all the modules listed above (in the command line (search for cmd on the computer) use the command pip install {module name here})
 
-4. >Проведіть міграції. Для цього відкрийте командний рядок у папці project (у терміналі це можна зробити за допомогою команди "cd {назва папки}" та повільно перейти у потрібну папку project проекту). Далі, виконайте наступну послідовність команд у терміналі: / Perform migrations. To do this, open the command line in the project folder (in the terminal, you can do this with the command "cd {folder name}" and slowly go to the desired project folder of the project). Next, execute the following sequence of commands in the terminal:
+4. >Проведіть міграції. Для цього запустіть проект за допомогою запуску manage.py. Далі, відкрийте командний рядок у папці project (у терміналі це можна зробити за допомогою команди "cd {назва папки}" та повільно перейти у потрібну папку project проекту). Після цього, виконайте наступну послідовність команд у терміналі: / Perform migrations. To do this, run the project using the manage.py run. Next, open a command line in the project folder (in the terminal, you can do this with the command "cd {folder name}" and slowly navigate to the desired project folder of the project). After that, execute the following sequence of commands in the terminal:
 
 ```bash
 flask --app settings db init
@@ -139,8 +139,32 @@ flask --app settings db upgrade
 ## Далі ви побачите опис усіх важливих частин цього веб-додатку / Below you will see a description of all the important parts of this web application
 
 ---
+
 <details>
-<summary>Натисність щоб побачити структуру проекту</summary>
+<summary>Натисність щоб побачити пояснення нашого вибору в SQLite3 / Click to see an explanation of our choices in SQLite3</summary>
+
+## Чому ми вибрали саме SQLite3? / Why did we choose SQLite3?
+
+### Для того щоб почати Казати чому саме SQLite3 ми повинні розібратися що таке база даних (датабаза) взагалі. / In order to begin to say why SQLite3, we must understand what a database (database) is in general.
+#### Бази даних (БД, датабази) це це структурований набір даних, який зберігається в електронному вигляді. / Databases (DB, databases) are a structured set of data that is stored electronically.
+#### Їх частіше всього використовують для збереження, організації та керування даними з метою легкого доступу, пошуку та маніпулювання. / They are most often used to store, organize and manage data for easy access, search and manipulation.
+#### Бази даних складаються з таблиць (моделей) в яких по колонкам у рядок зберігаються відповідні дані що і є причиною простого доступу до даних, як було сказано вище. / Databases consist of tables (models) in which relevant data is stored in rows and columns, which is the reason for easy access to data, as mentioned above.
+
+### Тепер, що ж таке SQLite3? / Now, what is SQLite3?
+#### SQLite3 був вибран саме за його простоту та зручність. Також, можна з впевненістю сказати що SQLite3 це доволі швидка вбудована база даних. / SQLite3 was chosen precisely for its simplicity and convenience. Also, it is safe to say that SQLite3 is a fairly fast built-in database.
+#### Взагалі, SQLite3 ви можете побачити не тільки в нашому проекті, а багато де ще! Це через те що SQLite3 підтримується майже всіма системами для праці з базами даних що роблить його удеякому сенсі універсальним. / In general, you can see SQLite3 not only in our project, but in many other places! This is due to the fact that SQLite3 is supported by almost all systems for working with databases, which makes it somewhat universal.
+
+### А тепер, чому кожна модель містить колонку ID? / Now, why does each model contain an ID column? 
+#### Почнемо з того, що таке ID. ID у базах даних виконують роль унікального і фундаментального ідентифікатора для кожного запису у моделях. / Let's start with what an ID is. IDs in databases act as a unique and fundamental identifier for each record in models.
+#### Взагалі, ID має багато причин на знаходження у кожній моделі - починаючи з необхідності простої індексації даних і закінчуючи можливістю "зв'язати" декілька моделей, щоб вони могли дуже зручно обмінюватися даними у коді. / In general, ID has many reasons for being in each model - starting from the need for simple data indexing and ending with the ability to "link" several models so that they can very conveniently exchange data in the code.
+
+### Який можна зробити з цього висновок? / What conclusion can be drawn from this?
+#### Бази даних є фундаментальним елементом сучасних додатків для організації та зберігання даних. SQLite3 забезпечує простоту використання та легкість інтеграції, роблячи її відмінним вибором для невеликих проектів. ID, як унікальний ідентифікатор, грає ключову роль у забезпеченні цілісності та ефективності роботи бази даних. / Databases are a fundamental element of modern applications for organizing and storing data. SQLite3 provides ease of use and ease of integration, making it an excellent choice for small projects. ID, as a unique identifier, plays a key role in ensuring the integrity and efficiency of the database.
+
+</details>
+
+<details>
+<summary>Натисність щоб побачити структуру проекту / Click to see the project structure </summary>
 
 ### Структура проекту / Project structure
 #### Нижче приведена структура нашого проекту / Below is the structure of our project
@@ -212,7 +236,7 @@ README.md - Файл, котрий ви зараз читаєте. Створе�
 </details>
 
 <details>
-<summary>Натисність щоб побачити конструкцію та код основних частин додатку</summary>
+<summary>Натисність щоб побачити конструкцію та код основних частин додатку / Click to see the design and code of the main parts of the application </summary>
 
 ### Створення головного додатку: / Creating the main application:
 
@@ -374,13 +398,84 @@ def load_user(id):
     return User.query.get(id)
 ```
 
+### Створення моделей у датабазі:
+
+```python
+from project.settings import database # Імпортуємо датабазу / We import the database
+from flask_login import UserMixin # Імпортуємо клас для створення класу користувача / # Import the class to create the user class
+
+# Створюємо модель користувача / We create a user model
+class User(database.Model, UserMixin):
+    # Створюємо колонку id яка автоматично заповнюється при створенні нового користувача / We create an id column that is automatically filled in when a new user is created
+    id = database.Column(database.Integer, primary_key = True)
+    # Створюємо колонку імені користувача котра обов'язкова повинна бути не пустою / We create a username column, which must not be empty
+    name = database.Column(database.String(60), nullable = False)
+    # Створюємо колонку EMail користувача котра обов'язкова повинна бути не пустою / We create the user's EMail column, which must not be empty
+    email = database.Column(database.String(80), nullable = False)
+    # Створюємо колонку паролю користувача котра обов'язкова повинна бути не пустою / We create a user password column, which must not be empty
+    password = database.Column(database.String(50), nullable = False)
+    # Створюємо колонку чи є користувач адміністратором / We create a column whether the user is an administrator
+    admin = database.Column(database.Integer, nullable = True)
+
+    # Створюємо функцію для текстового відображення моделі / We create a function for text display of the model
+    def __repr__(self) -> str:
+        # Повертаємо строкове значення яке буде відображено на екрані / We return a string value that will be displayed on the screen
+        return f"Користувач {self.name} з id {self.id}, email {self.email}\n"
+    
+# Створюємо модель продукта / We create a product model
+class Product(database.Model):
+    # Створюємо колонку id яка автоматично заповнюється при створенні нового користувача / We create an id column that is automatically filled in when a new user is created
+    id = database.Column(database.Integer, primary_key = True)
+    # Створюємо колонку імені продукта котра обов'язкова повинна бути не пустою / We create a product name column, which must not be empty
+    name = database.Column(database.String(180), nullable = False)
+    # Створюємо колонку вартості продукта котра обов'язкова повинна бути не пустою / We create a product price column, which must not be empty
+    price = database.Column(database.Integer, nullable = False)
+    # Створюємо колонку опису продукта котра обов'язкова повинна бути не пустою / We create a product description column, which must not be empty
+    description = database.Column(database.Text, nullable = False)
+    # Створюємо колонку чи є продукт в наявності котра обов'язкова повинна бути не пустою / We create a column whether the product is available, which must not be empty
+    in_stock = database.Column(database.Integer, nullable = False)
+    # Створюємо колонку знижки продукта / We create a product discount column
+    discount = database.Column(database.Integer, nullable = True)
+    # Створюємо колонку кількості продукта / We create a product quantity column
+    count = database.Column(database.Integer, nullable = True)
+    
+    # Створюємо функцію для текстового відображення моделі / We create a function for text display of the model
+    def __repr__(self) -> str:
+        # Повертаємо строкове значення яке буде відображено на екрані / We return a string value that will be displayed on the screen
+        return f"Продукт {self.name} з id {self.id}"
+
+# Створюємо модель кошику / We create a basket model
+class Cart(database.Model):
+    # Створюємо колонку id яка автоматично заповнюється при створенні нового користувача / We create an id column that is automatically filled in when a new user is created
+    id = database.Column(database.Integer, primary_key = True)
+    # Створюємо колонку id користувача кошика котра обов'язкова повинна бути не пустою / We create a cart user id column, which must not be empty
+    user_id = database.Column(database.Integer, nullable = False)
+    # Створюємо колонку id продуктів кошика котра обов'язкова повинна бути не пустою / We create a cart product id column, which must not be empty
+    products = database.Column(database.Text, nullable = True)
+    # Створюємо колонку імені замовника кошика / We create a column for the name of the customer of the shopping cart
+    name = database.Column(database.String(80), nullable = True)
+    # Створюємо колонку прізвища замовника кошика / We create a column for the name of the customer of the shopping cart
+    surname = database.Column(database.String(80), nullable = True)
+    # Створюємо колонку номеру телефону замовника кошика / We create a column for the phone number of the customer of the shopping cart
+    phone_number = database.Column(database.String(80), nullable = True)
+    # Створюємо колонку EMail замовника кошика / We create the EMail column of the customer of the shopping cart
+    email = database.Column(database.String(100), nullable = True)
+    # Створюємо колонку міста замовника кошика / We create a column of the city of the customer of the cart
+    city = database.Column(database.String(40), nullable = True)
+    # Створюємо колонку відділення пошти замовника кошика / We create a column for the post office of the customer of the basket
+    post_office = database.Column(database.String(60), nullable = True)
+    # Створюємо колонку додаткових побажань замовника кошика / We create a column of additional wishes of the customer of the basket
+    additional = database.Column(database.Text, nullable = True)
+```
+_тут представлена кожна модель яка створена у додатку_
+
 ---
 
 </details>
 
 
 <details>
-<summary>Натисність щоб побачити всі шаблони .html з поясненнями до них</summary>
+<summary>Натисність щоб побачити всі шаблони .html з поясненнями до них / Click to see all .html templates with explanations for them </summary>
 
 ## Далі будуть наведені html шаблони сторінок з коментарями до них / Next, html page templates with comments on them will be given
 
@@ -716,63 +811,63 @@ _тут немає форм для опису_ / _there are no forms to describe
 
 Цей шаблон використовується у шаблонах які працюють з користувачем який ще не ввійшов. / This template is used in templates that work with a user who has not yet logged in.
 ```html
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ page_title }}</title>
-        {% block links %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block content %}
-        {% endblock %}
-    </body>
-</html>
+<html lang="en"> <!-- Визначення мови сторінки як англійська / Define the language of the page as English -->
+    <head> <!-- Відкриття тега head, який містить метадані документа / Opening head tag, which contains the document's metadata -->
+        <meta charset="UTF-8"> <!-- Встановлення кодування символів документа як UTF-8 / Setting the character encoding of the document to UTF-8 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Встановлення параметрів viewport для коректного відображення на різних пристроях / Setting the viewport parameters for proper display on various devices -->
+        <title>{{ page_title }}</title> <!-- Встановлення заголовку сторінки, який буде відображено у вкладці браузера / Setting the page title, which will be displayed in the browser tab -->
+        {% block links %} <!-- Початок блоку для додавання додаткових посилань / Start of a block to add additional links -->
+        {% endblock %} <!-- Кінець блоку для додавання додаткових посилань / End of a block to add additional links -->
+    </head> <!-- Закриття тега head / Closing head tag -->
+    <body> <!-- Відкриття тега body, який містить основний вміст документа / Opening body tag, which contains the main content of the document -->
+        {% block content %} <!-- Початок блоку для додавання основного вмісту / Start of a block to add main content -->
+        {% endblock %} <!-- Кінець блоку для додавання основного вмісту / End of a block to add main content -->
+    </body> <!-- Закриття тега body / Closing body tag -->
+</html> <!-- Закриття тега html / Closing html tag -->
 ```
 
-### Конструкція шаблону base.html / 
+### Конструкція шаблону base.html / Construction of the base.html template
 Тут створена базовий шаблон, тобто те, с чого точно складається кожна сторінка. / A basic template is created here, that is, what exactly each page consists of.
 
 Цей шаблон використовується у шаблонах які працюють з користувачем який вже ввійшов. / This template is used in templates that work with a user who has logged in.
 ```html
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ page_title }}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename = 'project/css/base_style.css')}}">
-        <script defer src = "{{ url_for('static', filename = 'project/js/script.js') }}" type = "module"></script>
-        {% block links %}
-        {% endblock %}
-    </head>
-    <header>
-        <div class = "main-info">
-            <a class = "main-text main-home" href = "/">HOME</a>
-            <a class = "main-text main-shop" href = "/shop/">SHOP</a>
-            <div class = "main-text main-basket">
-                <a class = "main-text main-basket" href = "/basket/">BASKET</a>
-                <p class = "basket-count" id = "basket-counter"></p>
-            </div>
-            <a class = "main-text main-contacts" href = "/contacts/">CONTACTS</a>
-            {% if admin %}
-                <a class="main-text main-admin" href="/admin/">ADMIN</a>
-            {% endif %}
-        </div>
-        <div class = "username-info">
-            <p class = "main-text username">{{ username|upper }}</p>
-        </div>
-    </header>
-    <body>
-        <div class = "content">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </body>
-</html>
+<html lang="en"> <!-- Визначення мови сторінки як англійська / Define the language of the page as English -->
+    <head> <!-- Відкриття тега head, який містить метадані документа / Opening head tag, which contains the document's metadata -->
+        <meta charset="UTF-8"> <!-- Встановлення кодування символів документа як UTF-8 / Setting the character encoding of the document to UTF-8 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Встановлення параметрів viewport для коректного відображення на різних пристроях / Setting the viewport parameters for proper display on various devices -->
+        <title>{{ page_title }}</title> <!-- Встановлення заголовку сторінки, який буде відображено у вкладці браузера / Setting the page title, which will be displayed in the browser tab -->
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'project/css/base_style.css')}}"> <!-- Підключення файлу CSS для стилізації сторінки / Linking CSS file for styling the page -->
+        <script defer src = "{{ url_for('static', filename = 'project/js/script.js') }}" type = "module"></script> <!-- Підключення файлу JavaScript з відкладеним виконанням / Linking JavaScript file with deferred execution -->
+        {% block links %} <!-- Початок блоку для додавання додаткових посилань / Start of a block to add additional links -->
+        {% endblock %} <!-- Кінець блоку для додавання додаткових посилань / End of a block to add additional links -->
+    </head> <!-- Закриття тега head / Closing head tag -->
+    <header> <!-- Відкриття тега header, який містить заголовок сторінки / Opening header tag, which contains the page header -->
+        <div class = "main-info"> <!-- Відкриття блоку для основної інформації / Opening div for main information -->
+            <a class = "main-text main-home" href = "/">HOME</a> <!-- Посилання на головну сторінку / Link to the home page -->
+            <a class = "main-text main-shop" href = "/shop/">SHOP</a> <!-- Посилання на магазин / Link to the shop -->
+            <div class = "main-text main-basket"> <!-- Відкриття блоку для корзини / Opening div for the basket -->
+                <a class = "main-text main-basket" href = "/basket/">BASKET</a> <!-- Посилання на корзину / Link to the basket -->
+                <p class = "basket-count" id = "basket-counter"></p> <!-- Параграф для відображення кількості товарів у корзині / Paragraph to display the number of items in the basket -->
+            </div> <!-- Закриття блоку для корзини / Closing div for the basket -->
+            <a class = "main-text main-contacts" href = "/contacts/">CONTACTS</a> <!-- Посилання на сторінку контактів / Link to the contacts page -->
+            {% if admin %} <!-- Перевірка, чи є користувач адміністратором / Check if the user is an admin -->
+                <a class="main-text main-admin" href="/admin/">ADMIN</a> <!-- Посилання на сторінку адміністрування / Link to the admin page -->
+            {% endif %} <!-- Кінець перевірки, чи є користувач адміністратором / End of the admin check -->
+        </div> <!-- Закриття блоку для основної інформації / Closing div for main information -->
+        <div class = "username-info"> <!-- Відкриття блоку для інформації про користувача / Opening div for user information -->
+            <p class = "main-text username">{{ username|upper }}</p> <!-- Відображення імені користувача у верхньому регістрі / Displaying the username in uppercase -->
+        </div> <!-- Закриття блоку для інформації про користувача / Closing div for user information -->
+    </header> <!-- Закриття тега header / Closing header tag -->
+    <body> <!-- Відкриття тега body, який містить основний вміст документа / Opening body tag, which contains the main content of the document -->
+        <div class = "content"> <!-- Відкриття блоку для вмісту сторінки / Opening div for the page content -->
+            {% block content %} <!-- Початок блоку для додавання основного вмісту / Start of a block to add main content -->
+            {% endblock %} <!-- Кінець блоку для додавання основного вмісту / End of a block to add main content -->
+        </div> <!-- Закриття блоку для вмісту сторінки / Closing div for the page content -->
+    </body> <!-- Закриття тега body / Closing body tag -->
+</html> <!-- Закриття тега html / Closing html tag -->
 ```
 
-### Конструкція шаблону registration.html:
+### Конструкція шаблону registration.html: / Construction of the registration.html template:
 
 ```html
 {% extends "acc_base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
@@ -824,9 +919,9 @@ _тут немає форм для опису_ / _there are no forms to describe
     
 {% endblock %}
 ```
-#### Єдина форма тут відповідає за надсиалння даних користувача для регістрації його
+#### Єдина форма тут відповідає за надсиалння даних користувача для регістрації його / The only form here is responsible for submitting the user's data to register him
 
-### Конструкція шаблону shop.html
+### Конструкція шаблону shop.html / Design of the shop.html template
 
 ```html
 {% extends "base.html" %}  <!-- Розширення базового шаблону / Extending the base template -->
@@ -878,18 +973,18 @@ _тут немає форм для опису_ / _there are no forms to describe
     {% endfor %}
 {% endblock %}
 ```
-_незважаючи на своє призначення, цей шаблон працює без форм завдяки JS!_
+_незважаючи на своє призначення, цей шаблон працює без форм завдяки JS!_ / _despite its purpose, this template works without forms thanks to JS!_
 
 ---
 
 </details>
 
 <details>
-<summary>Натисність щоб побачити конструкцію та код файлів views з відповідними поясненнями</summary>
+<summary>Натисність щоб побачити конструкцію та код файлів views з відповідними поясненнями / Click to see the construction and code views files with relevant explanations </summary>
 
-## Далі будуть приведені код файлів views з відповідними поясненнями
+## Далі будуть приведені код файлів views з відповідними поясненнями / Next, the code of the views files will be given with relevant explanations
 
-### Код views.py сторінки адміністрації
+### Код views.py сторінки адміністрації / The views.py code of the administration page
 
 ```python
 import flask  # Імпорт бібліотеки Flask / Import the Flask library
@@ -978,9 +1073,9 @@ def show_admin_page():  # Визначення функції для показ�
         print(f"An error has occured while there was an attempt to load the page.\nError log: {error}")  # Виведення повідомлення про помилку / Print the error message
         return flask.redirect(location = "/")  # Перенаправлення на головну сторінку / Redirect to the main page
 ```
-#### Тут, код реагує на редагування властивостей товару, видалення товару і створення нового
+#### Тут, код реагує на редагування властивостей товару, видалення товару і створення нового / Here, the code reacts to editing product properties, deleting a product and creating a new one
 
-### Код views.py сторінки авторизації
+### Код views.py сторінки авторизації / Views.py code of the authorization page
 
 ```python
 import flask  # Імпорт бібліотеки Flask / Import the Flask library
@@ -998,9 +1093,9 @@ def show_login_page():  # Визначення функції для показ�
         return flask.render_template(template_name_or_list = "login.html", not_registrated = True)  # Повернення шаблону сторінки входу з помилкою / Return the login page template with an error
     return flask.render_template(template_name_or_list = "login.html")  # Повернення шаблону сторінки входу / Return the login page template
 ```
-#### Тут, код автенфікує користувача в сиситему під акаунтом який ввів користувач
+#### Тут, код автенфікує користувача в сиситему під акаунтом який ввів користувач / Here, the code identifies the user in the system under the account entered by the user
 
-### Код views.py сторінки кошику
+### Код views.py сторінки кошику / Cart page views.py code
 
 ```python
 import flask  # Імпорт бібліотеки Flask / Import the Flask library
@@ -1073,10 +1168,9 @@ def show_basket_page():  # Визначення функції для показ
     else:  # Якщо користувач не автентифікований / If the user is not authenticated
         return flask.redirect(location = "/")  # Перенаправлення на головну сторінку / Redirect to the main page
 ```
-#### Тут код реагує на оформлення заказу і відправляє дані телеграм боту щоб той надіслав відповідне повідомлення адміністраторам
+#### Тут код реагує на оформлення заказу і відправляє дані телеграм боту щоб той надіслав відповідне повідомлення адміністраторам / Here, the code reacts to placing an order and sends telegram data to the bot so that it sends a corresponding message to the administrators
 
-### Код views.py домашньої сторінки 
-
+### Код views.py домашньої сторінки / The home page views.py code
 ```python
 import flask  # Імпорт бібліотеки Flask / Import the Flask library
 from flask_login import current_user  # Імпорт змінної поточного користувача з flask_login / Import the current user variable from flask_login
@@ -1091,9 +1185,9 @@ def show_home_page():  # Визначення функції для показу
     else:  # Якщо користувач не автентифікований / If the user is not authenticated
         return flask.render_template(template_name_or_list="not_logined_home.html")  # Повернення шаблону для неавтентифікованих користувачів / Return the template for non-authenticated users
 ```
-#### Тут код перевіряє чи ввійшов користувач у систему і надсилає відповідний шаблон сторінки 
+#### Тут код перевіряє чи ввійшов користувач у систему і надсилає відповідний шаблон сторінки / Here the code checks if the user is logged in and sends the appropriate page template
 
-### Код views.py сторінки регістрації
+### Код views.py сторінки регістрації / The views.py code of the registration page
 
 ```python
 import flask  # Імпорт бібліотеки Flask / Import the Flask library
@@ -1117,9 +1211,9 @@ def show_registration_page():  # Визначення функції для по
     # Повернення шаблону сторінки реєстрації з параметром is_registered / Return the registration page template with the is_registered parameter
     return flask.render_template(template_name_or_list="registration.html", is_registrated=is_registered)
 ```
-#### Тут код реєструє користувача і каже йому що реєстрація успішна за допомогою передавання параметрів у шаблон
+#### Тут код реєструє користувача і каже йому що реєстрація успішна за допомогою передавання параметрів у шаблон / Here the code registers the user and tells him that the registration is successful by passing parameters to the template
 
-### Код views.py сторінки магазину
+### Код views.py сторінки магазину / Store page views.py code
 
 ```python
 import flask  # Імпорт бібліотеки Flask / Import the Flask library
@@ -1140,12 +1234,423 @@ def show_shop_page():  # Визначення функції для показу
     else:  # Якщо користувач не автентифікований / If the user is not authenticated
         return flask.redirect("/")  # Перенаправлення на головну сторінку / Redirect to the main page
 ```
-#### Тут код тільки виводе шаблон з потрібними параметрами (продуктами, іменем користувача, тощо) і якщо користувач не ввійшов в систему перенаправляє на домашню сторінку
+#### Тут код тільки виводе шаблон з потрібними параметрами (продуктами, іменем користувача, тощо) і якщо користувач не ввійшов в систему перенаправляє на домашню сторінку / Here the code only displays a template with the necessary parameters (products, username, etc.) and if the user is not logged in, redirects to the home page
 
+---
+
+</details>
+
+<details>
+<summary>Натисність щоб побачити код усіх JS файлів з відповідними поясненнями / Click to see the code of all JS files with corresponding explanations </summary>
+
+## Далі будуть приведені JS файли з папки static / Next, JS files from the static folder will be listed
+
+### Код файлу JS сторінки адміністрації / JS file code of the administration page
+```js
+// Вибір всіх елементів з класом 'edit-button' / Select all elements with class 'edit-button'
+const editButtonList = document.querySelectorAll('.edit-button')
+
+for (let buttonNumber = 0; buttonNumber < editButtonList.length; buttonNumber++) { // Проходимо по всіх кнопках / Iterate over all buttons
+    let button = editButtonList[buttonNumber] // Отримуємо кнопку за її індексом / Get the button by its index
+    button.addEventListener('click', function () { // Додаємо обробник подій 'click' до кнопки / Add 'click' event listener to the button
+        document.querySelector(".blur").style = `display: flex` // Показуємо елемент з класом 'blur' / Show the element with class 'blur'
+        document.querySelector(".modal-dialog").style = 'display: flex' // Показуємо модальне вікно / Show the modal dialog
+        console.log(document.body.scrollTop) // Виводимо поточне прокручування сторінки / Log the current scroll position of the page
+        document.body.style = "overflow-y: hidden;" // Забороняємо вертикальну прокрутку сторінки / Disable vertical scrolling of the page
+        let buttonIdData = button.id.split("-") // Розділяємо id кнопки на частини / Split the button's id into parts
+        document.querySelector(".modal-header").innerHTML = `CHANGE ${buttonIdData[1].toUpperCase()}` // Змінюємо заголовок модального вікна / Change the modal header
+        document.querySelector(".modal-input").type = "text" // Встановлюємо тип поля введення як текст / Set the input field type to text
+        document.querySelector(".modal-input").name = `new-${buttonIdData[1]}-${buttonIdData[2]}` // Встановлюємо ім'я поля введення / Set the input field name
+        
+        if (buttonIdData[1] == "price") { // Перевіряємо, чи тип даних 'price' / Check if the data type is 'price'
+            document.querySelector(".modal-input").style.display = "flex" // Показуємо поле введення / Show the input field
+            document.querySelector(".modal-input").value = document.getElementById(`price-${buttonIdData[2]}`).innerHTML.split(" ")[0] // Встановлюємо значення поля введення / Set the input field value
+            document.querySelector(".modal-input").type = "number" // Встановлюємо тип поля введення як число / Set the input field type to number
+            document.querySelector(".modal-input").min = 1 // Встановлюємо мінімальне значення поля введення / Set the input field minimum value
+        } else if (buttonIdData[1] == "discount") { // Перевіряємо, чи тип даних 'discount' / Check if the data type is 'discount'
+            document.querySelector(".modal-input").style.display = "flex" // Показуємо поле введення / Show the input field
+            console.log(document.getElementById(`discount-${buttonIdData[2]}`).innerHTML.split(" ")[1]) // Виводимо значення знижки / Log the discount value
+            document.querySelector(".modal-input").value = document.getElementById(`discount-${buttonIdData[2]}`).innerHTML.split(" ")[1].split("%")[0] // Встановлюємо значення поля введення / Set the input field value
+            document.querySelector(".modal-input").type = "number" // Встановлюємо тип поля введення як число / Set the input field type to number
+            document.querySelector(".modal-input").min = 0 // Встановлюємо мінімальне значення поля введення / Set the input field minimum value
+            document.querySelector(".modal-input").max = 100 // Встановлюємо максимальне значення поля введення / Set the input field maximum value
+        } else if (buttonIdData[1].includes("property")) { // Перевіряємо, чи тип даних містить 'property' / Check if the data type includes 'property'
+            document.querySelector(".modal-input").style.display = "flex" // Показуємо поле введення / Show the input field
+            document.querySelector(".modal-input").value = document.getElementById(`${buttonIdData[1]}-${buttonIdData[2]}-${buttonIdData[3]}`).innerHTML // Встановлюємо значення поля введення / Set the input field value
+            document.querySelector(".modal-input").name = `new-${buttonIdData[1]}-${buttonIdData[2]}-${buttonIdData[3]}` // Встановлюємо ім'я поля введення / Set the input field name
+        } else if (buttonIdData[1] == "image") { // Перевіряємо, чи тип даних 'image' / Check if the data type is 'image'
+            document.querySelector('.image-modal-input').style.display = 'flex' // Показуємо поле введення для зображення / Show the image input field
+        } else { // Інші випадки / Other cases
+            document.querySelector(".modal-input").style.display = "flex" // Показуємо поле введення / Show the input field
+            document.querySelector(".modal-input").value = document.getElementById(`${buttonIdData[1]}-${buttonIdData[2]}`).innerHTML // Встановлюємо значення поля введення / Set the input field value
+        }
+    })
+}
+
+let buttons_image = document.querySelectorAll(".select-image-input") // Вибір всіх елементів з класом 'select-image-input' / Select all elements with class 'select-image-input'
+let button_input = document.querySelectorAll(".modal-input-image") // Вибір всіх елементів з класом 'modal-input-image' / Select all elements with class 'modal-input-image'
+
+for (let buttonNumber = 0; buttonNumber < buttons_image.length; buttonNumber++) { // Проходимо по всіх кнопках зображень / Iterate over all image buttons
+    let button_image = buttons_image[buttonNumber] // Отримуємо кнопку зображення за її індексом / Get the image button by its index
+    button_image.addEventListener("click", () => { // Додаємо обробник подій 'click' до кнопки зображення / Add 'click' event listener to the image button
+        button_input[buttonNumber].click() // Імітуємо клік по прихованому полю введення зображення / Simulate click on the hidden image input field
+    })
+    button_input[buttonNumber].onchange = () => { // Додаємо обробник подій 'change' до поля введення зображення / Add 'change' event listener to the image input field
+        document.querySelectorAll(".selected-image-input")[buttonNumber].innerHTML = button_input[buttonNumber].files[0].name // Оновлюємо текст вибраного файлу зображення / Update the selected image file text
+    }
+}
+
+let buttonNewProduct = document.querySelector(".new-product") // Вибір кнопки додавання нового продукту / Select the new product button
+buttonNewProduct.addEventListener( // Додаємо обробник подій 'click' до кнопки нового продукту / Add 'click' event listener to the new product button
+    type = "click", // Тип події 'click' / Event type 'click'
+    listener = () => { // Лістенер події / Event listener
+        document.querySelector(".blur").style.display = "flex" // Показуємо елемент з класом 'blur' / Show the element with class 'blur'
+        document.querySelector(".modal-window-product").style.display = "flex" // Показуємо модальне вікно продукту / Show the product modal window
+        document.querySelector("body").style.overflowY = "hidden" // Забороняємо вертикальну прокрутку сторінки / Disable vertical scrolling of the page
+    }
+)
+```
+#### Цей файл відповідає за відкривання модального з зміненням властивостей продукту або створення нового / This file is responsible for opening a modal with changing product properties or creating a new one
+
+### Код файлу JS сторінки кошику / JS file code of the shopping cart page
+```js
+function change_price (product_id, increase) { // функція для зміни ціни продукту / function to change the product price
+    let product_price = +document.getElementById(`price-${product_id}`).innerHTML.split(" ")[0] // отримання ціни продукту / getting the product price
+    let current_price_overall = +document.querySelector(".overall-price").innerHTML.split(" ")[0] // отримання поточної загальної ціни / getting the current overall price
+    let current_products_price = +document.querySelector(".all-products-price").innerHTML.split(" ")[0] // отримання поточної ціни всіх продуктів / getting the current total products price
+    let all_discount = +document.querySelector(".discount-price").innerHTML.split(' ')[0] // отримання поточної загальної знижки / getting the current total discount
+    let new_discount = 0 // ініціалізація нової знижки / initializing the new discount
+    try { // спроба виконати наступний блок коду / try to execute the following block of code
+        new_discount = Math.round((+document.getElementById(`price-${product_id}`).innerHTML.split(' ')[0] - +document.getElementById(`discount-${product_id}`).innerHTML.split(' ')[0]) * 100) / 100 // розрахунок нової знижки / calculating the new discount
+        console.log(new_discount) // виведення нової знижки в консоль / logging the new discount to the console
+    }
+    catch (err) { // у разі помилки виконати наступний блок коду / if there is an error, execute the following block of code
+        console.log("This product has no discount") // виведення повідомлення про відсутність знижки в консоль / logging the message about no discount to the console
+    }
+    if (increase == 1){ // якщо значення increase дорівнює 1 / if the value of increase is 1
+        current_products_price += product_price // збільшення поточної ціни всіх продуктів / increasing the current total products price
+        all_discount += new_discount // збільшення загальної знижки / increasing the total discount
+    }
+    else{ // інакше / otherwise
+        current_products_price -= product_price // зменшення поточної ціни всіх продуктів / decreasing the current total products price
+        all_discount -= new_discount // зменшення загальної знижки / decreasing the total discount
+    }
+    current_products_price = Math.round(current_products_price * 100) / 100 // округлення поточної ціни всіх продуктів / rounding the current total products price
+    all_discount = Math.round(all_discount * 100) / 100 // округлення загальної знижки / rounding the total discount
+    console.log(new_discount, all_discount) // виведення нової знижки та загальної знижки в консоль / logging the new discount and total discount to the console
+    current_price_overall = Math.round((current_products_price - all_discount) * 100) / 100 // розрахунок та округлення нової загальної ціни / calculating and rounding the new overall price
+    document.querySelector(".overall-price").innerHTML = `${current_price_overall} грн` // оновлення значення загальної ціни на сторінці / updating the overall price on the page
+    document.querySelector(".discount-price").innerHTML = `${all_discount} грн` // оновлення значення знижки на сторінці / updating the discount price on the page
+    document.querySelector(".all-products-price").innerHTML = `${current_products_price} грн` // оновлення значення ціни всіх продуктів на сторінці / updating the total products price on the page
+}
+
+function change_product_count (product_id, increase){ // функція для зміни кількості продуктів / function to change the product count
+    let product_count = +document.getElementById(`count-${product_id}`).innerHTML // отримання кількості продукту / getting the product count
+    let products_count = +document.querySelector(".all-products-text").innerHTML.split("-")[0] // отримання поточної кількості всіх продуктів / getting the current total products count
+    let current_cookie = document.cookie.split(";") // отримання поточних кукі / getting the current cookies
+    let product_cookie = 0 // ініціалізація кукі для продукту / initializing the product cookie
+    let product_cookie_index = 0 // ініціалізація індексу кукі для продукту / initializing the product cookie index
+    for (let cookie_num = 0; cookie_num < current_cookie.length; cookie_num++) { // цикл по всіх кукі / loop through all cookies
+        if (product_cookie == 0) { // якщо кукі для продукту ще не знайдено / if the product cookie is not found yet
+            let this_cookie = current_cookie[cookie_num].split("=") // розділити кукі по знаку рівності / split the cookie by the equals sign
+            if (this_cookie[0] == "product") { // якщо знайдено кукі для продукту / if the product cookie is found
+                product_cookie_index = cookie_num // зберегти індекс кукі для продукту / save the product cookie index
+                product_cookie = this_cookie[1].split(" ") // розділити значення кукі на окремі продукти / split the cookie value into individual products
+            }
+        }
+    }
+    if(increase == 1){ // якщо значення increase дорівнює 1 / if the value of increase is 1
+        products_count++ // збільшити загальну кількість продуктів / increment the total product count
+        product_count++ // збільшити кількість конкретного продукту / increment the product count
+        product_cookie.push(product_id) // додати ідентифікатор продукту до кукі / add the product ID to the cookie
+    }
+    else{ // інакше / otherwise
+        products_count-- // зменшити загальну кількість продуктів / decrement the total product count
+        product_count-- // зменшити кількість конкретного продукту / decrement the product count
+        if (product_count == 0){ // якщо кількість продукту дорівнює нулю / if the product count is zero
+            document.getElementById(`product-${product_id}`).remove() // видалити продукт з DOM / remove the product from the DOM
+        }
+        product_cookie.splice(product_cookie.indexOf(String(product_id)), 1) // видалити ідентифікатор продукту з кукі / remove the product ID from the cookie
+        if (product_cookie.length == 0) { // якщо більше немає продуктів у кукі / if there are no more products in the cookie
+            product_cookie = null // встановити значення кукі для продукту як null / set the product cookie to null
+        }
+        console.log(product_cookie) // вивести значення кукі для продукту в консоль / log the product cookie to the console
+    }
+    if (product_cookie != null) { // якщо кукі для продукту не є null / if the product cookie is not null
+        current_cookie[product_cookie_index] = `product=${product_cookie.join(" ")}; Path=/` // оновити кукі для продукту / update the product cookie
+        document.cookie = current_cookie.join(";") // оновити кукі браузера / update the browser cookies
+    }
+    else { // інакше / otherwise
+        current_cookie[product_cookie_index] = "product='1'; Path=/; Max-Age=-1" // видалити кукі для продукту / delete the product cookie
+        document.cookie = current_cookie.join(";") // оновити кукі браузера / update the browser cookies
+        console.log(document.cookie, current_cookie) // вивести оновлені кукі в консоль / log the updated cookies to the console
+    }
+    try { // спроба виконати наступний блок коду / try to execute the following block of code
+        document.getElementById(`count-${product_id}`).innerHTML = product_count // оновити кількість продукту в DOM / update the product count in the DOM
+    }
+    catch (no_product_error) { // у разі помилки виконати наступний блок коду / if there is an error, execute the following block of code
+        console.log("Product was successfully deleted, I guess.") // вивести повідомлення про видалення продукту в консоль / log the product deletion message to the console
+        console.log(`Take a look at the error: ${no_product_error.name} /// ${no_product_error.message}`) // вивести інформацію про помилку в консоль / log the error information to the console
+    }
+    console.log(document.querySelector(".all-products-text")) // вивести інформацію про всі продукти в консоль / log the all products text to the console
+    document.querySelector(".all-products-text").innerHTML = `${products_count}-и товари на суму` // оновити текст з інформацією про всі продукти / update the all products text
+}
+
+function delete_all_product (product_id){ // функція для видалення всіх продуктів / function to delete all products
+    let product_count = Number(document.getElementById(`count-${product_id}`).innerHTML);
+
+    // Одержуємо загальну ціну продуктів/ Get the total price of the products
+    let all_products_price = Number(document.getElementById(`price-${product_id}`).innerHTML.split(" ")[0]) * product_count;
+
+    // Змінна для загальної знижки/ Variable for total discount
+    let all_products_discount = 0;
+
+    try {
+        // Розрахунок загальної знижки/ Calculate the total discount
+        all_products_discount = Math.round((-Number(document.getElementById(`discount-${product_id}`).innerHTML.split(" ")[0]) * product_count + all_products_price) * 100) / 100;
+    } catch (error) {
+        // Якщо продукт не має знижки/ If the product has no discount
+        console.log("This product has no discount");
+    }
+
+    // Отримуємо кукі продуктів/ Get the product cookies
+    let product_cookie = document.cookie.split(";");
+
+    // Перебираємо усі кукі / We go through all the cookies
+    for (let number_cookie = 0; number_cookie < product_cookie.length; number_cookie++) {
+        // Перевіряємо чи відноситься кукі до продуктів / We check whether cookies belong to products
+        if (product_cookie[number_cookie].includes("product")) {
+            // Ділимо значення кукі продуктів на окремі значення / We divide the cookie values ​​of the products into separate values
+            product_cookie = product_cookie[number_cookie].split('=')[1].split(' ');
+            // Зберігаємо кількість значень кукі / We store the number of cookie values
+            let cookie_count = product_cookie.length;
+            // Створюємо змінну для фіксування видалення продукту / We create a variable to record the removal of the product
+            let deleted_cookie = 0;
+            console.log(product_cookie); // Виводимо кукі продуктів у консоль/ Log the product cookies
+            // Перебираємо кукі продуктів
+            for (let number_product = 0; number_product < cookie_count; number_product++) {
+                // Зберігаємо індекс кукі продукта / We store the product cookie index
+                let cookie_index = number_product - deleted_cookie;
+                // Перевіряємо чи є поточне кукі продукту тим, що потрібно видалити / Checking if the current product cookie is the one to delete
+                if (product_cookie[cookie_index] == product_id) {
+                    // Збільшуємо індекс видаленого продукту на 1 / We increase the index of the deleted product by 1
+                    deleted_cookie++;
+                    // Зберігаємо видалене кукі продукту і видаляємо його з всього списку продуктів / We save the deleted product cookie and remove it from the entire list of products
+                    let deleted = product_cookie.splice(cookie_index, 1);
+                    // Виводимо у консоль усі кукі продуктів, поточне кукі продукта, індекс кукі та видалене кукі / We output all product cookies, the current product cookie, the cookie index, and the deleted cookie to the console
+                    console.log(product_cookie, product_cookie[cookie_index], cookie_index, deleted);
+                }
+            }
+
+            if (product_cookie.length == 0) {
+                // Видаляємо кукі, якщо продуктів не залишилось/ Delete the cookie if no products left
+                document.cookie = "product = 0; path = /; Max-Age = -1";
+            } else {
+                // Оновлюємо кукі продуктів/ Update the product cookies
+                document.cookie = `product = ${product_cookie.join(' ')}; path = /`;
+            }
+            // Зупиняємо цикл / We stop the cycle
+            break;
+        }
+    }
+
+    console.log(all_products_discount);
+    // Оновлюємо загальну кількість продуктів / We update the total number of products
+    document.querySelector(".all-products-text").innerHTML = `${document.querySelector(".all-products-text").innerHTML.split("-")[0] - product_count}-и товари на суму`
+    // Оновлюємо загальну ціну всіх продуктів без знижки / We update the total price of all products without discount
+    document.querySelector('.all-products-price').innerHTML = `${Math.round((document.querySelector('.all-products-price').innerHTML.split(' ')[0] - all_products_price) * 100) / 100} грн`
+    // Оноволюємо загальну знижку усіх продуктів / We are renewing the general discount for all products
+    document.querySelector('.discount-price').innerHTML = `${Math.round((document.querySelector('.discount-price').innerHTML.split(' ')[0] - all_products_discount) * 100) / 100} грн`
+    // Оновлюємо загальну ціну усіх продуктів з знижкою / We update the total price of all discounted products
+    document.querySelector('.overall-price').innerHTML = `${Math.round((document.querySelector('.overall-price').innerHTML.split(' ')[0] - (all_products_price - all_products_discount)) * 100) / 100} грн`
+    // Видаляємо поточний продукт з сторінки / We remove the current product from the page
+    document.getElementById(`product-${product_id}`).remove()
+
+}
+
+// Зберігаємо у константу лічильник кошику / We save the basket counter as a constant
+const basket_counter = document.getElementById("basket-counter")
+// Створюємо функцію для оновлення лічильнику кошику / We create a function to update the counter of the basket
+function change_basket_count () {
+    // Створюємо змінну для кількості продуктів у кукі / We create a variable for the number of products in the cookie
+    let product_count = 0
+    // Перебираємо кукі / Sort through cookies
+    for (let cookie_num = 0; cookie_num < document.cookie.split(";").length; cookie_num++) {
+        // Перевіряємо чи є кількість продуктів 0 / We check whether the number of products is 0
+        if (product_count == 0) {
+            // Зберігаємо поточне кукі / We save the current cookie
+            let this_cookie = document.cookie.split(";")[cookie_num].split("=")
+            // Перевіряємо чи є поточне кукі кукі продуктів / We check whether the current cookie is a product cookie
+            if (this_cookie[0] == "product") {
+                // Зберігаємо кількість продуктів у кукі / We store the number of products in a cookie
+                product_count = this_cookie[1].split(" ").length
+            }
+        }
+    }
+    // Виводимо у консоль кількість продуктів / We output the number of products to the console
+    console.log(product_count)
+    // Перевіряємо чи є продукти у кукі / We check whether there are products in the cookie
+    if (product_count != 0){
+        // Перевіряємо чи є кількість продуктів більше ніж 99 / We check whether the number of products is more than 99
+        if (product_count > 99){
+            // Якщо умова вище виконалась, то текст замінюється на 99+ показуючи лімит / If the condition above is met, the text is replaced by 99+ showing the limit
+            product_count = "99+"
+        }
+        // Замінюємо текст у лічильнику на кількість продуктів / We replace the text in the counter with the number of products
+        basket_counter.innerHTML = product_count
+    }
+    // Якщо продуктів у кукі нема / If there are no products in the cookie
+    else {
+        // Видаляємо текст з лічильника кошику / We delete the text from the counting basket
+        basket_counter.innerHTML = ""
+    }
+}  
+
+// Зберігаємо усі кнопки які зменшують кількість продуктів / We keep all the buttons that reduce the number of products
+const reduce_buttons = document.querySelectorAll(".button-reduce")
+// Зберігаємо усі кнопки які збільшують кількість продуктів / We keep all the buttons that increase the number of products
+const increase_buttons = document.querySelectorAll(".button-increase")
+// Зберігаємо усі кнопки які видаляють продукт / We keep all the buttons that remove the product
+const delete_buttons = document.querySelectorAll(".button-delete")
+
+// Перебираємо усі кнопки / We go through all the buttons
+for (let button_number = 0; button_number < reduce_buttons.length; button_number++){
+    // Зберігаємо id продукта / We store the product id
+    let product_id = reduce_buttons[button_number].id.split("-")[1]
+    // Додаємо до поточної кнопки зменшення функцію яка буде виконуватися при натисненні на кнопку / We add to the current decrease button a function that will be executed when the button is pressed
+    reduce_buttons[button_number].addEventListener("click", function(){
+        // Зменшуємо ціну на -1 поточним продуктом / We reduce the price by -1 current product
+        change_price(product_id, -1)
+        // Зменшуємо кількість на -1 поточним продуктом / We reduce the quantity by -1 with the current product
+        change_product_count(product_id, -1) 
+        // Змінюємо кількість продуктів у лічильнику / We change the number of products in the counter
+        change_basket_count()
+    })
+    // Додаємо до поточної кнопки збільшення функцію яка буде виконуватися при натисненні на кнопку / We add to the current increase button a function that will be executed when the button is pressed
+    increase_buttons[button_number].addEventListener("click", function(){
+        // Збільшуємо ціну на 1 поточним продуктом / We increase the price by 1 current product
+        change_price(product_id, 1)
+        // Збільшуємо кількість на 1 поточним продуктом / We increase the quantity by 1 current product
+        change_product_count(product_id, 1)
+        // Змінюємо кількість продуктів у лічильнику / We change the number of products in the counter
+        change_basket_count()
+    })
+    // Додаємо до поточної кнопки видалення функцію яка буде виконуватися при натисненні на кнопку / We add to the current delete button a function that will be executed when the button is pressed
+    delete_buttons[button_number].addEventListener("click", function(){
+        // Видаляємо усі продукти / Remove all products
+        delete_all_product(product_id)
+        // Змінюємо кількість продуктів у лічильнику / We change the number of products in the counter
+        change_basket_count()
+    })
+}
+
+// Зберігаємо кнопку відкриття модального вікна / Save the modal window opening button
+const modalOpenButton = document.querySelector(".confirmation-button")
+// Додаємо кнопці відкриття модального вікна дію при натисненні на неї / We add an action to the modal window opening button when it is clicked
+modalOpenButton.addEventListener("click", () => {
+    // Перевіряємо чи є продукти у кошику шляхом перевірки їх кількості / We check whether there are products in the basket by checking their quantity
+    if (document.getElementById("basket-counter").innerHTML != "") {
+        // Задаємо розмиттю заднього фону відображення / We set the background blur of the display
+        document.querySelector(".blur").style.display = "flex"
+    }
+})
+```
+#### Цей файл відповідає за збільшення, зменшення кількості продукту, видалення усього продукту з кошику і відкриття модального вікна для оформлення замовлення / This file is responsible for increasing, decreasing the product quantity, removing the entire product from the cart, and opening a modal window for checkout
+
+### Код базового файлу JS / JS base file code
+ 
+```js
+// Зберігаємо всі кукі / We store all cookies
+let products = document.cookie.split(";")
+// Створюємо кількість продуктів / We create a number of products
+let product_count = 0
+// Перебираємо всі кукі / We go through all the cookies
+for (let product_num = 0; product_num < products.length; product_num ++) {
+    // Зберігаємо кукі за поточним номером кукі / We store cookies by the current cookie number
+    let product = products[product_num].split("=")
+    // Перевіряємо чи є кукі кукі продукта / We check whether there are cookies in the product
+    if (product[0].includes("product")) {
+        // Зберігаємо кількість продукта з кукі / We save the amount of product from the cookie
+        product_count = product[1].split(" ").length
+    }
+}
+// Зберігаємо лічильник кошику / We save the basket counter
+let basket_counter = document.getElementById("basket-counter")
+// Перевіряємо чи є продукти у кукі / We check whether there are products in the cookie
+if (product_count != 0){
+    // Перевіряємо чи кількість продуктів перевищує 99 / We check whether the number of products exceeds 99
+    if (product_count > 99){
+        // Змінюємо текст продуктів на 99+ вказуючи на ліміт / We change the text of the products to 99+ indicating the limit
+        product_count = "99+"
+    }
+    // Змінюємо текст лічильника кошику на кількість продуктів / We change the text of the basket counter to the number of products
+    basket_counter.innerHTML = product_count
+}
+// Якщо продуктів немає у кукі / If there are no products in the cookie
+else {
+    // Видаляємо текст з лічильника кошику / We delete the text from the counter of the basket
+    basket_counter.innerHTML = ""
+}
+```
+#### Цей файл відповідає за завантаження кількості продуктів у лічільник на кожній сторінці (на то він і є базовим) / This file is responsible for loading the number of products into the counter on each page (that's why it's basic)
+
+### Код файлу JS сторінки магазину / JS file code of the store page
+```js
+const list_buttons = document.querySelectorAll(".add-product") // Отримати всі кнопки з класом "add-product" / Get all buttons with the class "add-product"
+
+for (let button_number = 0; button_number < list_buttons.length; button_number++) { // Перебрати всі кнопки / Loop through all buttons
+
+    let button = list_buttons[button_number] // Зберегти поточну кнопку в змінну / Save the current button to a variable
+
+    button.addEventListener("click", function () { // Додати обробник подій "click" для кнопки / Add a "click" event handler to the button
+
+        console.log(document.cookie) // Вивести поточні кукі у консоль / Log the current cookies to the console
+
+        let button_block = document.getElementById(`product-${button.id}`) // Отримати блок продукту за ідентифікатором кнопки / Get the product block by the button's ID
+
+        let in_stock = button_block.querySelector(".product-in-stock").id // Отримати ідентифікатор стану запасу продукту / Get the stock status ID of the product
+
+        if (in_stock == "1"){ // Перевірити, чи продукт є в наявності / Check if the product is in stock
+            let product = "" // Ініціалізувати змінну для продукту / Initialize a variable for the product
+
+            if (document.cookie.includes("product")){ // Перевірити, чи кукі містять продукт / Check if cookies contain a product
+                product = document.cookie.split("=")[1] // Отримати поточні продукти з кукі /  Get current products from cookies
+                product = product + " " + button.id // Додати ідентифікатор кнопки до списку продуктів / Add the button's ID to the product list
+            }
+            else{
+                product = button.id // Якщо кукі не містять продукт, встановити ідентифікатор кнопки як продукт / If cookies don't contain a product, set the button's ID as the product
+            }
+
+            document.cookie = `product = ${product}; path = /` // Оновити кукі з новим продуктом / Update the cookies with the new product
+            let products = document.cookie.split(";") // Розділити кукі на окремі частини / Split cookies into individual parts
+            let product_count = 0 // Ініціалізувати змінну для підрахунку кількості продуктів / Initialize a variable to count the number of products
+            for (let product_num = 0; product_num < products.length; product_num ++) { // Перебрати всі кукі / Iterate through all cookies
+                let product = products[product_num].split("=") // Розділити кожен кукі на ключ і значення / Split each cookie into key and value
+                if (product[0].includes("product")) {// Перевірити, чи кукі містять інформацію про продукти / Check if the cookie contains product information
+                    product_count = product[1].split(" ").length // Підрахувати кількість продуктів / Count the number of products
+                }
+            }
+
+            let basket_counter = document.getElementById("basket-counter") // Отримати елемент кошика за його ідентифікатором / Get the basket element by its identifier
+            if (product_count != 0){ // Перевірити, чи є продукти в кошику / Check if there are any products in the basket
+                if (product_count > 99){ // Перевірити, чи кількість продуктів перевищує 99 / Check if the product count exceeds 99
+                    product_count = "99+" // Встановити значення "99+" якщо кількість продуктів більше 99 / Set value to "99+" if product count is greater than 99
+                }
+                basket_counter.innerHTML = product_count // Оновити HTML з кількістю продуктів / Update HTML with product count
+            }
+            else {
+                basket_counter.innerHTML = "" // Очистити значення кошику, якщо немає продуктів/ Clear basket value if no products
+            }
+        }
+    }) // Закриття функції обробника подій та дужок for / Closing event handler function and for loop brackets
+}
+```
+#### Цей файл відповідає за покупку продуктів і збільшення лічильника / This file is responsible for buying products and incrementing the counter
 
 </details>
 
 ---
 
-TODO: Закоментувати базові шаблони
-TODO COMMENTS: Закоментувати JS, models, acc_base and base
+## Висновок: / Conclusion:
+### Завдяки цьому проекту я зі своєю командою отримав цінний опит і навчився краще створювати веб додатки, покращив свої знання у написанні JS, HTML та CSS файлів. Повторили важливу частину роботи з телеграм ботами створив одного у цьому проекті і навчився за допомогою мови програмування Python відправляти повідомлення на любу електрону пошту користувачів. / Thanks to this project, I and my team gained valuable experience and learned how to better create web applications, improved my knowledge in writing JS, HTML and CSS files. We repeated an important part of work with Telegram bots, created one in this project and learned to send messages to any user email using the Python programming language.
+### Подяка Агеєву за активну роботу та Пересвету і Овчаренко за старанне написання коду від тімліда Максима. / Thanks to Ageev for active work and Peresvet and Ovcharenko for painstakingly writing code from team leader Maksym.
