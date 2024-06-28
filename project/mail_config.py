@@ -1,13 +1,13 @@
 from .settings import project # Імпортуємо веб додаток з головного файлу
 import flask_mail # Імпортуємо модуль з flask для роботи з електроною поштою
-from home_page.models import User
 
 # Адреса для відправлення повідомлень / Administration address
 ADMINISTRATION_ADRESS = "m.tereshonok2020@gmail.com"
 # Пароль для відправки повідомлень / Administration password
 ADMINISTRATION_PASSWORD = "gkoi ufje okhw wscv"
 # Створюємо список для електронних скриньок адміністрації / We are creating a list for administration email boxes
-admin_addresses = []
+# Додавайте сюда електронні скриньки своїх адміністраторів
+admin_addresses = ["termaks2000@gmail.com"]
 
 # Налаштування сервера для надсилання пошти / Configuring the mail server
 project.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -28,14 +28,16 @@ def send_basket(mail_user: str, username: str, basket_text: str):
         body = f"Привіт, {username}!\n\n Ваше замовлення: \n\n{basket_text}\n\nДякуємо за замовлення, гарного дня!",  # Тіло листа / Email body
         sender = ADMINISTRATION_ADRESS  # Відправник / Sender
     )
-    # Створюємо повідомлення для адміністрації / Creating message for the administration
-    admin_message = flask_mail.Message(
-        subject = "Ваш кошик",  # Тема листа / Email subject
-        recipients = admin_addresses,  # Одержувачі / Recipients
-        body = f"Користувач {username} оформив нове замовлення.\n\n Його кошик складається з: \n\n{basket_text}\n\nЩоб змінити його статус перейдіть у телеграмі і гілці Кошик.",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
+    # Перевіряяємо чи додані пошти адміністраторів / Check if admin mails are added
+    if len(admin_addresses) > 0:
+        # Створюємо повідомлення для адміністрації / Creating message for the administration
+        admin_message = flask_mail.Message(
+            subject = "Ваш кошик",  # Тема листа / Email subject
+            recipients = admin_addresses,  # Одержувачі / Recipients
+            body = f"Користувач {username} оформив нове замовлення.\n\n Його кошик складається з: \n\n{basket_text}\n\nЩоб змінити його статус перейдіть у телеграмі і гілці Кошик.",  # Тіло листа / Email body
+            sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+        )
+        mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
 
 # Функція для надсилання повідомлення про скасування кошику
@@ -47,13 +49,15 @@ def cancel_basket(cart):
         body = f"Привіт, {cart.name}!\n\n Ви скасували своє замовлення на {len(cart.products.split(' '))} товарів.",  # Тіло листа / Email body
         sender = ADMINISTRATION_ADRESS  # Відправник / Sender
     )
-    # Створюємо повідомлення / Creating message
-    admin_message = flask_mail.Message(
-        subject = "Статус вашого замовлення",  # Тема листа / Email subject
-        recipients = admin_addresses,  # Одержувачі / Recipients
-        body = f"Користувач {cart.name} скасував своє замовлення.n\nНомер кошику: {cart.id} \nКошик складався з {len(cart.products.split(' '))} товарів. \n\nПовідомлення з телеграму було автоматично видалено.",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
+    # Перевіряяємо чи додані пошти адміністраторів / Check if admin mails are added
+    if len(admin_addresses) > 0:
+        # Створюємо повідомлення / Creating message
+        admin_message = flask_mail.Message(
+            subject = "Статус вашого замовлення",  # Тема листа / Email subject
+            recipients = admin_addresses,  # Одержувачі / Recipients
+            body = f"Користувач {cart.name} скасував своє замовлення.n\nНомер кошику: {cart.id} \nКошик складався з {len(cart.products.split(' '))} товарів. \n\nПовідомлення з телеграму було автоматично видалено.",  # Тіло листа / Email body
+            sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+        )
+        mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
     

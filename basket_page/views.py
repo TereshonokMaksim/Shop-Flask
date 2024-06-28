@@ -28,7 +28,7 @@ def show_basket_page():  # Визначення функції для показ
                                 additional = form["additional"])  # Збереження додаткової інформації з форми / Save additional information from the form
                 database.session.add(user_cart)  # Додавання нового об'єкта Cart до сесії бази даних / Add the new Cart object to the database session
                 database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
-                products = [Cart.query.get(product_id).name for product_id in cart.products.split(" ")]
+                products = [Product.query.get(product_id).name for product_id in user_cart.products.split(" ")]
                 unique_products = {}
                 for product in products:
                     if product in unique_products:
@@ -36,7 +36,7 @@ def show_basket_page():  # Визначення функції для показ
                     else:
                         unique_products[product] = 1
                 # Відправляємо кошик на єлектронну пошту / Sending the basket to your and administration e-mail
-                send_basket(mail_user = cart.email, username = f"{cart.surname} {cart.name}", basket_text = "\n".join([f"{product_name}: {product_count} шт." for product_name, product_count in unique_products.items()] ))
+                send_basket(mail_user = user_cart.email, username = f"{user_cart.surname} {user_cart.name}", basket_text = "\n".join([f"{product_name}: {product_count} шт." for product_name, product_count in unique_products.items()] ))
                 send_cart(cart = user_cart, unique_products = unique_products)  # Виклик функції send_cart з новим об'єктом Cart / Call the send_cart function with the new Cart object
             elif "cancel_delivery" in form.keys():  # Перевірка, чи натиснута кнопка "cancel_delivery" / Check if the "cancel_delivery" button is pressed
                 for cart in Cart.query.filter_by(user_id = current_user.id): cart_to_delete = cart  # Отримання корзини для видалення / Get the cart to delete

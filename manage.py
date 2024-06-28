@@ -3,7 +3,7 @@ import threading
 from bot.tele_bot import bot
 
 # Если правда, то будет запущено с помощью потоков
-bot_on = False
+bot_on = True
 
 if __name__ == "__main__":
     if not bot_on:
