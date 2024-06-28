@@ -174,6 +174,9 @@ flask --app settings db upgrade
 #### Нижче приведена структура нашого проекту / Below is the structure of our project
 
 ```mermaid
+%%{ init : { "theme" : "default", "flowchart" : { "curve" : "linear" } }}%%
+%%
+
 flowchart TD
     A(Shop Flask) --> L(admin_page);
     A(Shop Flask) --> K(authorization_page);
