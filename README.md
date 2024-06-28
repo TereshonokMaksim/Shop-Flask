@@ -177,6 +177,9 @@ flask --app settings db upgrade
 %%{ init : { "theme" : "default", "flowchart" : { "curve" : "linear" } }}%%
 
 flowchart TD
+
+subgraph ZA[""]
+direction TD
     A(Shop Flask) --> L(admin_page);
     A(Shop Flask) --> K(authorization_page);
     A(Shop Flask) --> J(basket_page);
@@ -184,10 +187,22 @@ flowchart TD
     A(Shop Flask) --> H(home_page);
     A(Shop Flask) --> G(project);
     A(Shop Flask) --> F(registration_page);
-    A(Shop Flask) --> E(shop_static);
+    A(Shop Flask) --> E(shop_page);
     A(Shop Flask) --> D(static);
     A(Shop Flask) --> C([bot_start.py]);
     A(Shop Flask) --> B([manage.py]);
+
+subgraph ZB[" "]
+direction LR
+    DA() --> DB(admin_page);
+    DA() --> DC(authorization_page);
+    DA() --> DB(basket_page);
+    DA() --> DB(home_page);
+    DA() --> DB(project);
+    DA() --> DB(registration_page);
+    DA() --> DB(shop_page);
+
+D --> DA
 ```
 
 *_page - Папка у якій створен веб додаток і його базові складові (інші є у папці static) / The folder in which the web application and its basic components are created (others are in the static folder)
