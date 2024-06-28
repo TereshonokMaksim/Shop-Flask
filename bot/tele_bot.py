@@ -342,8 +342,8 @@ def message_manager(message: telebot.types.Message):
 def send_cart(cart):
     print("at least, im here")
     global carts
-    if  group_chat_id != None:
-        products = [change_database(command = f"SELECT name FROM product WHERE id = {product_id}")[0][0] for product_id in cart.products.split(" ")]
+    if group_chat_id != None:
+        products = [change_database(command = f"SELECT name FROM product WHERE id = {product_id}")[0][0] for product_id in cart[2].split(" ")]
         unique_products = {}
         for product in products:
             if product in unique_products:
@@ -352,7 +352,7 @@ def send_cart(cart):
                 unique_products[product] = 1
         products_text = "\n".join([f"    {product_name}: {product_count} pcs." for product_name, product_count in unique_products.items()])
         cart_message = bot.send_message(chat_id =  group_chat_id, 
-                                        text = f"Cart number: {cart.id} \nUser id: {cart.user_id}\nUser surname, name: {cart.surname} {cart.name}\nUser phone number: {cart.phone_number}\nUser EMail: {cart.email}\nUser city: {cart.city}\nUser post office: {cart.post_office}\nUser wishes: {cart.additional}\nCart products: \n{products_text}\n\nStatus: under consideration ❓",
+                                        text = f"Cart number: {cart[0]} \nUser id: {cart[1]}\nUser surname, name: {cart[4]} {cart[3]}\nUser phone number: {cart[5]}\nUser EMail: {cart[6]}\nUser city: {cart[7]}\nUser post office: {cart[8]}\nUser wishes: {cart[9]}\nCart products: \n{products_text}\n\nStatus: under consideration ❓",
                                         message_thread_id = CART_THREAD_ID,
                                         reply_markup = edit_status_keyboard)
         carts[str(cart.id)] = Cart_Message(message_id = cart_message.id)
