@@ -1,1 +1,1 @@
-from .tele_bot import bot, send_cart, delete_cart
+from .tele_bot import bot

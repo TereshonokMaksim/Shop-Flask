@@ -24,6 +24,7 @@ ADD_PRODUCT_THREAD_ID = 640
 
 ''' Keyboard Part Start '''
 # Start keyboads
+keyboard_start_cart = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "GET CARTS", callback_data = "get_carts")]])
 keyboard_start_products = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "GET PRODUCTS", callback_data = "get_products")]])
 keyboard_start_users = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "GET USERS", callback_data = "get_user")]])
 add_product_start_keyboard = telebot.types.InlineKeyboardMarkup(keyboard = [[telebot.types.InlineKeyboardButton(text = "ADD PRODUCT", callback_data = "add_product")]])
@@ -76,12 +77,13 @@ def start_command(message: telebot.types.Message):
     elif message.message_thread_id == PRODUCT_THREAD_ID:
         bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = keyboard_start_products, message_thread_id = PRODUCT_THREAD_ID)
     elif message.message_thread_id == CART_THREAD_ID:
-        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін.\nТут будуть з'являтися замовлення користувачів коли вони будуть їх оформлювати.", message_thread_id = CART_THREAD_ID)
+        bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = keyboard_start_cart, message_thread_id = CART_THREAD_ID)
     elif message.message_thread_id == ADD_PRODUCT_THREAD_ID:
         bot.send_message(chat_id = message.chat.id, text = "Привіт, Адмін", reply_markup = add_product_start_keyboard, message_thread_id = ADD_PRODUCT_THREAD_ID)
         
 @bot.callback_query_handler(func = lambda call: True)
 def callback_handler(callback: telebot.types.CallbackQuery):
+    print(f"Callback: {callback.data}")
     if callback.data == "get_user":
         information = change_database(command= 'SELECT * FROM user')
         for info_user in information:
@@ -171,6 +173,10 @@ def callback_handler(callback: telebot.types.CallbackQuery):
             states[callback.from_user.id]['add_product'].started = True
             new_message = bot.send_message(chat_id = callback.message.chat.id, text = 'Вкажіть ім`я нового продукту:', message_thread_id = callback.message.message_thread_id) 
             states[callback.from_user.id]['add_product'].id_messages.append(new_message.id)
+    
+    elif callback.data == "get_carts":
+        for cart in change_database(command = "SELECT * FROM cart"):
+            send_cart(cart = cart)
 
     elif callback.data == "complete_order":
         text = callback.message.text.split("Status: ")
@@ -186,7 +192,7 @@ def callback_handler(callback: telebot.types.CallbackQuery):
 
 @bot.message_handler(content_types = ["text", "photo"])
 def message_manager(message: telebot.types.Message):
-    print(states.get(message.from_user.id), message.from_user.id, message.from_user.full_name, message.text, states)
+    print(f"Message: {message.text}")
     # NNOOOOOOOOO
     if "edit" in states[message.from_user.id]["products"]:
         state = states[message.from_user.id]["products"].split("-")
@@ -333,12 +339,17 @@ def message_manager(message: telebot.types.Message):
                 bot.send_message(chat_id = message.chat.id, text = f"Продукт {product.name} був успішно доданий!", message_thread_id = message.message_thread_id)
                 states[message.from_user.id]['add_product'] = New_Product()
 
-def send_cart(cart, unique_products: dict):
+def send_cart(cart):
     print("at least, im here")
     global carts
     if  group_chat_id != None:
-        print("IT WORKS!!!")
-        print("sent 0")
+        products = [change_database(command = f"SELECT name FROM product WHERE id = {product_id}")[0][0] for product_id in cart.products.split(" ")]
+        unique_products = {}
+        for product in products:
+            if product in unique_products:
+                unique_products[product] += 1
+            else:
+                unique_products[product] = 1
         products_text = "\n".join([f"    {product_name}: {product_count} pcs." for product_name, product_count in unique_products.items()])
         cart_message = bot.send_message(chat_id =  group_chat_id, 
                                         text = f"Cart number: {cart.id} \nUser id: {cart.user_id}\nUser surname, name: {cart.surname} {cart.name}\nUser phone number: {cart.phone_number}\nUser EMail: {cart.email}\nUser city: {cart.city}\nUser post office: {cart.post_office}\nUser wishes: {cart.additional}\nCart products: \n{products_text}\n\nStatus: under consideration ❓",
@@ -346,10 +357,5 @@ def send_cart(cart, unique_products: dict):
                                         reply_markup = edit_status_keyboard)
         carts[str(cart.id)] = Cart_Message(message_id = cart_message.id)
         
-def delete_cart(cart_id: int):
-    global carts
-    print(carts)
-    if  group_chat_id != None:
-        bot.delete_message(chat_id = group_chat_id, message_id = carts[str(cart_id)].id)
     
 # bot.infinity_polling()
