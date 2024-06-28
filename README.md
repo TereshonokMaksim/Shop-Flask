@@ -338,10 +338,8 @@ from home_page.models import User
 ADMINISTRATION_ADRESS = "m.tereshonok2020@gmail.com"
 # Пароль для відправки повідомлень / Administration password
 ADMINISTRATION_PASSWORD = "gkoi ufje okhw wscv"
-# Використовуємо контекст програми / We use the context of the program
-with project.app_context():
-    # Беремо адреса адміністраторів з моделі користувача / We take the address of administrators from the user model
-    admin_addresses = [user.email for user in User.query.all() if str(user.admin) == "1"]
+# Створюємо список для електронних скриньок адміністрації / We are creating a list for administration email boxes
+admin_addresses = []
 
 # Налаштування сервера для надсилання пошти / Configuring the mail server
 project.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -412,7 +410,6 @@ def cancel_basket(cart):
     )
     mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
-    
 ```
 #### Цей файл відповідає за повне налаштування роботи електроної пошти проекту та за створення функцій для надсилання самих повідомлень / This file is responsible for fully configuring the project's e-mail functionality and for creating functions for sending the messages themselves
 
