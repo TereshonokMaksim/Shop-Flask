@@ -193,13 +193,14 @@ subgraph YA[" "]
 end
 
 subgraph YB[" "]
+direction LR
     DA(static dummy):::hidden --> DB(admin_page)
     DA(static dummy):::hidden --> DC(authorization_page)
-    DA(static dummy):::hidden --> DB(basket_page)
-    DA(static dummy):::hidden --> DB(home_page)
-    DA(static dummy):::hidden --> DB(project)
-    DA(static dummy):::hidden --> DB(registration_page)
-    DA(static dummy):::hidden --> DB(shop_page)
+    DA(static dummy):::hidden --> DD(basket_page)
+    DA(static dummy):::hidden --> DE(home_page)
+    DA(static dummy):::hidden --> DF(project)
+    DA(static dummy):::hidden --> DG(registration_page)
+    DA(static dummy):::hidden --> DH(shop_page)
 end
 
 D --> DA
