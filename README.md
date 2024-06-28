@@ -193,13 +193,13 @@ subgraph YA[" "]
 end
 
 subgraph YB[" "]
-    DA() --> DB(admin_page)
-    DA() --> DC(authorization_page)
-    DA() --> DB(basket_page)
-    DA() --> DB(home_page)
-    DA() --> DB(project)
-    DA() --> DB(registration_page)
-    DA() --> DB(shop_page)
+    DA(static dummy):::hidden --> DB(admin_page)
+    DA(static dummy):::hidden --> DC(authorization_page)
+    DA(static dummy):::hidden --> DB(basket_page)
+    DA(static dummy):::hidden --> DB(home_page)
+    DA(static dummy):::hidden --> DB(project)
+    DA(static dummy):::hidden --> DB(registration_page)
+    DA(static dummy):::hidden --> DB(shop_page)
 end
 
 D --> DA
