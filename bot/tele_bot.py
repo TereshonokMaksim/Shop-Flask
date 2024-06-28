@@ -128,7 +128,7 @@ def callback_handler(callback: telebot.types.CallbackQuery):
             
     elif callback.data == "delete_product":
         product_id = callback.message.caption.split(" ")[1]
-        change_database(command = f"DELETE FROM product WHERE id = '{product_id}'")
+        change_database(command = f"DELETE FROM product WHERE id = {product_id}")
         bot.delete_message(chat_id = callback.message.chat.id, message_id = callback.message.id)
         
     elif callback.data == "edit_product":
