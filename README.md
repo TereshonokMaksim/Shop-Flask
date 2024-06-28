@@ -174,7 +174,7 @@ flask --app settings db upgrade
 #### Нижче приведена структура нашого проекту / Below is the structure of our project
 
 ```mermaid
-flowchart ID
+flowchart TD
     (Shop Flask) --> ([manage.py])
     (Shop Flask) --> (static)
 ```
