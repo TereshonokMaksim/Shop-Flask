@@ -179,7 +179,6 @@ flask --app settings db upgrade
 flowchart LR
 
 subgraph YBase[" "]
-    direction LR
     A(Shop Flask) --> L(admin_page)
     A(Shop Flask) --> K(authorization_page)
     A(Shop Flask) --> J(basket_page)
@@ -227,7 +226,6 @@ subgraph YBase[" "]
 end
 
 subgraph Ystatic[" "]
-    direction TD
     DY(Static Base) --> DYA(css)
     DY(Static Base) --> DYB(js)
     DY(Static Base) --> DYC(images)
