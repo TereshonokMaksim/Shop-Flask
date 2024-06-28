@@ -175,8 +175,17 @@ flask --app settings db upgrade
 
 ```mermaid
 flowchart TD
+    A(Shop Flask) --> L(admin_page);
+    A(Shop Flask) --> K(authorization_page);
+    A(Shop Flask) --> J(basket_page);
+    A(Shop Flask) --> I(bot);
+    A(Shop Flask) --> H(home_page);
+    A(Shop Flask) --> G(project);
+    A(Shop Flask) --> F(registration_page);
+    A(Shop Flask) --> E(shop_static);
+    A(Shop Flask) --> D(static);
+    A(Shop Flask) --> C([bot_start.py]);
     A(Shop Flask) --> B([manage.py]);
-    A(Shop Flask) --> C(static);
 ```
 
 *_page - Папка у якій створен веб додаток і його базові складові (інші є у папці static) / The folder in which the web application and its basic components are created (others are in the static folder)
