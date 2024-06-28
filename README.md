@@ -192,7 +192,7 @@ direction LR
     A(Shop Flask) --> C([bot_start.py])
     A(Shop Flask) --> B([manage.py])
 
-    <!-- Static part -->
+    %% Static part 
 
     DA(static dummy):::hidden --> DB(admin_page)
     DA(static dummy):::hidden --> DC(authorization_page)
