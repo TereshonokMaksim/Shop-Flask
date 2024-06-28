@@ -105,6 +105,7 @@ flask --app settings db migrate
 flask --app settings db upgrade
 # Для застосування усіх змін датабази / To apply all database changes
 ```
+6. >Змініть в manage.py змінну bot_on на True (bot_on = True)
 5. >Запустіть файл manage.py і перейдіть по посиланню http://127.0.0.1:5000/ / Run the file manage.py and go to the link http://127.0.0.1:5000/
 6. >Готово! / Done!
 
@@ -128,13 +129,16 @@ flask --app settings db migrate
 flask --app settings db upgrade
 # Для застосування усіх змін датабази / To apply all database changes
 ```
-5. >Далі можна вийти з консолі і у вкладці Web створити додаток. Якщо ви маєте платну підписку ви можете задати свій домен, але це необов'язково. Потім, вибираємо у списку фрейморків Flask і потім Python 3.10. В шлях до головного вставте шлях до файлу manage.py у папці проекту (можна побачити у вкладці Files). / Next, you can exit the console and create an application in the Web tab. If you have a paid subscription, you can specify your domain, but this is optional. Then, select Flask and then Python 3.10 from the list of frameworks. In the main path, paste the path to the manage.py file in the project folder (can be seen in the Files tab).
 
-6. >У проекті задайте початкову директорію (Source Code) таку ж яка вказана у робочій, якщо це ще не зроблено. У пункті WSGI configuration file відкриваємо файл та на 16 рядку (або ж на останньому) заміняємо flask_app на project і app на project. У virtualenvs треба вставити шлях до папки з віртуальним оточенням (можна отримати у вкладці Files. Починається завжди у .virtualenvs) / In the project, set the initial directory (Source Code) to the same one specified in the working one, if it has not been done yet. In the WSGI configuration file item, open the file and on the 16th line (or the last one) replace flask_app with project and app with project. In virtualenvs, you need to insert the path to the folder with the virtual environment (you can get it in the Files tab. It always starts with .virtualenvs)
+5. >Після цього, все ще у консолі, треба вийти у папку проекту (це можна зробити за допомогою cd ~/{назва папки проекту}) і написати ```python bot_start.py```, це потрібно для запуску телеграм бота / After that, still in the console, you need to go to the project folder (this can be done using cd ~/{name of the project folder}) and write ```python bot_start.py```, this is needed to start the telegram bot
 
-7. >Натисніть на кнопку "Перезавантажити {ваш логін}.pythonanywhere.com / Click on the button "Reset {your login}.pythonanywhere.com
+6. >Далі можна вийти з консолі і у вкладці Web створити додаток. Якщо ви маєте платну підписку ви можете задати свій домен, але це необов'язково. Потім, вибираємо у списку фрейморків Flask і потім Python 3.10. В шлях до головного вставте шлях до файлу manage.py у папці проекту (можна побачити у вкладці Files). / Next, you can exit the console and create an application in the Web tab. If you have a paid subscription, you can specify your domain, but this is optional. Then, select Flask and then Python 3.10 from the list of frameworks. In the main path, paste the path to the manage.py file in the project folder (can be seen in the Files tab).
 
-8. >Готово! Ви завантажили свій проект на pythonanywhere! / Done! You have uploaded your project to pythonanywhere!
+7. >У проекті задайте початкову директорію (Source Code) таку ж яка вказана у робочій, якщо це ще не зроблено. У пункті WSGI configuration file відкриваємо файл та на 16 рядку (або ж на останньому) заміняємо flask_app на project і app на project. У virtualenvs треба вставити шлях до папки з віртуальним оточенням (можна отримати у вкладці Files. Починається завжди у .virtualenvs) / In the project, set the initial directory (Source Code) to the same one specified in the working one, if it has not been done yet. In the WSGI configuration file item, open the file and on the 16th line (or the last one) replace flask_app with project and app with project. In virtualenvs, you need to insert the path to the folder with the virtual environment (you can get it in the Files tab. It always starts with .virtualenvs)
+
+8. >Натисніть на кнопку "Перезавантажити {ваш логін}.pythonanywhere.com / Click on the button "Reset {your login}.pythonanywhere.com
+
+9. >Готово! Ви завантажили свій проект на pythonanywhere! / Done! You have uploaded your project to pythonanywhere!
 </details>
 
 <details>
