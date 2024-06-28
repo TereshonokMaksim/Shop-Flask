@@ -331,12 +331,17 @@ migrate = flask_migrate.Migrate(app = project, db = database)
 
 ```python
 from .settings import project # Імпортуємо веб додаток з головного файлу
-import flask_mail # Імпортуємо 
+import flask_mail # Імпортуємо модуль з flask для роботи з електроною поштою
+from home_page.models import User
 
-# Адреса адміністрації / Administration address
+# Адреса для відправлення повідомлень / Administration address
 ADMINISTRATION_ADRESS = "m.tereshonok2020@gmail.com"
-# Пароль адміністрації / Administration password
+# Пароль для відправки повідомлень / Administration password
 ADMINISTRATION_PASSWORD = "gkoi ufje okhw wscv"
+# Використовуємо контекст програми / We use the context of the program
+with project.app_context():
+    # Беремо адреса адміністраторів з моделі користувача / We take the address of administrators from the user model
+    admin_addresses = [user.email for user in User.query.all() if str(user.admin) == "1"]
 
 # Налаштування сервера для надсилання пошти / Configuring the mail server
 project.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -350,17 +355,22 @@ mail = flask_mail.Mail(app = project)
 
 # Функція для відправки кошика користувачеві / Function to send the basket to the user
 def send_basket(mail_user: str, username: str, basket_text: str):
-    # Створюємо повідомлення / Creating message
-    print("sent 1")
+    # Створюємо повідомлення для користувача / Creating message for a user
     message = flask_mail.Message(
         subject = "Ваш кошик",  # Тема листа / Email subject
         recipients = [mail_user],  # Одержувачі / Recipients
         body = f"Привіт, {username}!\n\n Ваше замовлення: \n\n{basket_text}\n\nДякуємо за замовлення, гарного дня!",  # Тіло листа / Email body
         sender = ADMINISTRATION_ADRESS  # Відправник / Sender
     )
-    print("sent 2")
+    # Створюємо повідомлення для адміністрації / Creating message for the administration
+    admin_message = flask_mail.Message(
+        subject = "Ваш кошик",  # Тема листа / Email subject
+        recipients = admin_addresses,  # Одержувачі / Recipients
+        body = f"Користувач {username} оформив нове замовлення.\n\n Його кошик складається з: \n\n{basket_text}\n\nЩоб змінити його статус перейдіть у телеграмі і гілці Кошик.",  # Тіло листа / Email body
+        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+    )
+    mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
-    print("sent orig")
 
 # Функція для відхилення кошика користувача / Function to reject the user's basket
 def reject_basket(mail_user: str, username: str):
@@ -383,6 +393,26 @@ def complete_basket(mail_user: str, username: str):
         sender = ADMINISTRATION_ADRESS  # Відправник / Sender
     )
     mail.send(message = message) # Відправляємо повідомлення / Sending message
+
+# Функція для надсилання повідомлення про скасування кошику
+def cancel_basket(cart):
+    # Створюємо повідомлення / Creating message
+    message = flask_mail.Message(
+        subject = "Скасування вашого замовлення",  # Тема листа / Email subject
+        recipients = [cart.email],  # Одержувачі / Recipients
+        body = f"Привіт, {cart.name}!\n\n Ви скасували своє замовлення на {len(cart.products.split(' '))} товарів.",  # Тіло листа / Email body
+        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+    )
+    # Створюємо повідомлення / Creating message
+    admin_message = flask_mail.Message(
+        subject = "Статус вашого замовлення",  # Тема листа / Email subject
+        recipients = admin_addresses,  # Одержувачі / Recipients
+        body = f"Користувач {cart.name} скасував своє замовлення.n\nНомер кошику: {cart.id} \nКошик складався з {len(cart.products.split(' '))} товарів. \n\nПовідомлення з телеграму було автоматично видалено.",  # Тіло листа / Email body
+        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+    )
+    mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
+    mail.send(message = message) # Відправляємо повідомлення / Sending message
+    
 ```
 #### Цей файл відповідає за повне налаштування роботи електроної пошти проекту та за створення функцій для надсилання самих повідомлень / This file is responsible for fully configuring the project's e-mail functionality and for creating functions for sending the messages themselves
 
@@ -1116,6 +1146,7 @@ from home_page.models import Product, Cart  # Імпорт моделей Produc
 from flask_login import current_user, UserMixin  # Імпорт поточного користувача та UserMixin з flask_login / Import current user and UserMixin from flask_login
 from project.settings import database  # Імпорт налаштувань бази даних з проекту / Import the database settings from the project
 from bot import send_cart, delete_cart  # Імпорт функцій send_cart та delete_cart з модуля bot / Import send_cart and delete_cart functions from the bot module
+from project.mail_config import cancel_basket
 
 def show_basket_page():  # Визначення функції для показу сторінки кошика / Define a function to show the basket page
     if isinstance(current_user, UserMixin):  # Перевірка, чи поточний користувач є екземпляром UserMixin / Check if the current user is an instance of UserMixin
@@ -1143,6 +1174,7 @@ def show_basket_page():  # Визначення функції для показ
                 send_cart(cart = user_cart)  # Виклик функції send_cart з новим об'єктом Cart / Call the send_cart function with the new Cart object
             elif "cancel_delivery" in form.keys():  # Перевірка, чи натиснута кнопка "cancel_delivery" / Check if the "cancel_delivery" button is pressed
                 for cart in Cart.query.filter_by(user_id = current_user.id): cart_to_delete = cart  # Отримання корзини для видалення / Get the cart to delete
+                cancel_basket(cart = cart_to_delete) # Надсилаємо повідомлення на пошту про скасування замовлення / Sending message to the mail about canceling the order
                 delete_cart(cart_id = cart_to_delete.id)  # Виклик функції delete_cart з id корзини / Call the delete_cart function with the cart id
                 database.session.delete(cart_to_delete)  # Видалення корзини з бази даних / Delete the cart from the database
                 database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
