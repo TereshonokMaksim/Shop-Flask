@@ -220,7 +220,7 @@ flowchart LR
 
 
     FA(reg page dummy):::hidden --> FB(templates)
-    FA(reg page dummy):::hidden --> FC(__init__.py)
+    FA(reg page dummy):::hidden --> FC([__init__.py])
     FA(reg page dummy):::hidden --> FD([app.py])
     FA(reg page dummy):::hidden --> FE([views.py])
     FB(templates) --> FF([registration.html])
@@ -229,7 +229,7 @@ flowchart LR
 
 
     GA(project dummy):::hidden --> GB(templates)
-    GA(project dummy):::hidden --> GC(__init__.py)
+    GA(project dummy):::hidden --> GC([__init__.py])
     GA(project dummy):::hidden --> GD([login_manager.py])
     GA(project dummy):::hidden --> GE([mail_config.py])
     GA(project dummy):::hidden --> GF([settings.py])
@@ -241,7 +241,7 @@ flowchart LR
 
 
     HA(home page dummy):::hidden --> HB(templates)
-    HA(home page dummy):::hidden --> HC(__init__.py)
+    HA(home page dummy):::hidden --> HC([__init__.py])
     HA(home page dummy):::hidden --> HD([app.py])
     HA(home page dummy):::hidden --> HE([views.py])
     HB(templates) --> HF([logined_home.html])
@@ -250,13 +250,13 @@ flowchart LR
     H --> HA
 
 
-    IA(reg page dummy):::hidden --> IC(__init__.py)
+    IA(reg page dummy):::hidden --> IC([__init__.py])
     IA(reg page dummy):::hidden --> ID([tele_bot.py])
 
     I --> IA
 
     JA(basket page dummy):::hidden --> JB(templates)
-    JA(basket page dummy):::hidden --> JC(__init__.py)
+    JA(basket page dummy):::hidden --> JC([__init__.py])
     JA(basket page dummy):::hidden --> JD([app.py])
     JA(basket page dummy):::hidden --> JE([views.py])
     JB(templates) --> JF([basket.html])
@@ -266,7 +266,7 @@ flowchart LR
 
 
     KA(authorization page dummy):::hidden --> KB(templates)
-    KA(authorization page dummy):::hidden --> KC(__init__.py)
+    KA(authorization page dummy):::hidden --> KC([__init__.py])
     KA(authorization page dummy):::hidden --> KD([app.py])
     KA(authorization page dummy):::hidden --> KE([views.py])
     KB(templates) --> KF([login.html])
@@ -275,12 +275,12 @@ flowchart LR
 
 
     LA(home page dummy):::hidden --> LB(templates)
-    LA(home page dummy):::hidden --> LC(__init__.py)
+    LA(home page dummy):::hidden --> LC([__init__.py])
     LA(home page dummy):::hidden --> LD([app.py])
     LA(home page dummy):::hidden --> LE([views.py])
     LB(templates) --> LF([admin.html])
 
-    H --> HA
+    L --> LA
 
 
     DY(Static Base) --> DYA(css)
