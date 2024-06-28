@@ -178,30 +178,28 @@ flask --app settings db upgrade
 
 flowchart TD
 
-subgraph ZA[" "]
-direction TD
-    A(Shop Flask) --> L(admin_page);
-    A(Shop Flask) --> K(authorization_page);
-    A(Shop Flask) --> J(basket_page);
-    A(Shop Flask) --> I(bot);
-    A(Shop Flask) --> H(home_page);
-    A(Shop Flask) --> G(project);
-    A(Shop Flask) --> F(registration_page);
-    A(Shop Flask) --> E(shop_page);
-    A(Shop Flask) --> D(static);
-    A(Shop Flask) --> C([bot_start.py]);
-    A(Shop Flask) --> B([manage.py]);
+subgraph YA[" "]
+    A(Shop Flask) --> L(admin_page)
+    A(Shop Flask) --> K(authorization_page)
+    A(Shop Flask) --> J(basket_page)
+    A(Shop Flask) --> I(bot)
+    A(Shop Flask) --> H(home_page)
+    A(Shop Flask) --> G(project)
+    A(Shop Flask) --> F(registration_page)
+    A(Shop Flask) --> E(shop_page)
+    A(Shop Flask) --> D(static)
+    A(Shop Flask) --> C([bot_start.py])
+    A(Shop Flask) --> B([manage.py])
 end
 
-subgraph ZB[" "]
-direction LR
-    DA() --> DB(admin_page);
-    DA() --> DC(authorization_page);
-    DA() --> DB(basket_page);
-    DA() --> DB(home_page);
-    DA() --> DB(project);
-    DA() --> DB(registration_page);
-    DA() --> DB(shop_page);
+subgraph YB[" "]
+    DA() --> DB(admin_page)
+    DA() --> DC(authorization_page)
+    DA() --> DB(basket_page)
+    DA() --> DB(home_page)
+    DA() --> DB(project)
+    DA() --> DB(registration_page)
+    DA() --> DB(shop_page)
 end
 
 D --> DA
