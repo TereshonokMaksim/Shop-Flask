@@ -178,7 +178,7 @@ flask --app settings db upgrade
 
 flowchart TD
 
-subgraph ZA[""]
+subgraph ZA[" "]
 direction TD
     A(Shop Flask) --> L(admin_page);
     A(Shop Flask) --> K(authorization_page);
