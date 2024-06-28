@@ -179,7 +179,7 @@ flask --app settings db upgrade
 flowchart LR
 
 subgraph YBase[" "]
-direction LR
+    direction LR
     A(Shop Flask) --> L(admin_page)
     A(Shop Flask) --> K(authorization_page)
     A(Shop Flask) --> J(basket_page)
@@ -192,7 +192,6 @@ direction LR
     A(Shop Flask) --> C([bot_start.py])
     A(Shop Flask) --> B([manage.py])
 
-    %% Static part 
 
     DA(static dummy):::hidden --> DB(admin_page)
     DA(static dummy):::hidden --> DC(authorization_page)
@@ -204,11 +203,31 @@ direction LR
 
     D --> DA
 
+
+    EA(shop_page dummy):::hidden --> EB(templates)
+    EA(shop_page dummy):::hidden --> EC([__init__.py])
+    EA(shop_page dummy):::hidden --> ED([app.py])
+    EA(shop_page dummy):::hidden --> EE([views.py])
+    EB(templates) --> EF([shop_page.html])
+
+    E --> EA
+
+
+    FA(reg page dummy):::hidden --> FB(templates)
+    FA(reg page dummy):::hidden --> FC(__init__.py)
+    FA(reg page dummy):::hidden --> FD([app.py])
+    FA(reg page dummy):::hidden --> FE([views.py])
+    FB(templates) --> FF([registration_page.html])
+
+    F --> FA
+
+    %% 
+
     classDef hidden display: none;
 end
 
 subgraph Ystatic[" "]
-direction TD
+    direction TD
     DY(Static Base) --> DYA(css)
     DY(Static Base) --> DYB(js)
     DY(Static Base) --> DYC(images)
