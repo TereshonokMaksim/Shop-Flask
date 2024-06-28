@@ -249,7 +249,7 @@ flowchart LR
     HA(home page dummy):::hidden --> HD([app.py])
     HA(home page dummy):::hidden --> HE([views.py])
     HB(templates) --> HF([logined_home.html])
-    HB(templates) --> HF([not_logined_home.html])
+    HB(templates) --> HG([not_logined_home.html])
 
     H --> HA
 
@@ -264,7 +264,7 @@ flowchart LR
     JA(basket page dummy):::hidden --> JD([app.py])
     JA(basket page dummy):::hidden --> JE([views.py])
     JB(templates) --> JF([basket.html])
-    JB(templates) --> JF([basket_send.html])
+    JB(templates) --> JG([basket_send.html])
 
     J --> JA
 
