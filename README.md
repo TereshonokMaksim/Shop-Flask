@@ -173,7 +173,11 @@ flask --app settings db upgrade
 ### Структура проекту / Project structure
 #### Нижче приведена структура нашого проекту / Below is the structure of our project
 
-![alt_text](static/readme/structure.png "Structure image")
+```mermaid
+flowchart ID
+    (Shop Flask) --> ([manage.py])
+    (Shop Flask) --> (static)
+```
 
 *_page - Папка у якій створен веб додаток і його базові складові (інші є у папці static) / The folder in which the web application and its basic components are created (others are in the static folder)
 
