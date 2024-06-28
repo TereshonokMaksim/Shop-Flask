@@ -176,9 +176,10 @@ flask --app settings db upgrade
 ```mermaid
 %%{ init : { "theme" : "default", "flowchart" : { "curve" : "linear" } }}%%
 
-flowchart TD
+flowchart LR
 
-subgraph YA[" "]
+subgraph YBase[" "]
+direction LR
     A(Shop Flask) --> L(admin_page)
     A(Shop Flask) --> K(authorization_page)
     A(Shop Flask) --> J(basket_page)
@@ -190,10 +191,9 @@ subgraph YA[" "]
     A(Shop Flask) --> D(static)
     A(Shop Flask) --> C([bot_start.py])
     A(Shop Flask) --> B([manage.py])
-end
 
-subgraph YB[" "]
-direction LR
+    <!-- Static part -->
+
     DA(static dummy):::hidden --> DB(admin_page)
     DA(static dummy):::hidden --> DC(authorization_page)
     DA(static dummy):::hidden --> DD(basket_page)
@@ -202,10 +202,22 @@ direction LR
     DA(static dummy):::hidden --> DG(registration_page)
     DA(static dummy):::hidden --> DH(shop_page)
 
+    D --> DA
+
     classDef hidden display: none;
 end
 
-D --> DA
+subgraph Ystatic[" "]
+direction TD
+    DY(Static Base) --> DYA(css)
+    DY(Static Base) --> DYB(js)
+    DY(Static Base) --> DYC(images)
+
+    DYA(css) --> DYAA([style.css])
+    DYB(js) --> DYBA([script.js])
+    DYC(images) --> DYCA(any images for web page)
+end
+
 ```
 
 *_page - Папка у якій створен веб додаток і його базові складові (інші є у папці static) / The folder in which the web application and its basic components are created (others are in the static folder)
