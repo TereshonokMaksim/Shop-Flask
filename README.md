@@ -175,7 +175,6 @@ flask --app settings db upgrade
 
 ```mermaid
 %%{ init : { "theme" : "default", "flowchart" : { "curve" : "linear" } }}%%
-%%
 
 flowchart TD
     A(Shop Flask) --> L(admin_page);
