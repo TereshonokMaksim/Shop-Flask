@@ -1,9 +1,6 @@
 import telebot
 import sqlite3
 import os
-from home_page.models import Cart
-import project.mail_config as mail
-from project import project
 
 def change_database(command:str):
     print(command)
@@ -98,8 +95,6 @@ def callback_handler(callback: telebot.types.CallbackQuery):
 
     elif callback.data == 'confirm_delete_user':
         user_id = callback.message.text.split(" ")[1]
-        if callback.message.text.split(" ")[-1] != "0":
-            mail.admin_addresses.remove(change_database(f"SELECT email FROM user WHERE id = '{user_id}'")[0][0])
         change_database(command = f"DELETE FROM user WHERE id = '{user_id}'")
         bot.delete_message(chat_id = callback.message.chat.id, message_id = callback.message.id)
 
@@ -112,13 +107,11 @@ def callback_handler(callback: telebot.types.CallbackQuery):
         
     elif callback.data == "add_admin":
         user_id = callback.message.text.split(" ")[1]
-        mail.admin_addresses.append(change_database(command = f"SELECT email FROM user WHERE id = '{user_id}'")[0][0])
         change_database(command = f"UPDATE user SET admin = '1' WHERE id = '{user_id}'")
         bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = " ".join([" ".join(callback.message.text.split(" ")[:-2]), "➡️Is_admin: 1⚠️"]), reply_markup = admin_keyboard)
         
     elif callback.data == "remove_admin":
         user_id = callback.message.text.split(" ")[1]
-        mail.admin_addresses.remove(change_database(command = f"SELECT email FROM user WHERE id = '{user_id}'")[0][0])
         change_database(command = f"UPDATE user SET admin = '0' WHERE id = '{user_id}'") 
         bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = " ".join([" ".join(callback.message.text.split(" ")[:-2]), "➡️Is_admin: 0"]), reply_markup = user_keyboard)   
 
@@ -184,16 +177,12 @@ def callback_handler(callback: telebot.types.CallbackQuery):
         bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = "Status: ".join([text[0], "completed ✅"]))
         user_data = callback.message.text.split("\n")
         carts[callback.message.text.split(" ")[2]].status = "completed"
-        with project.app_context():
-            mail.complete_basket(mail_user = user_data[4].split(": ")[1], username = user_data[2].split(": ")[1])
 
     elif callback.data == "reject_order":
         text = callback.message.text.split("Status: ")
         bot.edit_message_text(chat_id = callback.message.chat.id, message_id = callback.message.id, text = "Status: ".join([text[0], "rejected ❌"]))
         user_data = callback.message.text.split("\n")
         carts[callback.message.text.split(" ")[2]].status = "rejected"
-        with project.app_context():
-            mail.reject_basket(mail_user = user_data[4].split(": ")[1], username = user_data[2].split(": ")[1])
 
 @bot.message_handler(content_types = ["text", "photo"])
 def message_manager(message: telebot.types.Message):
@@ -344,20 +333,12 @@ def message_manager(message: telebot.types.Message):
                 bot.send_message(chat_id = message.chat.id, text = f"Продукт {product.name} був успішно доданий!", message_thread_id = message.message_thread_id)
                 states[message.from_user.id]['add_product'] = New_Product()
 
-def send_cart(cart: Cart):
+def send_cart(cart, unique_products: dict):
     print("at least, im here")
     global carts
     if  group_chat_id != None:
         print("IT WORKS!!!")
-        products = [change_database(command = f"SELECT name FROM product WHERE id = {product_id}")[0][0] for product_id in cart.products.split(" ")]
-        unique_products = {}
-        for product in products:
-            if product in unique_products:
-                unique_products[product] += 1
-            else:
-                unique_products[product] = 1
         print("sent 0")
-        mail.send_basket(mail_user = cart.email, username = f"{cart.surname} {cart.name}", basket_text = "\n".join([f"{product_name}: {product_count} шт." for product_name, product_count in unique_products.items()] ))
         products_text = "\n".join([f"    {product_name}: {product_count} pcs." for product_name, product_count in unique_products.items()])
         cart_message = bot.send_message(chat_id =  group_chat_id, 
                                         text = f"Cart number: {cart.id} \nUser id: {cart.user_id}\nUser surname, name: {cart.surname} {cart.name}\nUser phone number: {cart.phone_number}\nUser EMail: {cart.email}\nUser city: {cart.city}\nUser post office: {cart.post_office}\nUser wishes: {cart.additional}\nCart products: \n{products_text}\n\nStatus: under consideration ❓",

@@ -38,28 +38,6 @@ def send_basket(mail_user: str, username: str, basket_text: str):
     mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
 
-# Функція для відхилення кошика користувача / Function to reject the user's basket
-def reject_basket(mail_user: str, username: str):
-    # Створюємо повідомлення / Creating message
-    message = flask_mail.Message(
-        subject = "Статус вашого замовлення",  # Тема листа / Email subject
-        recipients = [mail_user],  # Одержувачі / Recipients
-        body = f"Привіт, {username}!\n\n Ваше замовлення було відхилено продавцем магазину.\n\nВибачаемося за незручності, гарного дня!",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = message) # Відправляємо повідомлення / Sending message
-
-# Функція для підтвердження виконання замовлення / Function to confirm order completion
-def complete_basket(mail_user: str, username: str):
-    # Створюємо повідомлення / Creating message
-    message = flask_mail.Message(
-        subject = "Статус вашого замовлення",  # Тема листа / Email subject
-        recipients = [mail_user],  # Одержувачі / Recipients
-        body = f"Привіт, {username}!\n\n Ваше замовлення вже зібрано та відправлено у дорогу!\n\nДякуємо за ваше замовлення, гарного дня!",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = message) # Відправляємо повідомлення / Sending message
-
 # Функція для надсилання повідомлення про скасування кошику
 def cancel_basket(cart):
     # Створюємо повідомлення / Creating message

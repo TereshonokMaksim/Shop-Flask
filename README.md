@@ -490,28 +490,6 @@ def send_basket(mail_user: str, username: str, basket_text: str):
     mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
 
-# Функція для відхилення кошика користувача / Function to reject the user's basket
-def reject_basket(mail_user: str, username: str):
-    # Створюємо повідомлення / Creating message
-    message = flask_mail.Message(
-        subject = "Статус вашого замовлення",  # Тема листа / Email subject
-        recipients = [mail_user],  # Одержувачі / Recipients
-        body = f"Привіт, {username}!\n\n Ваше замовлення було відхилено продавцем магазину.\n\nВибачаемося за незручності, гарного дня!",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = message) # Відправляємо повідомлення / Sending message
-
-# Функція для підтвердження виконання замовлення / Function to confirm order completion
-def complete_basket(mail_user: str, username: str):
-    # Створюємо повідомлення / Creating message
-    message = flask_mail.Message(
-        subject = "Статус вашого замовлення",  # Тема листа / Email subject
-        recipients = [mail_user],  # Одержувачі / Recipients
-        body = f"Привіт, {username}!\n\n Ваше замовлення вже зібрано та відправлено у дорогу!\n\nДякуємо за ваше замовлення, гарного дня!",  # Тіло листа / Email body
-        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
-    )
-    mail.send(message = message) # Відправляємо повідомлення / Sending message
-
 # Функція для надсилання повідомлення про скасування кошику
 def cancel_basket(cart):
     # Створюємо повідомлення / Creating message
@@ -1263,7 +1241,7 @@ from home_page.models import Product, Cart  # Імпорт моделей Produc
 from flask_login import current_user, UserMixin  # Імпорт поточного користувача та UserMixin з flask_login / Import current user and UserMixin from flask_login
 from project.settings import database  # Імпорт налаштувань бази даних з проекту / Import the database settings from the project
 from bot import send_cart, delete_cart  # Імпорт функцій send_cart та delete_cart з модуля bot / Import send_cart and delete_cart functions from the bot module
-from project.mail_config import cancel_basket
+from project.mail_config import cancel_basket, send_basket
 
 def show_basket_page():  # Визначення функції для показу сторінки кошика / Define a function to show the basket page
     if isinstance(current_user, UserMixin):  # Перевірка, чи поточний користувач є екземпляром UserMixin / Check if the current user is an instance of UserMixin
@@ -1288,7 +1266,16 @@ def show_basket_page():  # Визначення функції для показ
                                 additional = form["additional"])  # Збереження додаткової інформації з форми / Save additional information from the form
                 database.session.add(user_cart)  # Додавання нового об'єкта Cart до сесії бази даних / Add the new Cart object to the database session
                 database.session.commit()  # Фіксація змін у базі даних / Commit the changes to the database
-                send_cart(cart = user_cart)  # Виклик функції send_cart з новим об'єктом Cart / Call the send_cart function with the new Cart object
+                products = [Cart.query.get(product_id).name for product_id in cart.products.split(" ")]
+                unique_products = {}
+                for product in products:
+                    if product in unique_products:
+                        unique_products[product] += 1
+                    else:
+                        unique_products[product] = 1
+                # Відправляємо кошик на єлектронну пошту / Sending the basket to your and administration e-mail
+                send_basket(mail_user = cart.email, username = f"{cart.surname} {cart.name}", basket_text = "\n".join([f"{product_name}: {product_count} шт." for product_name, product_count in unique_products.items()] ))
+                send_cart(cart = user_cart, unique_products = unique_products)  # Виклик функції send_cart з новим об'єктом Cart / Call the send_cart function with the new Cart object
             elif "cancel_delivery" in form.keys():  # Перевірка, чи натиснута кнопка "cancel_delivery" / Check if the "cancel_delivery" button is pressed
                 for cart in Cart.query.filter_by(user_id = current_user.id): cart_to_delete = cart  # Отримання корзини для видалення / Get the cart to delete
                 cancel_basket(cart = cart_to_delete) # Надсилаємо повідомлення на пошту про скасування замовлення / Sending message to the mail about canceling the order
