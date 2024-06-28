@@ -191,6 +191,7 @@ direction TD
     A(Shop Flask) --> D(static);
     A(Shop Flask) --> C([bot_start.py]);
     A(Shop Flask) --> B([manage.py]);
+end
 
 subgraph ZB[" "]
 direction LR
@@ -201,6 +202,7 @@ direction LR
     DA() --> DB(project);
     DA() --> DB(registration_page);
     DA() --> DB(shop_page);
+end
 
 D --> DA
 ```
