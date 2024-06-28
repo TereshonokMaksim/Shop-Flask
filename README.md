@@ -178,62 +178,58 @@ flask --app settings db upgrade
 
 flowchart LR
 
-    subgraph YBase[" "]
-        A(Shop Flask) --> L(admin_page)
-        A(Shop Flask) --> K(authorization_page)
-        A(Shop Flask) --> J(basket_page)
-        A(Shop Flask) --> I(bot)
-        A(Shop Flask) --> H(home_page)
-        A(Shop Flask) --> G(project)
-        A(Shop Flask) --> F(registration_page)
-        A(Shop Flask) --> E(shop_page)
-        A(Shop Flask) --> D(static)
-        A(Shop Flask) --> C([bot_start.py])
-        A(Shop Flask) --> B([manage.py])
+    A(Shop Flask) --> L(admin_page)
+    A(Shop Flask) --> K(authorization_page)
+    A(Shop Flask) --> J(basket_page)
+    A(Shop Flask) --> I(bot)
+    A(Shop Flask) --> H(home_page)
+    A(Shop Flask) --> G(project)
+    A(Shop Flask) --> F(registration_page)
+    A(Shop Flask) --> E(shop_page)
+    A(Shop Flask) --> D(static)
+    A(Shop Flask) --> C([bot_start.py])
+    A(Shop Flask) --> B([manage.py])
 
 
-        DA(static dummy):::hidden --> DB(admin_page)
-        DA(static dummy):::hidden --> DC(authorization_page)
-        DA(static dummy):::hidden --> DD(basket_page)
-        DA(static dummy):::hidden --> DE(home_page)
-        DA(static dummy):::hidden --> DF(project)
-        DA(static dummy):::hidden --> DG(registration_page)
-        DA(static dummy):::hidden --> DH(shop_page)
+    DA(static dummy):::hidden --> DB(admin_page)
+    DA(static dummy):::hidden --> DC(authorization_page)
+    DA(static dummy):::hidden --> DD(basket_page)
+    DA(static dummy):::hidden --> DE(home_page)
+    DA(static dummy):::hidden --> DF(project)
+    DA(static dummy):::hidden --> DG(registration_page)
+    DA(static dummy):::hidden --> DH(shop_page)
 
-        D --> DA
-
-
-        EA(shop_page dummy):::hidden --> EB(templates)
-        EA(shop_page dummy):::hidden --> EC([__init__.py])
-        EA(shop_page dummy):::hidden --> ED([app.py])
-        EA(shop_page dummy):::hidden --> EE([views.py])
-        EB(templates) --> EF([shop_page.html])
-
-        E --> EA
+    D --> DA
 
 
-        FA(reg page dummy):::hidden --> FB(templates)
-        FA(reg page dummy):::hidden --> FC(__init__.py)
-        FA(reg page dummy):::hidden --> FD([app.py])
-        FA(reg page dummy):::hidden --> FE([views.py])
-        FB(templates) --> FF([registration_page.html])
+    EA(shop_page dummy):::hidden --> EB(templates)
+    EA(shop_page dummy):::hidden --> EC([__init__.py])
+    EA(shop_page dummy):::hidden --> ED([app.py])
+    EA(shop_page dummy):::hidden --> EE([views.py])
+    EB(templates) --> EF([shop_page.html])
 
-        F --> FA
+    E --> EA
 
-        %% 
 
-        classDef hidden display: none
-    end
+    FA(reg page dummy):::hidden --> FB(templates)
+    FA(reg page dummy):::hidden --> FC(__init__.py)
+    FA(reg page dummy):::hidden --> FD([app.py])
+    FA(reg page dummy):::hidden --> FE([views.py])
+    FB(templates) --> FF([registration_page.html])
 
-    subgraph Ystatic[" "]
-        DY(Static Base) --> DYA(css)
-        DY(Static Base) --> DYB(js)
-        DY(Static Base) --> DYC(images)
+    F --> FA
 
-        DYA(css) --> DYAA([style.css])
-        DYB(js) --> DYBA([script.js])
-        DYC(images) --> DYCA(any images for web page)
-    end
+    %% 
+
+    classDef hidden display: none
+
+    DY(Static Base) --> DYA(css)
+    DY(Static Base) --> DYB(js)
+    DY(Static Base) --> DYC(images)
+
+    DYA(css) --> DYAA([style.css])
+    DYB(js) --> DYBA([script.js])
+    DYC(images) --> DYCA(any images for web page)
 
 ```
 
