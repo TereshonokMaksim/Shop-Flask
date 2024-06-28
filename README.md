@@ -199,6 +199,14 @@ flowchart LR
     DA(static dummy):::hidden --> DG(registration_page)
     DA(static dummy):::hidden --> DH(shop_page)
 
+    DB(admin_page) --> DBA(Static Base)
+    DC(authorization_page) --> DCA(Static Base)
+    DD(basket_page) --> DDA(Static Base)
+    DE(home_page) --> DEA(Static Base)
+    DF(project) --> DFA(Static Base)
+    DG(registration_page) --> DGA(Static Base)
+    DH(shop_page) --> DHA(Static Base)
+
     D --> DA
 
 
@@ -206,7 +214,7 @@ flowchart LR
     EA(shop_page dummy):::hidden --> EC([__init__.py])
     EA(shop_page dummy):::hidden --> ED([app.py])
     EA(shop_page dummy):::hidden --> EE([views.py])
-    EB(templates) --> EF([shop_page.html])
+    EB(templates) --> EF([shop.html])
 
     E --> EA
 
@@ -215,13 +223,65 @@ flowchart LR
     FA(reg page dummy):::hidden --> FC(__init__.py)
     FA(reg page dummy):::hidden --> FD([app.py])
     FA(reg page dummy):::hidden --> FE([views.py])
-    FB(templates) --> FF([registration_page.html])
+    FB(templates) --> FF([registration.html])
 
     F --> FA
 
-    %% 
 
-    classDef hidden display: none
+    GA(project dummy):::hidden --> GB(templates)
+    GA(project dummy):::hidden --> GC(__init__.py)
+    GA(project dummy):::hidden --> GD([login_manager.py])
+    GA(project dummy):::hidden --> GE([mail_config.py])
+    GA(project dummy):::hidden --> GF([settings.py])
+    GA(project dummy):::hidden --> GG([urls.py])
+    GB(templates) --> GH([base.html])
+    GB(templates) --> GI([acc_base.html])
+
+    G --> GA
+
+
+    HA(home page dummy):::hidden --> HB(templates)
+    HA(home page dummy):::hidden --> HC(__init__.py)
+    HA(home page dummy):::hidden --> HD([app.py])
+    HA(home page dummy):::hidden --> HE([views.py])
+    HB(templates) --> HF([logined_home.html])
+    HB(templates) --> HF([not_logined_home.html])
+
+    H --> HA
+
+
+    IA(reg page dummy):::hidden --> IC(__init__.py)
+    IA(reg page dummy):::hidden --> ID([tele_bot.py])
+
+    I --> IA
+
+    JA(basket page dummy):::hidden --> JB(templates)
+    JA(basket page dummy):::hidden --> JC(__init__.py)
+    JA(basket page dummy):::hidden --> JD([app.py])
+    JA(basket page dummy):::hidden --> JE([views.py])
+    JB(templates) --> JF([basket.html])
+    JB(templates) --> JF([basket_send.html])
+
+    J --> JA
+
+
+    KA(authorization page dummy):::hidden --> KB(templates)
+    KA(authorization page dummy):::hidden --> KC(__init__.py)
+    KA(authorization page dummy):::hidden --> KD([app.py])
+    KA(authorization page dummy):::hidden --> KE([views.py])
+    KB(templates) --> KF([login.html])
+
+    K --> KA
+
+
+    LA(home page dummy):::hidden --> LB(templates)
+    LA(home page dummy):::hidden --> LC(__init__.py)
+    LA(home page dummy):::hidden --> LD([app.py])
+    LA(home page dummy):::hidden --> LE([views.py])
+    LB(templates) --> LF([admin.html])
+
+    H --> HA
+
 
     DY(Static Base) --> DYA(css)
     DY(Static Base) --> DYB(js)
@@ -230,6 +290,8 @@ flowchart LR
     DYA(css) --> DYAA([style.css])
     DYB(js) --> DYBA([script.js])
     DYC(images) --> DYCA(any images for web page)
+
+    classDef hidden display: none
 
 ```
 
