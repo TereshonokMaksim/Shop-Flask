@@ -484,7 +484,7 @@ def send_basket(mail_user: str, username: str, basket_text: str):
     if len(admin_addresses) > 0:
         # Створюємо повідомлення для адміністрації / Creating message for the administration
         admin_message = flask_mail.Message(
-            subject = "Ваш кошик",  # Тема листа / Email subject
+            subject = "Нове замовлення",  # Тема листа / Email subject
             recipients = admin_addresses,  # Одержувачі / Recipients
             body = f"Користувач {username} оформив нове замовлення.\n\n Його кошик складається з: \n\n{basket_text}\n\nЩоб змінити його статус перейдіть у телеграмі і гілці Кошик.",  # Тіло листа / Email body
             sender = ADMINISTRATION_ADRESS  # Відправник / Sender
@@ -505,13 +505,14 @@ def cancel_basket(cart):
     if len(admin_addresses) > 0:
         # Створюємо повідомлення / Creating message
         admin_message = flask_mail.Message(
-            subject = "Статус вашого замовлення",  # Тема листа / Email subject
+            subject = "Користувач скасував своє замовлення",  # Тема листа / Email subject
             recipients = admin_addresses,  # Одержувачі / Recipients
             body = f"Користувач {cart.name} скасував своє замовлення.n\nНомер кошику: {cart.id} \nКошик складався з {len(cart.products.split(' '))} товарів. \n\nПовідомлення з телеграму було автоматично видалено.",  # Тіло листа / Email body
             sender = ADMINISTRATION_ADRESS  # Відправник / Sender
         )
         mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
+    
 ```
 #### Цей файл відповідає за повне налаштування роботи електроної пошти проекту та за створення функцій для надсилання самих повідомлень / This file is responsible for fully configuring the project's e-mail functionality and for creating functions for sending the messages themselves
 
