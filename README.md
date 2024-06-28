@@ -201,6 +201,8 @@ direction LR
     DA(static dummy):::hidden --> DF(project)
     DA(static dummy):::hidden --> DG(registration_page)
     DA(static dummy):::hidden --> DH(shop_page)
+
+    classDef hidden display: none;
 end
 
 D --> DA
