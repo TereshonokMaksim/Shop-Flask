@@ -1,10 +1,15 @@
 from .settings import project # Імпортуємо веб додаток з головного файлу
-import flask_mail # Імпортуємо 
+import flask_mail # Імпортуємо модуль з flask для роботи з електроною поштою
+from home_page.models import User
 
-# Адреса адміністрації / Administration address
+# Адреса для відправлення повідомлень / Administration address
 ADMINISTRATION_ADRESS = "m.tereshonok2020@gmail.com"
-# Пароль адміністрації / Administration password
+# Пароль для відправки повідомлень / Administration password
 ADMINISTRATION_PASSWORD = "gkoi ufje okhw wscv"
+# Використовуємо контекст програми / We use the context of the program
+with project.app_context():
+    # Беремо адреса адміністраторів з моделі користувача / We take the address of administrators from the user model
+    admin_addresses = [user.email for user in User.query.all() if str(user.admin) == "1"]
 
 # Налаштування сервера для надсилання пошти / Configuring the mail server
 project.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -18,17 +23,22 @@ mail = flask_mail.Mail(app = project)
 
 # Функція для відправки кошика користувачеві / Function to send the basket to the user
 def send_basket(mail_user: str, username: str, basket_text: str):
-    # Створюємо повідомлення / Creating message
-    print("sent 1")
+    # Створюємо повідомлення для користувача / Creating message for a user
     message = flask_mail.Message(
         subject = "Ваш кошик",  # Тема листа / Email subject
         recipients = [mail_user],  # Одержувачі / Recipients
         body = f"Привіт, {username}!\n\n Ваше замовлення: \n\n{basket_text}\n\nДякуємо за замовлення, гарного дня!",  # Тіло листа / Email body
         sender = ADMINISTRATION_ADRESS  # Відправник / Sender
     )
-    print("sent 2")
+    # Створюємо повідомлення для адміністрації / Creating message for the administration
+    admin_message = flask_mail.Message(
+        subject = "Ваш кошик",  # Тема листа / Email subject
+        recipients = admin_addresses,  # Одержувачі / Recipients
+        body = f"Користувач {username} оформив нове замовлення.\n\n Його кошик складається з: \n\n{basket_text}\n\nЩоб змінити його статус перейдіть у телеграмі і гілці Кошик.",  # Тіло листа / Email body
+        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+    )
+    mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
     mail.send(message = message) # Відправляємо повідомлення / Sending message
-    print("sent orig")
 
 # Функція для відхилення кошика користувача / Function to reject the user's basket
 def reject_basket(mail_user: str, username: str):
@@ -51,3 +61,23 @@ def complete_basket(mail_user: str, username: str):
         sender = ADMINISTRATION_ADRESS  # Відправник / Sender
     )
     mail.send(message = message) # Відправляємо повідомлення / Sending message
+
+# Функція для надсилання повідомлення про скасування кошику
+def cancel_basket(cart):
+    # Створюємо повідомлення / Creating message
+    message = flask_mail.Message(
+        subject = "Скасування вашого замовлення",  # Тема листа / Email subject
+        recipients = [cart.email],  # Одержувачі / Recipients
+        body = f"Привіт, {cart.name}!\n\n Ви скасували своє замовлення на {len(cart.products.split(' '))} товарів.",  # Тіло листа / Email body
+        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+    )
+    # Створюємо повідомлення / Creating message
+    admin_message = flask_mail.Message(
+        subject = "Статус вашого замовлення",  # Тема листа / Email subject
+        recipients = admin_addresses,  # Одержувачі / Recipients
+        body = f"Користувач {cart.name} скасував своє замовлення.n\nНомер кошику: {cart.id} \nКошик складався з {len(cart.products.split(' '))} товарів. \n\nПовідомлення з телеграму було автоматично видалено.",  # Тіло листа / Email body
+        sender = ADMINISTRATION_ADRESS  # Відправник / Sender
+    )
+    mail.send(message = admin_message) # Відправляємо повідомлення адміністрації / Sending message to administration
+    mail.send(message = message) # Відправляємо повідомлення / Sending message
+    

@@ -6,7 +6,7 @@
 
 ---
 
-### Для більш наглядного і зручного ознайомлення пропонуємо переглянути демо версію проекту  / For a more visual and convenient introduction, we suggest viewing the demo version of the project
+### Для більш наглядного і зручного ознайомлення пропонуємо переглянути [демо версію проекту](http://makster.pythonanywhere.com/)  / For a more visual and convenient introduction, we suggest viewing the [demo version of the project](http://makster.pythonanywhere.com/)
 
 <!-- ![alt_text](static/readme/structure.png "Structure image") -->
 
@@ -17,11 +17,11 @@ _оскільки це демо версія, то багато функцій �
 ---
 
 ## Склад нашої команди / The composition of our team :
-0. Микола Скрипник - Створив дизайн для всього нашого сайту
+0. [Микола Скрипник](https://github.com/Nikolay2012) - Створив дизайн для всього нашого сайту
 1. [Терешонок Максим](https://github.com/TereshonokMaksim) - Тімлід команди / Team leader
-2. [Агеев Данило](https://github.com/Ageev-Danilo) - Активний написач коду / Active code writer
-3. [Овчаренко Юлія](https://github.com/JuliaOvcarenko) - Єдина працівниця / The only worker (and woman)
-4. [Єрмаченков Пересвет](https://github.com/PeresvietErmachenkov) - Працював над кодом проекту / Worked on the project code
+2. [Агеев Данило](https://github.com/Ageev-Danilo) - Активний написач коду - Подяка за активну працю / Active code writer - Thanks for your active work
+3. [Овчаренко Юлія](https://github.com/JuliaOvcarenko) - Єдина працівниця - Подяка за старанну працю / The only worker - Thanks for your hard work
+4. [Єрмаченков Пересвет](https://github.com/PeresvietErmachenkov) - Працював над кодом проекту - Подяка за старанну працю / Worked on the code for the project - Thanks for your hard work
 5. [Ткачук Глєб](https://github.com/Gleb-Tkachuk) - Працівник / Worker 
 6. [Литвиненко Христина](https://github.com/LitvinenkoKristina1) - Працювала / Worked
 
@@ -297,6 +297,7 @@ home_page.home_app.add_url_rule(
 
 project.register_blueprint(blueprint = home_page.home_app)  # Реєструємо blueprint для домашньої сторінки / Register the blueprint for the home page
 ```
+### Опис
 #### Цей файл відповідає за підключення стороннього додатку до головного / This file is responsible for connecting a third-party application to the main one
 
 _Це є тільки прикладом основаним на home-page. Інші файли мають різні імена_ / _This is just an example based on the home-page. Other files have different names_
@@ -1664,5 +1665,4 @@ for (let button_number = 0; button_number < list_buttons.length; button_number++
 ---
 
 ## Висновок: / Conclusion:
-### Завдяки цьому проекту я зі своєю командою отримав цінний опит і навчився краще створювати веб додатки, покращив свої знання у написанні JS, HTML та CSS файлів. Повторили важливу частину роботи з телеграм ботами створив одного у цьому проекті і навчився за допомогою мови програмування Python відправляти повідомлення на любу електрону пошту користувачів. / Thanks to this project, I and my team gained valuable experience and learned how to better create web applications, improved my knowledge in writing JS, HTML and CSS files. We repeated an important part of work with Telegram bots, created one in this project and learned to send messages to any user email using the Python programming language.
-### Подяка Агеєву за активну роботу та Пересвету і Овчаренко за старанне написання коду від тімліда Максима. / Thanks to Ageev for active work and Peresvet and Ovcharenko for painstakingly writing code from team leader Maksym.
+### Завдяки цьому проекту я зі своєю командою отримав цінний опит і навчився створювати нові для нас веб додатки, навчилися написанню JS коду та покращили навички написання HTML та CSS файлів. Навчився за допомогою мови програмування Python відправляти повідомлення на любу електрону пошту користувачів. Також, навчилися деплоїти все що ми написали на хост, що дозволяє нам робити не локальні, а повноцінні веб сайти. І, як  / Thanks to this project, I and my team gained valuable experience and learned how to better create web applications, improved my knowledge in writing JS, HTML and CSS files. We repeated an important part of work with Telegram bots, created one in this project and learned to send messages to any user email using the Python programming language.
